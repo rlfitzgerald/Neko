@@ -1,4 +1,5 @@
 Neko
 ====
 
-ACC project
+ACC imagery project
+
