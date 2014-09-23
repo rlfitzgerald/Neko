@@ -1,0 +1,2 @@
+export NITF_PLUGIN_PATH=/tcs/ago/group/acc/imagery/NITFTools/nitro/installed/share/nitf/plugins
+export PYTHONPATH=/tcs/ago/group/acc/imagery/NITFTools/nitro/installed/lib/python2.6/site-packages:/tcs/ago/group/acc/imagery/NITFTools/nitro/installed/lib/python2.6/site-packages/nitf
