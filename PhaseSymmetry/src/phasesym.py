@@ -8,7 +8,7 @@ DEBUG=False
 
 
 
-def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55, k=2.0, polarity=0):
+def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55, k=2.0, polarity=0,  noiseMethod=-1):
     """  Arguments:
                    Default values      Description
      
@@ -178,12 +178,65 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
         
     
     #works until here !!!!!!!!!!!!!!!!
-    #print loop ofo rtesting purposes
-    
-    return logGabor
     
     #The main loop...
     
+    for o in norient:
+        #Construct the angular filter spread function
+        angle = ((o-1) * np.pi)/norient         #Filter Angle
+        
+        #For each point in the filter matrix, calculate the angular distance from
+        #the specified filter orientation. To overcome the angular wrap-around
+        #problem, sine difference, then cosine difference values are first computed
+        #and then the atan2 function is used to determine angular distance.
+        
+        ds = (sintheta * np.cos(angle)) - (costheta * np.sin(angle))    #Difference in sine
+        dc = (costheta * np.cos(angle)) + (sintheta * np.sin(angle))    #Difference in cosine
+        dtheta = np.abs(np.atan2(ds, dc))                               #Absolute Angular distance
+        
+        #Scale theta so that cosine spread function has the right wavelength and clamp to pi
+        
+        dtheta = np.min(dtheta * norient/2, np.pi)
+        
+        #The spread function is cos(dtheta between - pi and pi. We add 1,
+        #and then divide by 2 so that the value ranges from 0 - 1
+        
+        spread = (np.cos(dtheta + 1)/2)
+        
+        sumAn_ThisOrient = zero
+        Energy_ThisOrient = zero
+        
+        for s in nscale:        #For each scale ...
+            filter = np.multiply(logGabor[s],  spread)      #Multiply radial and angular
+                                                            #components to get filter.
+            
+            #Convolve image with even and odd filters returning the result in EO
+            EO = np.fft.ifft2(np.multiply(imagefft, filter))
+            An = np.abs(EO)                                 #Amplitude of Even and Odd filter response
+            sumAn_ThisOrient = sumAn_ThisOrient + An        #Sum of amplitude responses.
+            
+            #At the smallest scale estimate noise characteristics from the
+            #distribution of the filter amplitude responses stored in sumAn. 
+            #tau is the Rayleigh parameter that is used to describe the
+            #distribution.
+            
+            if s == 0:
+                #Use median to estimate noise statistics
+                tau = np.divide(np.median(sumAn_ThisOrient[:]), np.sqrt(np.log10(4)))
+            
+            #Now calculate phase symmetry measure
+            if polarity == 0:       #Look for 'white' and 'black' spots
+                Energy_ThisOrient = Energy_ThisOrient + np.abs(np.real(EO)) - np.abs(np.imag(EO))
+                
+            elif polarity == 1:     #Look for just 'white' spots
+                Energy_ThisOrient = Energy_ThisOrient + np.real(EO) - np.abs(np.imag(EO))
+                
+            elif polarity == -1:    #Just look for 'black' spots
+                Energy_ThisOrient = Energy_ThisOrient - np.real(EO) - np.abs(np.imag(EO))
+            
+        
+        #Automatically determine noise threshold
+        
     
 
     
