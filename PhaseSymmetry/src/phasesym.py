@@ -98,6 +98,7 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
                                         # amplitude values
     orientation = zero.copy()           # ndarray storing orientation with greatest
                                         # energy for each pixel
+    T = 0
 
     # Pre-compute some stuff to speed up filter construction
     #
@@ -233,11 +234,76 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
                 
             elif polarity == -1:    #Just look for 'black' spots
                 Energy_ThisOrient = Energy_ThisOrient - np.real(EO) - np.abs(np.imag(EO))
-            
+                
+                
+        # Automatically determine noise threshold
         
-        #Automatically determine noise threshold
+        #  Assuming the noise is Gaussian the response of the filters to noise will
+        #  form Rayleigh distribution.  We use the filter responses at the smallest
+        #  scale as a guide to the underlying noise level because the smallest scale
+        #  filters spend most of their time responding to noise, and only
+        #  occasionally responding to features. Either the median, or the mode, of
+        #  the distribution of filter responses can be used as a robust statistic to
+        #  estimate the distribution mean and standard deviation as these are related
+        #  to the median or mode by fixed constants.  The response of the larger
+        #  scale filters to noise can then be estimated from the smallest scale
+        #  filter response according to their relative bandwidths.
+        # 
+        #  This code assumes that the expected reponse to noise on the phase congruency
+        #  calculation is simply the sum of the expected noise responses of each of
+        #  the filters.  This is a simplistic overestimate, however these two
+        #  quantities should be related by some constant that will depend on the
+        #  filter bank being used.  Appropriate tuning of the parameter 'k' will
+        #  allow you to produce the desired output. 
+        if noiseMethod >= 0:     # We are using a fixed noise threshold
+            T = noiseMethod    # use supplied noiseMethod value as the threshold
+        else:
+            # Estimate the effect of noise on the sum of the filter responses as
+            # the sum of estimated individual responses (this is a simplistic
+            # overestimate). As the estimated noise response at succesive scales
+            # is scaled inversely proportional to bandwidth we have a simple
+            # geometric sum.
+            totalTau = tau * (1 - (1/mult)^nscale)/(1-(1/mult))
+
+            # Calculate mean and std dev from tau using fixed relationship
+            # between these parameters and tau. See
+            # http://mathworld.wolfram.com/RayleighDistribution.html
+            EstNoiseEnergyMean = totalTau * np.sqrt(np.pi/2)        # Expected mean and std
+            EstNoiseEnergySigma = totalTau * np.sqrt((4-np.pi)/2)   # values of noise energy
+
+            # Noise threshold, make sure it is not less than epsilon.
+            T =  np.max(EstNoiseEnergyMean + k * EstNoiseEnergySigma, epsilon)
         
+        # Apply noise threshold,  this is effectively wavelet denoising via
+        # soft thresholding.  Note 'Energy_ThisOrient' will have -ve values.
+        # These will be floored out at the final normalization stage.
+        Energy_ThisOrient = Energy_ThisOrient - T
+
+        # Update accumulator matrix for sumAn and totalEnergy
+        totalSumAn  = totalSumAn + sumAn_ThisOrient
+        totalEnergy = totalEnergy + Energy_ThisOrient
+
+        # Update orientation matrix by finding image points where the energy in
+        # this orientation is greater than in any previous orientation (the
+        # change matrix) and then replacing these elements in the orientation
+        # matrix with the current orientation number.
+
+        if o == 1:
+            maxEnergy = Energy_ThisOrient
+        else:
+            change = Energy_ThisOrient > maxEnergy
+            orientation = np.multiply((o - 1), change) + np.multiply(orientation, (np.logical_not(change)))
+            maxEnergy = max(maxEnergy, Energy_ThisOrient)
+
+    # Normalize totalEnergy by the totalSumAn to obtain phase symmetry
+    # totalEnergy is floored at 0 to eliminate -ve values
+    phaseSym = np.divide(max(totalEnergy, 0), (totalSumAn + epsilon))
+
+    # Convert orientation matrix values to degrees
+    orientation = np.fix(orientation * (180 / norient))
     
+    return phaseSym, orientation, totalEnergy, T
+
 
     
     
