@@ -182,9 +182,9 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
     
     #The main loop...
     
-    for o in norient:
+    for o in range(norient):
         #Construct the angular filter spread function
-        angle = ((o-1) * np.pi)/norient         #Filter Angle
+        angle = (o * np.pi)/norient         #Filter Angle
         
         #For each point in the filter matrix, calculate the angular distance from
         #the specified filter orientation. To overcome the angular wrap-around
@@ -193,11 +193,10 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
         
         ds = (sintheta * np.cos(angle)) - (costheta * np.sin(angle))    #Difference in sine
         dc = (costheta * np.cos(angle)) + (sintheta * np.sin(angle))    #Difference in cosine
-        dtheta = np.abs(np.atan2(ds, dc))                               #Absolute Angular distance
-        
+        dtheta = np.abs(np.arctan2(ds, dc))                               #Absolute Angular distance
         #Scale theta so that cosine spread function has the right wavelength and clamp to pi
-        
-        dtheta = np.min(dtheta * norient/2, np.pi)
+        multiply = np.multiply(dtheta, np.float(norient)/2)
+        dtheta = np.minimum(multiply, np.pi)
         
         #The spread function is cos(dtheta between - pi and pi. We add 1,
         #and then divide by 2 so that the value ranges from 0 - 1
@@ -205,14 +204,14 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
         spread = (np.cos(dtheta + 1)/2)
         
         sumAn_ThisOrient = zero
-        Energy_ThisOrient = zero
+        Energy_ThisOrient = zero    
         
-        for s in nscale:        #For each scale ...
-            filter = np.multiply(logGabor[s],  spread)      #Multiply radial and angular
-                                                            #components to get filter.
+        for s in range(nscale):        #For each scale ...
+            thisFilter = np.multiply(logGabor[s],  spread)      #Multiply radial and angular
+                                                                #components to get filter.
             
             #Convolve image with even and odd filters returning the result in EO
-            EO = np.fft.ifft2(np.multiply(imagefft, filter))
+            EO = np.fft.ifft2(np.multiply(imagefft, thisFilter))
             An = np.abs(EO)                                 #Amplitude of Even and Odd filter response
             sumAn_ThisOrient = sumAn_ThisOrient + An        #Sum of amplitude responses.
             
@@ -263,7 +262,10 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
             # overestimate). As the estimated noise response at succesive scales
             # is scaled inversely proportional to bandwidth we have a simple
             # geometric sum.
-            totalTau = tau * (1 - (1/mult)^nscale)/(1-(1/mult))
+            tauTop = np.power((1/mult),nscale)
+            tauTop = 1 - tauTop
+            tauBot = 1 - (1/mult)
+            totalTau = tau * (tauTop/tauBot)
 
             # Calculate mean and std dev from tau using fixed relationship
             # between these parameters and tau. See
@@ -288,16 +290,16 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
         # change matrix) and then replacing these elements in the orientation
         # matrix with the current orientation number.
 
-        if o == 1:
+        if o == 0:
             maxEnergy = Energy_ThisOrient
         else:
             change = Energy_ThisOrient > maxEnergy
-            orientation = np.multiply((o - 1), change) + np.multiply(orientation, (np.logical_not(change)))
-            maxEnergy = max(maxEnergy, Energy_ThisOrient)
+            orientation = np.multiply(o, change) + np.multiply(orientation, (np.logical_not(change)))
+            maxEnergy = np.maximum(maxEnergy, Energy_ThisOrient)
 
     # Normalize totalEnergy by the totalSumAn to obtain phase symmetry
     # totalEnergy is floored at 0 to eliminate -ve values
-    phaseSym = np.divide(max(totalEnergy, 0), (totalSumAn + epsilon))
+    phaseSym = np.divide(np.max(totalEnergy, 0), (totalSumAn + epsilon))
 
     # Convert orientation matrix values to degrees
     orientation = np.fix(orientation * (180 / norient))
