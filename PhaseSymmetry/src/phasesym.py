@@ -89,7 +89,7 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
 
     epsilon = 1e-4                      # Used to prevent division by zero
     rows, cols = im.shape
-    imagefft = np.fft.fft(im)               # Fourier transform of image
+    imagefft = np.fft.fft2(im)               # Fourier transform of image
     zero = np.zeros((rows, cols))
 
     totalEnergy = zero.copy()           # ndarray for accumulating weighted phase 
@@ -185,6 +185,7 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
     for o in range(norient):
         #Construct the angular filter spread function
         angle = (o * np.pi)/norient         #Filter Angle
+        print "angle:" + str(angle)
         
         #For each point in the filter matrix, calculate the angular distance from
         #the specified filter orientation. To overcome the angular wrap-around
@@ -192,29 +193,40 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
         #and then the atan2 function is used to determine angular distance.
         
         ds = (sintheta * np.cos(angle)) - (costheta * np.sin(angle))    #Difference in sine
+        #print "ds: " + str(ds)
         dc = (costheta * np.cos(angle)) + (sintheta * np.sin(angle))    #Difference in cosine
+        #print "dc: " + str(dc)
         dtheta = np.abs(np.arctan2(ds, dc))                               #Absolute Angular distance
+        #print "dtheta: " + str(dtheta)
         #Scale theta so that cosine spread function has the right wavelength and clamp to pi
         multiply = np.multiply(dtheta, np.float(norient)/2)
         dtheta = np.minimum(multiply, np.pi)
+        #print "dtheta: " + str(dtheta)
         
         #The spread function is cos(dtheta between - pi and pi. We add 1,
         #and then divide by 2 so that the value ranges from 0 - 1
         
-        spread = (np.cos(dtheta + 1)/2)
+        spread = (np.cos(dtheta) + 1)/2
+        #print "spread: " + str(spread)
         
         sumAn_ThisOrient = zero
-        Energy_ThisOrient = zero    
+        #print "sunAn_ThisOrient: " + str(sumAn_ThisOrient)
+        Energy_ThisOrient = zero  
+        #print "Energy_ThisOrient: " + str(Energy_ThisOrient)  
         
         for s in range(nscale):        #For each scale ...
             thisFilter = np.multiply(logGabor[s],  spread)      #Multiply radial and angular
                                                                 #components to get filter.
+            #print "Filter: " + str(thisFilter)
             
             #Convolve image with even and odd filters returning the result in EO
+            #print "imageFFT: " + str(imagefft)
             EO = np.fft.ifft2(np.multiply(imagefft, thisFilter))
+            #print "EO: " + str(EO)
             An = np.abs(EO)                                 #Amplitude of Even and Odd filter response
+            #print "An: " + str(An)
             sumAn_ThisOrient = sumAn_ThisOrient + An        #Sum of amplitude responses.
-            
+            #print "sumAn_ThisOrient: " + str(sumAn_ThisOrient)            
             #At the smallest scale estimate noise characteristics from the
             #distribution of the filter amplitude responses stored in sumAn. 
             #tau is the Rayleigh parameter that is used to describe the
@@ -222,7 +234,8 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
             
             if s == 0:
                 #Use median to estimate noise statistics
-                tau = np.divide(np.median(sumAn_ThisOrient[:]), np.sqrt(np.log10(4)))
+                tau = np.divide(np.median(sumAn_ThisOrient[:]), np.sqrt(np.log(4)))
+                #print "tau: " + str(tau)
             
             #Now calculate phase symmetry measure
             if polarity == 0:       #Look for 'white' and 'black' spots
@@ -233,7 +246,7 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
                 
             elif polarity == -1:    #Just look for 'black' spots
                 Energy_ThisOrient = Energy_ThisOrient - np.real(EO) - np.abs(np.imag(EO))
-                
+            #print "Energy_ThisOrient: " + str(Energy_ThisOrient)    
                 
         # Automatically determine noise threshold
         
@@ -274,32 +287,46 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
             EstNoiseEnergySigma = totalTau * np.sqrt((4-np.pi)/2)   # values of noise energy
 
             # Noise threshold, make sure it is not less than epsilon.
-            T =  np.max(EstNoiseEnergyMean + k * EstNoiseEnergySigma, epsilon)
-        
+            T =  np.maximum(EstNoiseEnergyMean + k * EstNoiseEnergySigma, epsilon)
+        #print "T: " + str(T)
         # Apply noise threshold,  this is effectively wavelet denoising via
         # soft thresholding.  Note 'Energy_ThisOrient' will have -ve values.
         # These will be floored out at the final normalization stage.
         Energy_ThisOrient = Energy_ThisOrient - T
+        #print "Energy_ThisOrient: " + str(Energy_ThisOrient)
+        
 
         # Update accumulator matrix for sumAn and totalEnergy
         totalSumAn  = totalSumAn + sumAn_ThisOrient
+        #print "totalSumAn: " + str(totalSumAn)
         totalEnergy = totalEnergy + Energy_ThisOrient
+        #print "totalEnergy: " + str(totalEnergy)
+        print "T: " + str(T)
 
         # Update orientation matrix by finding image points where the energy in
         # this orientation is greater than in any previous orientation (the
         # change matrix) and then replacing these elements in the orientation
         # matrix with the current orientation number.
-
+        #import pdb; pdb.set_trace()
+        print "o: " + str(o)
         if o == 0:
             maxEnergy = Energy_ThisOrient
+            print "maxExergy: " + str(maxEnergy)
         else:
             change = Energy_ThisOrient > maxEnergy
-            orientation = np.multiply(o, change) + np.multiply(orientation, (np.logical_not(change)))
+            print "change: " + str(change)
+            invert = np.logical_not(change)
+            orientationRight = np.multiply(orientation, invert)
+            orientationLeft = np.multiply(o, change)
+            orientation = orientationLeft + orientationRight
+            print "orientation: " + str(orientation)
+            print "Energy_ThisOrient: " + str(Energy_ThisOrient)
             maxEnergy = np.maximum(maxEnergy, Energy_ThisOrient)
+            print "maxExergy: " + str(maxEnergy)
 
     # Normalize totalEnergy by the totalSumAn to obtain phase symmetry
     # totalEnergy is floored at 0 to eliminate -ve values
-    phaseSym = np.divide(np.max(totalEnergy, 0), (totalSumAn + epsilon))
+    phaseSym = np.divide(np.maximum(totalEnergy, 0), (totalSumAn + epsilon))
 
     # Convert orientation matrix values to degrees
     orientation = np.fix(orientation * (180 / norient))
