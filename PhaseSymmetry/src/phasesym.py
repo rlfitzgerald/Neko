@@ -313,6 +313,8 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
             maxEnergy = Energy_ThisOrient
             print "maxExergy: " + str(maxEnergy)
         else:
+            Energy_ThisOrient = np.around(Energy_ThisOrient, decimals=8)
+            maxEnergy = np.around(maxEnergy, decimals=8)
             change = Energy_ThisOrient > maxEnergy
             print "change: " + str(change)
             invert = np.logical_not(change)
