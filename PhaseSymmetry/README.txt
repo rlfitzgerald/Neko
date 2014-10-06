@@ -9,10 +9,10 @@
 
 DESCRIPTION:
 
-lowpassfilter.py is a port of some MATLAB code provided by Peter Kovesi of the Univeristy
-of Western Austrailia's department of Computer Science. This code is used for the overall
-phase symmetry calculation. The original MATLAB source code is provided in the "refrences"
-folder, along with the paper in which the MATLAB source was refrenced and the phase 
+lowpassfilter.py and phasesym.py are both ports of some MATLAB code provided by Peter Kovesi
+of the University of Western Austrailia's department of Computer Science. This code is used 
+for the overall phase symmetry calculation. The original MATLAB source code is provided in the
+"refrences" folder, along with the paper in which the MATLAB source was refrenced and the phase 
 symmetry calculation is explained.   
 
 
