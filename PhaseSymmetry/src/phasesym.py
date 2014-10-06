@@ -185,7 +185,7 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
     for o in range(norient):
         #Construct the angular filter spread function
         angle = (o * np.pi)/norient         #Filter Angle
-        print "angle:" + str(angle)
+        #print "angle:" + str(angle)
         
         #For each point in the filter matrix, calculate the angular distance from
         #the specified filter orientation. To overcome the angular wrap-around
@@ -301,30 +301,30 @@ def phasesym(im, nscale=5, norient=6, minWaveLength=3, mult=2.1, sigmaOnf = 0.55
         #print "totalSumAn: " + str(totalSumAn)
         totalEnergy = totalEnergy + Energy_ThisOrient
         #print "totalEnergy: " + str(totalEnergy)
-        print "T: " + str(T)
+        #print "T: " + str(T)
 
         # Update orientation matrix by finding image points where the energy in
         # this orientation is greater than in any previous orientation (the
         # change matrix) and then replacing these elements in the orientation
         # matrix with the current orientation number.
         #import pdb; pdb.set_trace()
-        print "o: " + str(o)
+        #print "o: " + str(o)
         if o == 0:
             maxEnergy = Energy_ThisOrient
-            print "maxExergy: " + str(maxEnergy)
+            #print "maxExergy: " + str(maxEnergy)
         else:
             Energy_ThisOrient = np.around(Energy_ThisOrient, decimals=8)
             maxEnergy = np.around(maxEnergy, decimals=8)
             change = Energy_ThisOrient > maxEnergy
-            print "change: " + str(change)
+            #print "change: " + str(change)
             invert = np.logical_not(change)
             orientationRight = np.multiply(orientation, invert)
             orientationLeft = np.multiply(o, change)
             orientation = orientationLeft + orientationRight
-            print "orientation: " + str(orientation)
-            print "Energy_ThisOrient: " + str(Energy_ThisOrient)
+            #print "orientation: " + str(orientation)
+            #print "Energy_ThisOrient: " + str(Energy_ThisOrient)
             maxEnergy = np.maximum(maxEnergy, Energy_ThisOrient)
-            print "maxExergy: " + str(maxEnergy)
+            #print "maxExergy: " + str(maxEnergy)
 
     # Normalize totalEnergy by the totalSumAn to obtain phase symmetry
     # totalEnergy is floored at 0 to eliminate -ve values
