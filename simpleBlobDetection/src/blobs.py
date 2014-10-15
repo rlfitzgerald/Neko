@@ -5,13 +5,13 @@ import numpy as np
 def findBlobs(filename):    
     #read image
     img1 = cv2.imread(filename)
-    
+
     #smooth image to reduce noise
     img1 = cv2.blur(img1, (3,3))
     
     #convert to grayscale
     grayImg = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    
+        
     #threshold grayscale image
     (threshold, img_bw) = cv2.threshold(grayImg, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     

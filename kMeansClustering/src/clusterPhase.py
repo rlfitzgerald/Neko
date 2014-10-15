@@ -6,14 +6,16 @@ from matplotlib import pyplot as plt
 def meanShift(filename):
 
     img = cv2.imread(filename)
-    (segmented_image, labels_image, number_regions) = pms.segment(img, spatial_radius=6, range_radius=4.5, min_density=50)
+
+   # (segmented_image, labels_image, number_regions) = pms.segment(img, spatial_radius=6, range_radius=4.5, min_density=50)
+    (segmented_image, labels_image, number_regions) = pms.segment(img, spatial_radius=7, range_radius=4.5, min_density=50)
     return segmented_image
 
 def blobDetect(img):
-     #smooth image to reduce noise
+    #smooth image to reduce noise
     img1 = cv2.blur(img, (3,3))
 
-    #threshold gray scale image
+    #threshold grayscale image
     (threshold, img_bw) = cv2.threshold(img1, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
     #save black and white image (to debug)
@@ -21,16 +23,18 @@ def blobDetect(img):
 
     #find contours in black and white image
     contours, hierarchy = cv2.findContours(img_bw, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-
+    
+    #convert to color for debugging purposes
+    colorImg = cv2.cvtColor(img1, cv2.COLOR_GRAY2RGB)
     for cnt in contours:
         area = cv2.contourArea(cnt)
         if area >= 200 and area <= 2000:
             rect = cv2.minAreaRect(cnt)
             box = cv2.cv.BoxPoints(rect)
             box = np.int0(box)
-            cv2.drawContours(img1, [box], 0, (0, 0, 255), 2)
+            cv2.drawContours(colorImg, [box], 0, (0, 0, 255), 2)
 
-    cv2.imwrite('Boxes.jpg', img1)
+    cv2.imwrite('Boxes.jpg', colorImg)
 
 
 def main(argv=None):
@@ -60,10 +64,12 @@ def main(argv=None):
     #begin transform
     filename = args[0]
     img = meanShift(filename)
+    cv2.imwrite("MS_" + filename, img)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     pha, ori, tot, T = phasesym(img)
     pha *= 255/(np.max(np.max(pha)))
     cv2.imwrite("MSPS_Serial_" + filename, pha)
+    pha = np.uint8(pha)
     blobDetect(pha)
 
 if __name__ == "__main__":
