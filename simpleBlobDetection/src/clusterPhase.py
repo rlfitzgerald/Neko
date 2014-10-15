@@ -14,7 +14,7 @@ def blobDetect(img):
     img1 = cv2.blur(img, (3,3))
 
     #threshold gray scale image
-    (threshold, img_bw) = cv2.threshold(img1, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    (threshold, img_bw) = cv2.threshold(grayImg, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
     #save black and white image (to debug)
     cv2.imwrite('Black_and_White.jpg', img_bw)
