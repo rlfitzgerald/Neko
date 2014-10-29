@@ -1,4 +1,6 @@
 import cv2
+import sys
+import optparse
 import pymeanshift as pms
 import numpy as np
 import time
@@ -65,34 +67,76 @@ def compareBoxes(originalBox, newBox, cornerTolerance = 50):
 
     return result
 
-def tuneMeanShift(filename):
+def tuneMeanShift(filename,denMin=10, denMax=301):
 
     startTime = time.time()
     #Detect blobs on initial image, save blob locations
     img = cv2.imread(filename)
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2LUV)
     boxes = blobDetect(img)
     goodConfigs = []
 
-    for i in range(15):
-        tempImg = meanShift(img, sradius=i)
-        cv2.imwrite('shifted_sradius' + str(i) + '.jpg', tempImg)
-        tempBoxes = blobDetect(tempImg)
+    #rrads = [float(x)/2 for x in range(8,21)]
+    rrads = [x for x in range(4,11)]
+    density = range(denMin,denMax,10)
+    #for i in range(5,15,1):
+    for i in range(4,10,2):
+        for rrad in rrads:
+            for d in density:
+                tempImg = meanShift(img, sradius=i, rradius=rrad,mdensity=d)
+                tempImg = cv2.cvtColor(tempImg, cv2.COLOR_LUV2RGB)
+                cv2.imwrite('shifted_sradius_' + str(i) + '_'+str(rrad)+'_'+str(d)+'.jpg', tempImg)
+                print 'shifted_sradius_' + str(i) + '_'+str(rrad)+'_'+str(d)+'.jpg'
+#        tempBoxes = blobDetect(tempImg)
+#
+#        #if a different number of blobs is detected, auto reject this configuration
+#        if len(tempBoxes) == len(boxes):
+#            tempRes = False
+#            for j in range(len(tempBoxes)):
+#                tempRes = compareBoxes(boxes[j], tempBoxes[j])
+#                if i == 0 and j == 0:
+#                    goodConfigs.append(tempRes)
+#                else:
+#                    goodConfigs[i] = goodConfigs[i] and tempRes
+#
+#    endTime = time.time()
+#    print("Good Configurations: \n")
+#    for i in range(len(goodConfigs)):
+#        if goodConfigs[i]:
+#            print i
+#
+#    print("Runtime: %s seconds" % str(endTime - startTime))
+#
 
-        #if a different number of blobs is detected, auto reject this configuration
-        if len(tempBoxes) == len(boxes):
-            tempRes = False
-            for j in range(len(tempBoxes)):
-                tempRes = compareBoxes(boxes[j], tempBoxes[j])
-                if i == 0 and j == 0:
-                    goodConfigs.append(tempRes)
-                else:
-                    goodConfigs[i] = goodConfigs[i] and tempRes
 
-    endTime = time.time()
-    print("Good Configurations: \n")
-    for i in range(len(goodConfigs)):
-        if goodConfigs[i]:
-            print i
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
 
-    print("Runtime: %s seconds" % str(endTime - startTime))
+    desc = """%prog is a tool that generates phase symmetyr transformations with the intent of
+            determining the rpoper tuning for a dataset."""
+    parser = optparse.OptionParser(description=desc, usage='Usage: ex) %prog imageFile.png')
+    (opts, args) = parser.parse_args(argv)
+    args = args[1:]
 
+    #check to see if the user provided an output directory
+    if len(args) == 0:
+        print "\nNo input file provided"
+        parser.print_help()
+        sys.exit(-1)
+
+    #check to see if the file system image is provided
+    if len(args) > 3 or len(args) < 3:
+        print "\ninvalid argument(s) %s provided" %(str(args))
+        parser.print_help()
+        sys.exit(-1)
+
+    #begin transform
+    filename = argv[1]
+    denMi = int(argv[2])
+    denMa = int(argv[3])
+
+
+    tuneMeanShift(filename,denMin=denMi, denMax=denMa)
+if __name__ == "__main__":
+    sys.exit(main())

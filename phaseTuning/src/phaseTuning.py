@@ -1,12 +1,20 @@
 import cv2, time
 import numpy as np
 from phasesym import *
+import pymeanshift as pms
 
 
-def phaseTuning(filename, scaleMin=5, scaleMax=10, orientationMax=16, kMax=30):
+def meanShift(img, sradius=6, rradius=4.5, mdensity=50):
+
+    (segmented_image, labels_image, number_regions) = pms.segment(img, sradius, rradius, mdensity)
+    return segmented_image
+
+
+def phaseTuning(filename, scaleMin=5, scaleMax=10, orientationMin=6,orientationMax=16, kMax=30):
 
     #Performs phase symmetry transformation on a give for a given range across all parameters
     img = cv2.imread(filename)
+    #img = meanShift(img)
     img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
     sigmaMult = [(0.85, 1.3),
@@ -19,7 +27,7 @@ def phaseTuning(filename, scaleMin=5, scaleMax=10, orientationMax=16, kMax=30):
     startTime = time.time()
     for scale in range(scaleMin, scaleMax):
         #scales loop
-        for orient in range(6, orientationMax):
+        for orient in range(orientationMin, orientationMax):
             #orientations loop
             for thisTuple in sigmaMult:
                 sigOnF = thisTuple[0]
@@ -29,7 +37,7 @@ def phaseTuning(filename, scaleMin=5, scaleMax=10, orientationMax=16, kMax=30):
                     itStartTime = time.time()
                     print "scale:" + str(scale) + " orient:" + str(orient) + " mult:" + str(mul) + \
                           " sigmaOnF:" + str(sigOnF) + " k:" + str(kVal)
-
+                    
                     pha, ori, tot, T = phasesym(img, nscale=scale, norient=orient, mult=mul, sigmaOnf=sigOnF, k=kVal)
 
                     cv2.normalize(pha, pha, 0, 255, cv2.NORM_MINMAX)
@@ -60,7 +68,7 @@ def main(argv=None):
         sys.exit(-1)
 
     #check to see if the file system image is provided
-    if len(args) > 5 or len(args) < 5:
+    if len(args) > 6 or len(args) < 6:
         print "\ninvalid argument(s) %s provided" %(str(args))
         parser.print_help()
         sys.exit(-1)
@@ -69,11 +77,12 @@ def main(argv=None):
     filename = argv[1]
     scaleMi = int(argv[2])
     scaleMa = int(argv[3])
-    orient = int(argv[4])
-    k = int(argv[5])
+    orientMi = int(argv[4])
+    orientMa = int(argv[5])
+    k = int(argv[6])
 
     #find and box proper blobs
-    phaseTuning(filename, scaleMin=scaleMi, scaleMax=scaleMa, orientationMax=orient, kMax=k)
+    phaseTuning(filename, scaleMin=scaleMi, scaleMax=scaleMa, orientationMin=orientMi, orientationMax=orientMa, kMax=k)
 
 
 if __name__ == "__main__":
