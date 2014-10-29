@@ -23,7 +23,8 @@ def findBlobs(filename):
     
     for cnt in contours: 
         area = cv2.contourArea(cnt)
-        if area >= 200 and area <= 2000:
+        #if area >= 200 and area <= 2000:
+        if area >= 100 and area <= 2000:
             rect = cv2.minAreaRect(cnt)
             box = cv2.cv.BoxPoints(rect)
             box = np.int0(box)

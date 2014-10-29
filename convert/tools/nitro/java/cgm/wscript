@@ -1,0 +1,15 @@
+from waflib import Options
+from javatool import java_module
+
+NAME            = 'cgm'
+MAINTAINER      = 'asylvest@users.sourceforge.net'
+VERSION         = '2.7'
+MODULE_DEPS     = 'nitf'
+CLASSPATH       = ''
+COMPAT          = '1.5'
+USE             = 'cgm-c'
+
+configure = options = distclean = lambda x: None
+
+def build(bld):
+    java_module(bld, **globals())				

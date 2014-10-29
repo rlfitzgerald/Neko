@@ -1,0 +1,1026 @@
+# project nitro (2.7) configured on Thu Oct 16 09:36:28 2014 by
+# waf 1.7.8 (abi 98, python 20705f0 on linux2)
+# using build/waf configure --enable-debugging --prefix=~/.virtualenvs/cardet
+#
+----------------------------------------
+Setting top to
+/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro
+----------------------------------------
+Setting out to
+/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target
+----------------------------------------
+Platform
+x86_64-unknown-linux-gnu
+----------------------------------------
+Checking for 'gcc' (c compiler)
+find program=['gcc', 'cc'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='CC' -> '/usr/lib64/ccache/gcc'
+find program=['ar'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='AR' -> '/usr/bin/ar'
+/usr/lib64/ccache/gcc
+----------------------------------------
+Checking for 'g++' (c++ compiler)
+find program=['g++', 'c++'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='CXX' -> '/usr/lib64/ccache/g++'
+(tool ar is already loaded, skipping)
+/usr/lib64/ccache/g++
+----------------------------------------
+Checking for header inttypes.h
+==>
+#include <inttypes.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_5f56fa2a3aa8980c8c60f7b859bbb02b/test.c -> target/.conf_check_5f56fa2a3aa8980c8c60f7b859bbb02b/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_5f56fa2a3aa8980c8c60f7b859bbb02b/testbuild/test.c.1.o -> target/.conf_check_5f56fa2a3aa8980c8c60f7b859bbb02b/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_5f56fa2a3aa8980c8c60f7b859bbb02b/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header unistd.h
+==>
+#include <unistd.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_a4e7bc2437be8f1a43523b09ec35c858/test.c -> target/.conf_check_a4e7bc2437be8f1a43523b09ec35c858/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_a4e7bc2437be8f1a43523b09ec35c858/testbuild/test.c.1.o -> target/.conf_check_a4e7bc2437be8f1a43523b09ec35c858/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_a4e7bc2437be8f1a43523b09ec35c858/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header getopt.h
+==>
+#include <getopt.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_50d757b9cb305ca934a9e5be593a528d/test.c -> target/.conf_check_50d757b9cb305ca934a9e5be593a528d/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_50d757b9cb305ca934a9e5be593a528d/testbuild/test.c.1.o -> target/.conf_check_50d757b9cb305ca934a9e5be593a528d/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_50d757b9cb305ca934a9e5be593a528d/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header malloc.h
+==>
+#include <malloc.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_2febd01b50c37d863ff7796bf6827de1/test.c -> target/.conf_check_2febd01b50c37d863ff7796bf6827de1/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_2febd01b50c37d863ff7796bf6827de1/testbuild/test.c.1.o -> target/.conf_check_2febd01b50c37d863ff7796bf6827de1/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_2febd01b50c37d863ff7796bf6827de1/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header sys/time.h
+==>
+#include <sys/time.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_281fdbab2ddd4867d41b2a3dcd05f71e/test.c -> target/.conf_check_281fdbab2ddd4867d41b2a3dcd05f71e/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_281fdbab2ddd4867d41b2a3dcd05f71e/testbuild/test.c.1.o -> target/.conf_check_281fdbab2ddd4867d41b2a3dcd05f71e/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_281fdbab2ddd4867d41b2a3dcd05f71e/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header dlfcn.h
+==>
+#include <dlfcn.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_19d40436e573dfccf37ea3cb3200af99/test.c -> target/.conf_check_19d40436e573dfccf37ea3cb3200af99/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_19d40436e573dfccf37ea3cb3200af99/testbuild/test.c.1.o -> target/.conf_check_19d40436e573dfccf37ea3cb3200af99/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_19d40436e573dfccf37ea3cb3200af99/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header fcntl.h
+==>
+#include <fcntl.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_acaab568744bf4afa7baa9c5e542a418/test.c -> target/.conf_check_acaab568744bf4afa7baa9c5e542a418/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_acaab568744bf4afa7baa9c5e542a418/testbuild/test.c.1.o -> target/.conf_check_acaab568744bf4afa7baa9c5e542a418/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_acaab568744bf4afa7baa9c5e542a418/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header check.h
+==>
+#include <check.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_30cb9217b8a0f63d8d4771d6455e4c86/test.c -> target/.conf_check_30cb9217b8a0f63d8d4771d6455e4c86/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+err: ../test.c:1:19: fatal error: check.h: No such file or directory
+ #include <check.h>
+                   ^
+compilation terminated.
+
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Test does not build: Traceback (most recent call last):
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Tools/c_config.py", line 460, in run_c_code
+    bld.compile()
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 31088144: c test.c -> test.c.1.o}
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+
+not found
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: The configuration failed
+----------------------------------------
+Checking for header memory.h
+==>
+#include <memory.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_85a240f9aae0b41ae77a69b5f145381b/test.c -> target/.conf_check_85a240f9aae0b41ae77a69b5f145381b/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_85a240f9aae0b41ae77a69b5f145381b/testbuild/test.c.1.o -> target/.conf_check_85a240f9aae0b41ae77a69b5f145381b/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_85a240f9aae0b41ae77a69b5f145381b/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header string.h
+==>
+#include <string.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_ce68401a8fd39d5809b9c6fae15145d6/test.c -> target/.conf_check_ce68401a8fd39d5809b9c6fae15145d6/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_ce68401a8fd39d5809b9c6fae15145d6/testbuild/test.c.1.o -> target/.conf_check_ce68401a8fd39d5809b9c6fae15145d6/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_ce68401a8fd39d5809b9c6fae15145d6/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header strings.h
+==>
+#include <strings.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_e7ee41e6e2bc71fcf36cfb4715dc9f56/test.c -> target/.conf_check_e7ee41e6e2bc71fcf36cfb4715dc9f56/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_e7ee41e6e2bc71fcf36cfb4715dc9f56/testbuild/test.c.1.o -> target/.conf_check_e7ee41e6e2bc71fcf36cfb4715dc9f56/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_e7ee41e6e2bc71fcf36cfb4715dc9f56/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header stdbool.h
+==>
+#include <stdbool.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_05a1928a4be53cb11e671c6cc4d6922c/test.c -> target/.conf_check_05a1928a4be53cb11e671c6cc4d6922c/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_05a1928a4be53cb11e671c6cc4d6922c/testbuild/test.c.1.o -> target/.conf_check_05a1928a4be53cb11e671c6cc4d6922c/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_05a1928a4be53cb11e671c6cc4d6922c/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header stdlib.h
+==>
+#include <stdlib.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_ecfddc2ce29c573b1079b107c2434884/test.c -> target/.conf_check_ecfddc2ce29c573b1079b107c2434884/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_ecfddc2ce29c573b1079b107c2434884/testbuild/test.c.1.o -> target/.conf_check_ecfddc2ce29c573b1079b107c2434884/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_ecfddc2ce29c573b1079b107c2434884/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for header stddef.h
+==>
+#include <stddef.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_760d66911a42933bda2318d563cc1846/test.c -> target/.conf_check_760d66911a42933bda2318d563cc1846/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_760d66911a42933bda2318d563cc1846/testbuild/test.c.1.o -> target/.conf_check_760d66911a42933bda2318d563cc1846/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_760d66911a42933bda2318d563cc1846/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function localtime_r
+==>
+#include <time.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(localtime_r);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_e000948d0487c1e12d87922e2b3109e3/test.c -> target/.conf_check_e000948d0487c1e12d87922e2b3109e3/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_e000948d0487c1e12d87922e2b3109e3/testbuild/test.c.1.o -> target/.conf_check_e000948d0487c1e12d87922e2b3109e3/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_e000948d0487c1e12d87922e2b3109e3/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function gmtime_r
+==>
+#include <time.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(gmtime_r);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_5149588b81dd8dd06945e6682a55f1b2/test.c -> target/.conf_check_5149588b81dd8dd06945e6682a55f1b2/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_5149588b81dd8dd06945e6682a55f1b2/testbuild/test.c.1.o -> target/.conf_check_5149588b81dd8dd06945e6682a55f1b2/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_5149588b81dd8dd06945e6682a55f1b2/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function mmap
+==>
+#include <sys/mman.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(mmap);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_cfc0e2eb8897469cb285cc0209f6dacf/test.c -> target/.conf_check_cfc0e2eb8897469cb285cc0209f6dacf/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_cfc0e2eb8897469cb285cc0209f6dacf/testbuild/test.c.1.o -> target/.conf_check_cfc0e2eb8897469cb285cc0209f6dacf/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_cfc0e2eb8897469cb285cc0209f6dacf/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function memmove
+==>
+#include <string.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(memmove);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_7124ea6062053189f9267b2c656b0b2a/test.c -> target/.conf_check_7124ea6062053189f9267b2c656b0b2a/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_7124ea6062053189f9267b2c656b0b2a/testbuild/test.c.1.o -> target/.conf_check_7124ea6062053189f9267b2c656b0b2a/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_7124ea6062053189f9267b2c656b0b2a/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function strerror
+==>
+#include <string.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(strerror);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_800e3e221d3889a499dc9a975c16bef6/test.c -> target/.conf_check_800e3e221d3889a499dc9a975c16bef6/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_800e3e221d3889a499dc9a975c16bef6/testbuild/test.c.1.o -> target/.conf_check_800e3e221d3889a499dc9a975c16bef6/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_800e3e221d3889a499dc9a975c16bef6/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function bcopy
+==>
+#include <strings.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(bcopy);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_cc946d4a34048791cce594f2c28f108e/test.c -> target/.conf_check_cc946d4a34048791cce594f2c28f108e/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_cc946d4a34048791cce594f2c28f108e/testbuild/test.c.1.o -> target/.conf_check_cc946d4a34048791cce594f2c28f108e/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_cc946d4a34048791cce594f2c28f108e/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for type size_t
+==>
+#include <stddef.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	if ((size_t *) 0) return 0;
+	if (sizeof (size_t)) return 0;
+	return 1;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_a31684a30fab8ea4b17e8b8328143c18/test.c -> target/.conf_check_a31684a30fab8ea4b17e8b8328143c18/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_a31684a30fab8ea4b17e8b8328143c18/testbuild/test.c.1.o -> target/.conf_check_a31684a30fab8ea4b17e8b8328143c18/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_a31684a30fab8ea4b17e8b8328143c18/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for const keyword
+==>
+int main(){const int i = 0; return 0;}
+<==
+[1/2] [32mc: target/.conf_check_0814a9ce774196dc0eeb80debba5b2bb/test.c -> target/.conf_check_0814a9ce774196dc0eeb80debba5b2bb/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_0814a9ce774196dc0eeb80debba5b2bb/testbuild/test.c.1.o -> target/.conf_check_0814a9ce774196dc0eeb80debba5b2bb/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_0814a9ce774196dc0eeb80debba5b2bb/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for unsigned short
+==>
+int main(){unsigned short; return 0;}
+<==
+[1/2] [32mc: target/.conf_check_3db2ba25fa9424af340a44ae62cd5379/test.c -> target/.conf_check_3db2ba25fa9424af340a44ae62cd5379/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '../test.c', '-c', '-o', 'test.c.1.o']
+err: ../test.c: In function ‘main’:
+../test.c:1:1: warning: useless type name in empty declaration [enabled by default]
+ int main(){unsigned short; return 0;}
+ ^
+
+[2/2] [33mcprogram: target/.conf_check_3db2ba25fa9424af340a44ae62cd5379/testbuild/test.c.1.o -> target/.conf_check_3db2ba25fa9424af340a44ae62cd5379/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_3db2ba25fa9424af340a44ae62cd5379/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for unsigned char
+==>
+int main(){unsigned char i; return 0;}
+<==
+[1/2] [32mc: target/.conf_check_d8310005e9efc172e54eb55e255d3a12/test.c -> target/.conf_check_d8310005e9efc172e54eb55e255d3a12/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_d8310005e9efc172e54eb55e255d3a12/testbuild/test.c.1.o -> target/.conf_check_d8310005e9efc172e54eb55e255d3a12/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_d8310005e9efc172e54eb55e255d3a12/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for library m
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_5c9a5048c1ae18d67c3a5505049f1bfe/test.c -> target/.conf_check_5c9a5048c1ae18d67c3a5505049f1bfe/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_5c9a5048c1ae18d67c3a5505049f1bfe/testbuild/test.c.1.o -> target/.conf_check_5c9a5048c1ae18d67c3a5505049f1bfe/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_5c9a5048c1ae18d67c3a5505049f1bfe/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lm']
+yes
+----------------------------------------
+Checking for library rt
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_999936c127bca6a1803bc4b94ac42e58/test.c -> target/.conf_check_999936c127bca6a1803bc4b94ac42e58/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_999936c127bca6a1803bc4b94ac42e58/testbuild/test.c.1.o -> target/.conf_check_999936c127bca6a1803bc4b94ac42e58/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_999936c127bca6a1803bc4b94ac42e58/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lrt']
+yes
+----------------------------------------
+Checking for library sqrt
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_3803bcf5f374cc3775fd9505c1716854/test.c -> target/.conf_check_3803bcf5f374cc3775fd9505c1716854/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_3803bcf5f374cc3775fd9505c1716854/testbuild/test.c.1.o -> target/.conf_check_3803bcf5f374cc3775fd9505c1716854/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_3803bcf5f374cc3775fd9505c1716854/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lsqrt']
+err: /usr/bin/ld: cannot find -lsqrt
+collect2: error: ld returned 1 exit status
+
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Test does not build: Traceback (most recent call last):
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Tools/c_config.py", line 460, in run_c_code
+    bld.compile()
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 31804624: cprogram test.c.1.o -> testprog}
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_3803bcf5f374cc3775fd9505c1716854/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lsqrt']
+
+not found
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: The configuration failed
+----------------------------------------
+Checking for function erf
+==>
+#include <math.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(erf);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_0d69da02d3702640346771a2369c7178/test.c -> target/.conf_check_0d69da02d3702640346771a2369c7178/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_0d69da02d3702640346771a2369c7178/testbuild/test.c.1.o -> target/.conf_check_0d69da02d3702640346771a2369c7178/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_0d69da02d3702640346771a2369c7178/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lm']
+yes
+----------------------------------------
+Checking for function erff
+==>
+#include <math.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(erff);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_9ddabe888ffa2ea9e894ba0532abd4b7/test.c -> target/.conf_check_9ddabe888ffa2ea9e894ba0532abd4b7/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_9ddabe888ffa2ea9e894ba0532abd4b7/testbuild/test.c.1.o -> target/.conf_check_9ddabe888ffa2ea9e894ba0532abd4b7/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_9ddabe888ffa2ea9e894ba0532abd4b7/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lm']
+yes
+----------------------------------------
+Checking for function gettimeofday
+==>
+#include <sys/time.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(gettimeofday);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_7686b35623d42f87fd9fdad4b219f482/test.c -> target/.conf_check_7686b35623d42f87fd9fdad4b219f482/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_7686b35623d42f87fd9fdad4b219f482/testbuild/test.c.1.o -> target/.conf_check_7686b35623d42f87fd9fdad4b219f482/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_7686b35623d42f87fd9fdad4b219f482/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function clock_gettime
+==>
+#include <time.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(clock_gettime);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_9884a342970dc4ab0287360d157d6206/test.c -> target/.conf_check_9884a342970dc4ab0287360d157d6206/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_9884a342970dc4ab0287360d157d6206/testbuild/test.c.1.o -> target/.conf_check_9884a342970dc4ab0287360d157d6206/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_9884a342970dc4ab0287360d157d6206/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lrt']
+yes
+----------------------------------------
+Checking for function BSDgettimeofday
+==>
+#include <sys/time.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(BSDgettimeofday);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_3ef837f9436d127b993b73d645e41663/test.c -> target/.conf_check_3ef837f9436d127b993b73d645e41663/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '../test.c', '-c', '-o', 'test.c.1.o']
+err: ../test.c: In function ‘main’:
+../test.c:6:12: error: ‘BSDgettimeofday’ undeclared (first use in this function)
+  p=(void*)(BSDgettimeofday);
+            ^
+../test.c:6:12: note: each undeclared identifier is reported only once for each function it appears in
+
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Test does not build: Traceback (most recent call last):
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Tools/c_config.py", line 460, in run_c_code
+    bld.compile()
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 31849872: c test.c -> test.c.1.o}
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '../test.c', '-c', '-o', 'test.c.1.o']
+
+not found
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: The configuration failed
+----------------------------------------
+Checking for function gethrtime
+==>
+#include <sys/time.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(gethrtime);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_4973040e1733403ca359bb00a149feed/test.c -> target/.conf_check_4973040e1733403ca359bb00a149feed/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '../test.c', '-c', '-o', 'test.c.1.o']
+err: ../test.c: In function ‘main’:
+../test.c:6:12: error: ‘gethrtime’ undeclared (first use in this function)
+  p=(void*)(gethrtime);
+            ^
+../test.c:6:12: note: each undeclared identifier is reported only once for each function it appears in
+
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Test does not build: Traceback (most recent call last):
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Tools/c_config.py", line 460, in run_c_code
+    bld.compile()
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 31846544: c test.c -> test.c.1.o}
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '../test.c', '-c', '-o', 'test.c.1.o']
+
+not found
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: The configuration failed
+----------------------------------------
+Checking for function getpagesize
+==>
+#include <unistd.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(getpagesize);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_17811d44aa1e72e10ddbbaa1452627e3/test.c -> target/.conf_check_17811d44aa1e72e10ddbbaa1452627e3/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_17811d44aa1e72e10ddbbaa1452627e3/testbuild/test.c.1.o -> target/.conf_check_17811d44aa1e72e10ddbbaa1452627e3/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_17811d44aa1e72e10ddbbaa1452627e3/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function getopt
+==>
+#include <unistd.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(getopt);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_1f829fa223aa789438bb06ab0922d03e/test.c -> target/.conf_check_1f829fa223aa789438bb06ab0922d03e/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_1f829fa223aa789438bb06ab0922d03e/testbuild/test.c.1.o -> target/.conf_check_1f829fa223aa789438bb06ab0922d03e/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_1f829fa223aa789438bb06ab0922d03e/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function getopt_long
+==>
+#include <getopt.h>
+
+int main(int argc, char **argv) {
+	void *p;
+	(void)argc; (void)argv;
+	p=(void*)(getopt_long);
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_83b4ea01cedf2aa8af6a4b2416f32aae/test.c -> target/.conf_check_83b4ea01cedf2aa8af6a4b2416f32aae/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_83b4ea01cedf2aa8af6a4b2416f32aae/testbuild/test.c.1.o -> target/.conf_check_83b4ea01cedf2aa8af6a4b2416f32aae/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_83b4ea01cedf2aa8af6a4b2416f32aae/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for function isnan
+==>
+#include <math.h>
+int main(){if (!isnan(3.14159)) isnan(2.7183);}
+<==
+[1/2] [32mc: target/.conf_check_bf1c04dca9e03c68d59372ad907920f1/test.c -> target/.conf_check_bf1c04dca9e03c68d59372ad907920f1/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_bf1c04dca9e03c68d59372ad907920f1/testbuild/test.c.1.o -> target/.conf_check_bf1c04dca9e03c68d59372ad907920f1/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_bf1c04dca9e03c68d59372ad907920f1/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for type hrtime_t
+==>
+
+    #ifdef HAVE_SYS_TIME_H
+    #include <sys/time.h>
+    int main(){hrtime_t foobar;}
+    #endif
+    
+<==
+[1/2] [32mc: target/.conf_check_eef235ebb5ed8c43c20558c0f0b24623/test.c -> target/.conf_check_eef235ebb5ed8c43c20558c0f0b24623/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '../test.c', '-c', '-o', 'test.c.1.o']
+err: ../test.c: In function ‘main’:
+../test.c:4:16: error: unknown type name ‘hrtime_t’
+     int main(){hrtime_t foobar;}
+                ^
+
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Test does not build: Traceback (most recent call last):
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Tools/c_config.py", line 460, in run_c_code
+    bld.compile()
+  File "/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/build/.waf-1.7.8-77e2cdd38ea2930f982e3aabf335fdb7/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 31847824: c test.c -> test.c.1.o}
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '../test.c', '-c', '-o', 'test.c.1.o']
+
+not found
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: The configuration failed
+----------------------------------------
+Checking system type sizes
+==>
+
+#include <stdio.h>
+int isBigEndian()
+{
+    long one = 1;
+    return !(*((char *)(&one)));
+}
+int main()
+{
+    if (isBigEndian()) printf("bigendian=True\n");
+    else printf("bigendian=False\n");
+    printf("sizeof_int=%d\n", sizeof(int));
+    printf("sizeof_short=%d\n", sizeof(short));
+    printf("sizeof_long=%d\n", sizeof(long));
+    printf("sizeof_long_long=%d\n", sizeof(long long));
+    printf("sizeof_float=%d\n", sizeof(float));
+    printf("sizeof_double=%d\n", sizeof(double));
+    return 0;
+}
+
+<==
+[1/3] [32mcxx: target/.conf_check_b5317578ee5422916a67d9cb4ca7c9f5/test.cpp -> target/.conf_check_b5317578ee5422916a67d9cb4ca7c9f5/testbuild/test.cpp.1.o
+[0m
+['/usr/lib64/ccache/g++', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/3] [33mcxxprogram: target/.conf_check_b5317578ee5422916a67d9cb4ca7c9f5/testbuild/test.cpp.1.o -> target/.conf_check_b5317578ee5422916a67d9cb4ca7c9f5/testbuild/testprog
+[0m
+['/usr/lib64/ccache/g++', 'test.cpp.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_b5317578ee5422916a67d9cb4ca7c9f5/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+[3/3] [35mtest_exec: target/.conf_check_b5317578ee5422916a67d9cb4ca7c9f5/testbuild/testprog
+[0m
+['/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_b5317578ee5422916a67d9cb4ca7c9f5/testbuild/testprog']
+out: bigendian=False
+sizeof_int=4
+sizeof_short=2
+sizeof_long=8
+sizeof_long_long=8
+sizeof_float=4
+sizeof_double=8
+
+yes
+----------------------------------------
+sizeof long long
+8
+----------------------------------------
+sizeof long
+8
+----------------------------------------
+bigendian
+False
+----------------------------------------
+sizeof double
+8
+----------------------------------------
+sizeof short
+2
+----------------------------------------
+sizeof int
+4
+----------------------------------------
+sizeof float
+4
+----------------------------------------
+Checking for library pthread
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_2b7360a909b095483144b7ecb95bbbdd/test.c -> target/.conf_check_2b7360a909b095483144b7ecb95bbbdd/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '-DSIZEOF_LONG_LONG=8', '-DSIZEOF_LONG=8', '-DBIGENDIAN=0', '-DSIZEOF_DOUBLE=8', '-DSIZEOF_SHORT=2', '-DSIZEOF_INT=4', '-DSIZEOF_FLOAT=4', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_2b7360a909b095483144b7ecb95bbbdd/testbuild/test.c.1.o -> target/.conf_check_2b7360a909b095483144b7ecb95bbbdd/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_2b7360a909b095483144b7ecb95bbbdd/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lpthread']
+yes
+----------------------------------------
+Checking for compiler flags -m64
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: target/.conf_check_fc0af2b517b5a3bcae68c9601d515525/test.cpp -> target/.conf_check_fc0af2b517b5a3bcae68c9601d515525/testbuild/test.cpp.1.o
+[0m
+['/usr/lib64/ccache/g++', '-fPIC', '-Wall', '-g', '-m64', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '-DSIZEOF_LONG_LONG=8', '-DSIZEOF_LONG=8', '-DBIGENDIAN=0', '-DSIZEOF_DOUBLE=8', '-DSIZEOF_SHORT=2', '-DSIZEOF_INT=4', '-DSIZEOF_FLOAT=4', '-D_FILE_OFFSET_BITS=64', '-D_LARGEFILE_SOURCE', '-D__POSIX', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: target/.conf_check_fc0af2b517b5a3bcae68c9601d515525/testbuild/test.cpp.1.o -> target/.conf_check_fc0af2b517b5a3bcae68c9601d515525/testbuild/testprog
+[0m
+['/usr/lib64/ccache/g++', '-Wl,-E', '-fPIC', '-m64', 'test.cpp.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_fc0af2b517b5a3bcae68c9601d515525/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for compiler flags -m64
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mc: target/.conf_check_a6c20a5c6800570ac3574c271624a68b/test.c -> target/.conf_check_a6c20a5c6800570ac3574c271624a68b/testbuild/test.c.1.o
+[0m
+['/usr/lib64/ccache/gcc', '-fPIC', '-Wall', '-g', '-m64', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '-DSIZEOF_LONG_LONG=8', '-DSIZEOF_LONG=8', '-DBIGENDIAN=0', '-DSIZEOF_DOUBLE=8', '-DSIZEOF_SHORT=2', '-DSIZEOF_INT=4', '-DSIZEOF_FLOAT=4', '-D_FILE_OFFSET_BITS=64', '-D_LARGEFILE_SOURCE', '-D__POSIX', '../test.c', '-c', '-o', 'test.c.1.o']
+[2/2] [33mcprogram: target/.conf_check_a6c20a5c6800570ac3574c271624a68b/testbuild/test.c.1.o -> target/.conf_check_a6c20a5c6800570ac3574c271624a68b/testbuild/testprog
+[0m
+['/usr/lib64/ccache/gcc', '-Wl,-E', '-fPIC', '-m64', 'test.c.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_a6c20a5c6800570ac3574c271624a68b/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for program ant
+not found
+find program=['ant'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='ANT' -> ''
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Could not find the program ant
+----------------------------------------
+Checking for program javac
+not found
+find program=['javac'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='JAVAC' -> ''
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Could not find the program javac
+----------------------------------------
+Checking for program python
+/home/andrew/.virtualenvs/cardet/bin/python
+find program=['python'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='PYTHON' -> '/home/andrew/.virtualenvs/cardet/bin/python'
+['/home/andrew/.virtualenvs/cardet/bin/python', '-c', 'import sys\nfor x in sys.version_info: print(str(x))']
+out: 2
+7
+5
+final
+0
+
+['/home/andrew/.virtualenvs/cardet/bin/python', '-c', "from distutils.sysconfig import get_config_var, get_python_lib\n\nprint(repr(get_python_lib(standard_lib=0, prefix='/home/andrew/.virtualenvs/cardet') or ''))"]
+out: '/home/andrew/.virtualenvs/cardet/lib/python2.7/site-packages'
+
+'/home/andrew/.virtualenvs/cardet/lib/python2.7/site-packages'
+
+['/home/andrew/.virtualenvs/cardet/bin/python', '-c', "from distutils.sysconfig import get_config_var, get_python_lib\n\nprint(repr(get_python_lib(plat_specific=1, standard_lib=0, prefix='/home/andrew/.virtualenvs/cardet') or ''))"]
+out: '/home/andrew/.virtualenvs/cardet/lib64/python2.7/site-packages'
+
+'/home/andrew/.virtualenvs/cardet/lib64/python2.7/site-packages'
+
+----------------------------------------
+Checking for python version
+2.7.5
+['/home/andrew/.virtualenvs/cardet/bin/python', '-c', "from distutils.sysconfig import get_config_var, get_python_lib\n\nprint(repr(get_config_var('prefix') or ''))\nprint(repr(get_config_var('SO') or ''))\nprint(repr(get_config_var('LDFLAGS') or ''))\nprint(repr(get_config_var('LIBDIR') or ''))\nprint(repr(get_config_var('LIBPL') or ''))\nprint(repr(get_config_var('INCLUDEPY') or ''))\nprint(repr(get_config_var('Py_ENABLE_SHARED') or ''))\nprint(repr(get_config_var('MACOSX_DEPLOYMENT_TARGET') or ''))\nprint(repr(get_config_var('LDSHARED') or ''))\nprint(repr(get_config_var('CFLAGS') or ''))"]
+out: '/home/andrew/.virtualenvs/cardet'
+'.so'
+'-Wl,-z,relro'
+'/usr/lib64'
+'/usr/lib64/python2.7/config'
+'/usr/include/python2.7'
+1
+''
+'gcc -pthread -shared -Wl,-z,relro'
+'-fno-strict-aliasing -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -grecord-gcc-switches  -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv   -DNDEBUG -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -grecord-gcc-switches  -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv'
+
+'/home/andrew/.virtualenvs/cardet'
+'.so'
+'-Wl,-z,relro'
+'/usr/lib64'
+'/usr/lib64/python2.7/config'
+'/usr/include/python2.7'
+1
+''
+'gcc -pthread -shared -Wl,-z,relro'
+'-fno-strict-aliasing -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -grecord-gcc-switches  -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv   -DNDEBUG -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -grecord-gcc-switches  -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv'
+
+Configuration returned from ['/home/andrew/.virtualenvs/cardet/bin/python']:
+"prefix = '/home/andrew/.virtualenvs/cardet'\nSO = '.so'\nLDFLAGS = '-Wl,-z,relro'\nLIBDIR = '/usr/lib64'\nLIBPL = '/usr/lib64/python2.7/config'\nINCLUDEPY = '/usr/include/python2.7'\nPy_ENABLE_SHARED = 1\nMACOSX_DEPLOYMENT_TARGET = ''\nLDSHARED = 'gcc -pthread -shared -Wl,-z,relro'\nCFLAGS = '-fno-strict-aliasing -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -grecord-gcc-switches  -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv   -DNDEBUG -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -grecord-gcc-switches  -m64 -mtune=generic -D_GNU_SOURCE -fPIC -fwrapv'"
+
+
+
+# try again with -L$python_LIBDIR: ['/usr/lib64']
+
+----------------------------------------
+Checking for library python2.7 in LIBDIR
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: target/.conf_check_df3e57587e1b270aed4476acda402007/test.cpp -> target/.conf_check_df3e57587e1b270aed4476acda402007/testbuild/test.cpp.1.o
+[0m
+['/usr/lib64/ccache/g++', '-fPIC', '-Wall', '-g', '-m64', '-fno-strict-aliasing', '-fexceptions', '-fstack-protector', '-m64', '-mtune=generic', '-fPIC', '-fwrapv', '-fexceptions', '-fstack-protector', '-m64', '-mtune=generic', '-fPIC', '-fwrapv', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '-DSIZEOF_LONG_LONG=8', '-DSIZEOF_LONG=8', '-DBIGENDIAN=0', '-DSIZEOF_DOUBLE=8', '-DSIZEOF_SHORT=2', '-DSIZEOF_INT=4', '-DSIZEOF_FLOAT=4', '-D_FILE_OFFSET_BITS=64', '-D_LARGEFILE_SOURCE', '-D__POSIX', '-DPYTHONDIR="/home/andrew/.virtualenvs/cardet/lib/python2.7/site-packages"', '-DPYTHONARCHDIR="/home/andrew/.virtualenvs/cardet/lib64/python2.7/site-packages"', '-D_GNU_SOURCE', '-DNDEBUG', '-D_GNU_SOURCE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: target/.conf_check_df3e57587e1b270aed4476acda402007/testbuild/test.cpp.1.o -> target/.conf_check_df3e57587e1b270aed4476acda402007/testbuild/testprog
+[0m
+['/usr/lib64/ccache/g++', '-Wl,-E', '-fPIC', '-m64', '-Wl,-z,relro', 'test.cpp.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_df3e57587e1b270aed4476acda402007/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L/usr/lib64', '-lpython2.7']
+yes
+----------------------------------------------------------------------------------------------------------------------------
+Checking for program /home/andrew/.virtualenvs/cardet/bin/python-config,python2.7-config,python-config-2.7,python2.7m-config
+/usr/bin/python2.7-config
+find program=['/home/andrew/.virtualenvs/cardet/bin/python-config', 'python2.7-config', 'python-config-2.7', 'python2.7m-config'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='PYTHON_CONFIG' -> '/usr/bin/python2.7-config'
+['/usr/bin/python2.7-config', '--includes']
+out: -I/usr/include/python2.7 -I/usr/include/python2.7
+
+Include path for Python extensions (found via python-config --includes): ['/usr/include/python2.7']
+
+----------------------------------------------------------------------------------------------------------------------------
+Checking for header Python.h
+==>
+
+#include <Python.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
+	void Py_Initialize(void);
+	void Py_Finalize(void);
+#ifdef __cplusplus
+}
+#endif
+int main(int argc, char **argv)
+{
+   (void)argc; (void)argv;
+   Py_Initialize();
+   Py_Finalize();
+   return 0;
+}
+
+<==
+[1/2] [32mcxx: target/.conf_check_1f933b02106127ce3a9f4633a0e368e7/test.cpp -> target/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/test.cpp.1.o
+[0m
+['/usr/lib64/ccache/g++', '-fPIC', '-Wall', '-g', '-m64', '-fno-strict-aliasing', '-fexceptions', '-fstack-protector', '-m64', '-mtune=generic', '-fPIC', '-fwrapv', '-fexceptions', '-fstack-protector', '-m64', '-mtune=generic', '-fPIC', '-fwrapv', '-fno-strict-aliasing', '-I/usr/include/python2.7', '-DHAVE_INTTYPES_H=1', '-DHAVE_UNISTD_H=1', '-DHAVE_GETOPT_H=1', '-DHAVE_MALLOC_H=1', '-DHAVE_SYS_TIME_H=1', '-DHAVE_DLFCN_H=1', '-DHAVE_FCNTL_H=1', '-DHAVE_MEMORY_H=1', '-DHAVE_STRING_H=1', '-DHAVE_STRINGS_H=1', '-DHAVE_STDBOOL_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_STDDEF_H=1', '-DHAVE_LOCALTIME_R=1', '-DHAVE_GMTIME_R=1', '-DHAVE_MMAP=1', '-DHAVE_MEMMOVE=1', '-DHAVE_STRERROR=1', '-DHAVE_BCOPY=1', '-DHAVE_SIZE_T=1', '-DHAVE_CONST=1', '-DHAVE_UNSIGNED_SHORT=1', '-DHAVE_UNSIGNED_CHAR=1', '-DHAVE_ERF=1', '-DHAVE_ERFF=1', '-DHAVE_GETTIMEOFDAY=1', '-DHAVE_CLOCK_GETTIME=1', '-DUSE_CLOCK_GETTIME', '-DHAVE_GETPAGESIZE=1', '-DHAVE_GETOPT=1', '-DHAVE_GETOPT_LONG=1', '-DHAVE_ISNAN=1', '-DSIZEOF_LONG_LONG=8', '-DSIZEOF_LONG=8', '-DBIGENDIAN=0', '-DSIZEOF_DOUBLE=8', '-DSIZEOF_SHORT=2', '-DSIZEOF_INT=4', '-DSIZEOF_FLOAT=4', '-D_FILE_OFFSET_BITS=64', '-D_LARGEFILE_SOURCE', '-D__POSIX', '-DPYTHONDIR="/home/andrew/.virtualenvs/cardet/lib/python2.7/site-packages"', '-DPYTHONARCHDIR="/home/andrew/.virtualenvs/cardet/lib64/python2.7/site-packages"', '-D_GNU_SOURCE', '-DNDEBUG', '-D_GNU_SOURCE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: target/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/test.cpp.1.o -> target/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/testprog
+[0m
+['/usr/lib64/ccache/g++', '-Wl,-E', '-fPIC', '-m64', '-Wl,-z,relro', 'test.cpp.1.o', '-o', '/home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro/target/.conf_check_1f933b02106127ce3a9f4633a0e368e7/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L/usr/lib64', '-lpython2.7']
+yes
+----------------------------------------------------------------------------------------------------------------------------
+Can build python bindings
+yes
+----------------------------------------------------------------------------------------------------------------------------
+Checking for program matlab
+not found
+find program=['matlab'] paths=['/home/andrew/.virtualenvs/cardet/bin', '/usr/lib64/ccache', '/usr/local/bin', '/usr/bin', '/usr/local/sbin', '/usr/sbin', '/home/andrew/Projects/segd-cloud/experimental/traceapp/stride/bin', '/home/andrew/.local/bin', '/home/andrew/bin'] var='matlab' -> ''
+from /home/andrew/Projects/computer_vision/car_detection/Neko/convert/tools/nitro: Could not find the program matlab

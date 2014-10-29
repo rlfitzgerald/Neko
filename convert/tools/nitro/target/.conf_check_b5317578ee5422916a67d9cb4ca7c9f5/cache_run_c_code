@@ -1,0 +1,1 @@
+cache_run_c_code = 'bigendian=False\nsizeof_int=4\nsizeof_short=2\nsizeof_long=8\nsizeof_long_long=8\nsizeof_float=4\nsizeof_double=8\n'
