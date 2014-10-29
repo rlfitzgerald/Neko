@@ -23,4 +23,4 @@ opencv_createsamples -info collection.dat -bgcolor 0 -bgthresh 0 -vec samples.ve
 # train classifier to detect positive images
 # for precalculation you can set the amount of memory to use
 # set sample size of positive images, 20 x 20 seems to work well
-opencv_traincascade -data classifier -featureType HAAR -vec samples.vec -bg negatives.dat -numPos $NUMPOS -numNeg $NUMNEG -numStages 20 -precalcValBufSize 6000 -precalcIdxBufSize 6000 -minHitRate 0.999 -maxFalseAlarmRate 0.5 -mode ALL -w 20 -h 20
+opencv_traincascade -data classifier2 -featureType HAAR -vec samples.vec -bg negatives.dat -numPos $NUMPOS -numNeg $NUMNEG -numStages 20 -precalcValBufSize 6000 -precalcIdxBufSize 6000 -minHitRate 0.7 -maxFalseAlarmRate 0.5 -mode ALL -w 20 -h 20
