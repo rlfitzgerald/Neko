@@ -94,7 +94,10 @@ def main(argv=None):
     AMIN = 5
     AMAX = 400
     WMAX = 35
+    WMIN = 3
     HMAX = 55
+    HMIN = 2
+    ARATIO = 0.25
 
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2.imwrite(basename+"_gray.png", grayImg)
@@ -137,15 +140,23 @@ def main(argv=None):
         #if area >= 10 and area <= 1200:
         if area >= AMIN and area <= AMAX:
             x,y,w,h = cv2.boundingRect(cnt)
-            if w < WMAX and h < HMAX and w > 3 and h > 2:
-                print "x=%d y=%d w=%d h=%d"%(x,y,w,h)
-                rect = cv2.minAreaRect(cnt)
-                box = cv2.cv.BoxPoints(rect)
-                box = np.int0(box)
-                cv2.drawContours(img, [box], 0, (255, 0, 0), 2)
+            #if w < WMAX and h < HMAX and w > 3 and h > 2:
+            if w < WMAX and h < HMAX and w > WMIN and h > HMIN:
+                aspectRatio = 0
+                if w == min(w,h):
+                    aspectRatio = float(w)/h
+                else:
+                    aspectRatio = float(h)/w
+
+                if aspectRatio > ARATIO:
+                    print "x=%d y=%d w=%d h=%d"%(x,y,w,h)
+                    rect = cv2.minAreaRect(cnt)
+                    box = cv2.cv.BoxPoints(rect)
+                    box = np.int0(box)
+                    cv2.drawContours(img, [box], 0, (255, 0, 0), 2)
     
     #cv2.imwrite('Boxes.jpg', img) 
-    cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_T_%d_A_%d_%d_W_%d_H_%d.png"%(NSCALE,NORIENT,MULT,SIGMAONF,K,BLUR[0],BLUR[1],SRAD,RRAD,DEN,THRESH,AMIN,AMAX,WMAX,HMAX), img)
+    cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_T_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f.png"%(NSCALE,NORIENT,MULT,SIGMAONF,K,BLUR[0],BLUR[1],SRAD,RRAD,DEN,THRESH,AMIN,AMAX,WMIN,WMAX,HMIN,HMAX,ARATIO), img)
 
 
 
