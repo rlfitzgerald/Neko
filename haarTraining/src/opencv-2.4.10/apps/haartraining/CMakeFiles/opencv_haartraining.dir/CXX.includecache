@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/apps/haartraining/cvhaartraining.h
+
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/apps/haartraining/haartraining.cpp
+cstdio
+-
+cstring
+-
+cstdlib
+-
+cvhaartraining.h
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/apps/haartraining/cvhaartraining.h
+

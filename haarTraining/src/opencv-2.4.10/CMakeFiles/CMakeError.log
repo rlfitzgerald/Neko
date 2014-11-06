@@ -1,0 +1,346 @@
+Determining if the system is big endian passed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2242665602/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2242665602.dir/build.make CMakeFiles/cmTryCompileExec2242665602.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2242665602.dir/TestEndianess.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec2242665602.dir/TestEndianess.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/TestEndianess.c
+Linking C executable cmTryCompileExec2242665602
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2242665602.dir/link.txt --verbose=1
+/usr/lib64/ccache/cc     -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG    CMakeFiles/cmTryCompileExec2242665602.dir/TestEndianess.c.o  -o cmTryCompileExec2242665602 -rdynamic 
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+
+TestEndianess.c:
+/* A 16 bit integer is required. */
+typedef unsigned short cmakeint16;
+
+/* On a little endian machine, these 16bit ints will give "THIS IS LITTLE ENDIAN."
+   On a big endian machine the characters will be exchanged pairwise. */
+const cmakeint16 info_little[] =  {0x4854, 0x5349, 0x4920, 0x2053, 0x494c, 0x5454, 0x454c, 0x4520, 0x444e, 0x4149, 0x2e4e, 0x0000};
+
+/* on a big endian machine, these 16bit ints will give "THIS IS BIG ENDIAN."
+   On a little endian machine the characters will be exchanged pairwise. */
+const cmakeint16 info_big[] =     {0x5448, 0x4953, 0x2049, 0x5320, 0x4249, 0x4720, 0x454e, 0x4449, 0x414e, 0x2e2e, 0x0000};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_little[argc];
+  require += info_big[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining if the include file /usr/include/libpng/png.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec21909152/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec21909152.dir/build.make CMakeFiles/cmTryCompileExec21909152.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec21909152.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec21909152.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:37: fatal error: /usr/include/libpng/png.h: No such file or directory
+ #include </usr/include/libpng/png.h>
+                                     ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec21909152.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec21909152/fast] Error 2
+
+
+Determining if the include file linux/videodev.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4277943943/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4277943943.dir/build.make CMakeFiles/cmTryCompileExec4277943943.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4277943943.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec4277943943.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: fatal error: linux/videodev.h: No such file or directory
+ #include <linux/videodev.h>
+                            ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec4277943943.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec4277943943/fast] Error 2
+
+
+Determining if the include file sys/videoio.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3785687904/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3785687904.dir/build.make CMakeFiles/cmTryCompileExec3785687904.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3785687904.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec3785687904.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:25: fatal error: sys/videoio.h: No such file or directory
+ #include <sys/videoio.h>
+                         ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3785687904.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec3785687904/fast] Error 2
+
+
+Determining if the include file libavformat/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec909251021/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec909251021.dir/build.make CMakeFiles/cmTryCompileExec909251021.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec909251021.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec909251021.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:34: fatal error: libavformat/avformat.h: No such file or directory
+ #include <libavformat/avformat.h>
+                                  ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec909251021.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec909251021/fast] Error 2
+
+
+Determining if the include file ffmpeg/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2446937866/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2446937866.dir/build.make CMakeFiles/cmTryCompileExec2446937866.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2446937866.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec2446937866.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:29: fatal error: ffmpeg/avformat.h: No such file or directory
+ #include <ffmpeg/avformat.h>
+                             ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2446937866.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2446937866/fast] Error 2
+
+
+Determining if the include file linux/videodev.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2662642562/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2662642562.dir/build.make CMakeFiles/cmTryCompileExec2662642562.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2662642562.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec2662642562.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: fatal error: linux/videodev.h: No such file or directory
+ #include <linux/videodev.h>
+                            ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2662642562.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2662642562/fast] Error 2
+
+
+Determining if the include file sys/videoio.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3124229815/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3124229815.dir/build.make CMakeFiles/cmTryCompileExec3124229815.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3124229815.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec3124229815.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:25: fatal error: sys/videoio.h: No such file or directory
+ #include <sys/videoio.h>
+                         ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3124229815.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec3124229815/fast] Error 2
+
+
+Determining if the include file libavformat/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2237439195/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2237439195.dir/build.make CMakeFiles/cmTryCompileExec2237439195.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2237439195.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec2237439195.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:34: fatal error: libavformat/avformat.h: No such file or directory
+ #include <libavformat/avformat.h>
+                                  ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2237439195.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2237439195/fast] Error 2
+
+
+Determining if the include file ffmpeg/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2261491544/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2261491544.dir/build.make CMakeFiles/cmTryCompileExec2261491544.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2261491544.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec2261491544.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:29: fatal error: ffmpeg/avformat.h: No such file or directory
+ #include <ffmpeg/avformat.h>
+                             ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2261491544.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2261491544/fast] Error 2
+
+
+Determining if the include file linux/videodev.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec557377464/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec557377464.dir/build.make CMakeFiles/cmTryCompileExec557377464.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec557377464.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec557377464.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: fatal error: linux/videodev.h: No such file or directory
+ #include <linux/videodev.h>
+                            ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec557377464.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec557377464/fast] Error 2
+
+
+Determining if the include file sys/videoio.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec326119089/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec326119089.dir/build.make CMakeFiles/cmTryCompileExec326119089.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec326119089.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec326119089.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:25: fatal error: sys/videoio.h: No such file or directory
+ #include <sys/videoio.h>
+                         ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec326119089.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec326119089/fast] Error 2
+
+
+Determining if the include file libavformat/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1124442337/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1124442337.dir/build.make CMakeFiles/cmTryCompileExec1124442337.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1124442337.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec1124442337.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:34: fatal error: libavformat/avformat.h: No such file or directory
+ #include <libavformat/avformat.h>
+                                  ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec1124442337.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec1124442337/fast] Error 2
+
+
+Determining if the include file ffmpeg/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec648678625/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec648678625.dir/build.make CMakeFiles/cmTryCompileExec648678625.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec648678625.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec648678625.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:29: fatal error: ffmpeg/avformat.h: No such file or directory
+ #include <ffmpeg/avformat.h>
+                             ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec648678625.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec648678625/fast] Error 2
+
+
+Determining if the include file linux/videodev.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec80291132/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec80291132.dir/build.make CMakeFiles/cmTryCompileExec80291132.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec80291132.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec80291132.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: fatal error: linux/videodev.h: No such file or directory
+ #include <linux/videodev.h>
+                            ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec80291132.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec80291132/fast] Error 2
+
+
+Determining if the include file sys/videoio.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3476699906/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3476699906.dir/build.make CMakeFiles/cmTryCompileExec3476699906.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3476699906.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec3476699906.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:25: fatal error: sys/videoio.h: No such file or directory
+ #include <sys/videoio.h>
+                         ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3476699906.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec3476699906/fast] Error 2
+
+
+Determining if the include file libavformat/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1370687916/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1370687916.dir/build.make CMakeFiles/cmTryCompileExec1370687916.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1370687916.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec1370687916.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:34: fatal error: libavformat/avformat.h: No such file or directory
+ #include <libavformat/avformat.h>
+                                  ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec1370687916.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec1370687916/fast] Error 2
+
+
+Determining if the include file ffmpeg/avformat.h exists failed with the following output:
+Change Dir: /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2851596874/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2851596874.dir/build.make CMakeFiles/cmTryCompileExec2851596874.dir/build
+gmake[1]: Entering directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2851596874.dir/CheckIncludeFile.c.o
+/usr/lib64/ccache/cc   -fsigned-char -W -Wall -Werror=return-type -Werror=address -Werror=sequence-point -Wformat -Werror=format-security -Wmissing-declarations -Wmissing-prototypes -Wstrict-prototypes -Wundef -Winit-self -Wpointer-arith -Wshadow -Wno-narrowing -fdiagnostics-show-option -Wno-long-long -pthread -fomit-frame-pointer -msse -msse2 -msse3 -ffunction-sections  -O3 -DNDEBUG   -o CMakeFiles/cmTryCompileExec2851596874.dir/CheckIncludeFile.c.o   -c /home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:29: fatal error: ffmpeg/avformat.h: No such file or directory
+ #include <ffmpeg/avformat.h>
+                             ^
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2851596874.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory `/home/andrew/Projects/computer_vision/car_detection/Neko/haarTraining/src/opencv-2.4.10/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2851596874/fast] Error 2
+
+
