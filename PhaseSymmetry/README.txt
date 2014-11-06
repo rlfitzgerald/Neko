@@ -17,4 +17,5 @@ symmetry calculation is explained.
 
 
 
-
+To use this module, set the PYTHONPATH as follows
+export PYTHONPATH=$PYTHONPATH:$PATH_TO/Neko/PhaseSymmetry:$PATH_TO/Neko/PhaseSymmetry/src
