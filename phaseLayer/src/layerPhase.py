@@ -84,6 +84,7 @@ def main(argv=None):
     pha2, ori2, tot2, T2 = phasesym(grayImg, nscale=NSCALE_2, norient=NORIENT_2, minWaveLength=3, mult=MULT_2, sigmaOnf =SIGMAONF_2, k=K_2, polarity=0)
     pha3, ori3, tot3, T3 = phasesym(grayImg, nscale=NSCALE_3, norient=NORIENT_3, minWaveLength=3, mult=MULT_3, sigmaOnf =SIGMAONF_3, k=K_3, polarity=0)
 
+
     pha = pha1 + pha2 + pha3
 
     pha1=cv2.normalize(pha1,pha1,0,255,cv2.NORM_MINMAX,cv2.CV_8UC1)
