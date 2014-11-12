@@ -32,6 +32,7 @@ def blobDetect(img):
             rect = cv2.minAreaRect(cnt)
             box = cv2.cv.BoxPoints(rect)
             box = np.int0(box)
+            print box
             cv2.drawContours(colorImg, [box], 0, (0, 0, 255), 2)
 
     cv2.imwrite('Boxes.jpg', colorImg)

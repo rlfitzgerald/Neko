@@ -16,6 +16,10 @@ folder, along with the paper in which the MATLAB source was refrenced and the ph
 symmetry calculation is explained.   
 
 
+The directory "phaseTuning" (located within "src") contains a tool developed to discover 
+the optimal parameter configuartion tuning for the phase symmetry transformation tool. 
+
 
 To use this module, set the PYTHONPATH as follows
 export PYTHONPATH=$PYTHONPATH:$PATH_TO/Neko/PhaseSymmetry:$PATH_TO/Neko/PhaseSymmetry/src
+
