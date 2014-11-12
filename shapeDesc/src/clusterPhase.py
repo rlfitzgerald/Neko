@@ -83,11 +83,11 @@ def main(argv=None):
 
     NSCALE = 4
     NORIENT = 6
-    MULT = 3.4
-    SIGMAONF = 0.45
-    K = 11
+    MULT = 3
+    SIGMAONF = 0.55
+    K = 1
     BLUR = (3,3)
-    SRAD = 15
+    SRAD = 5
     RRAD = 6
     DEN = 10
     THRESH = 127
@@ -127,7 +127,8 @@ def main(argv=None):
 
 
 
-    ret,thresh_img = cv2.threshold(segmented_image,THRESH,255, cv2.THRESH_BINARY| cv2.THRESH_OTSU)
+    #ret,thresh_img = cv2.threshold(segmented_image,THRESH,255, cv2.THRESH_BINARY| cv2.THRESH_OTSU)
+    thresh_img = cv2.adaptiveThreshold(segmented_image,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,7,0)
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_T_%d.png"%(NSCALE,NORIENT,MULT,SIGMAONF,K,BLUR[0],BLUR[1],SRAD,RRAD,DEN,THRESH), thresh_img)
 
 
