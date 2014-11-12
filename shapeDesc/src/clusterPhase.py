@@ -3,6 +3,7 @@ import os
 import pymeanshift as pms
 from phasesym import *
 from matplotlib import pyplot as plt
+import optparse
 
 def meanShift(filename):
 
@@ -48,6 +49,22 @@ def main(argv=None):
      on a given input image, in that order."""
 
     parser = optparse.OptionParser(description=desc, usage='Usage: ex) %prog imageFile.png')
+    parser.add_option('--scale', help='specify number of phasesym scales', dest='NSCALE', default=4, type="int")
+    parser.add_option('--ori', help='specify number of phasesym orientations', dest='NORIENT', default=6, type="int")
+    parser.add_option('--mult', help='specify multiplier for phasesym', dest='MULT', default=3.0, type="float")
+    parser.add_option('--sig', help='specify sigma on frequncy for phasesym', dest='SIGMAONF', default=0.55, type="float")
+    parser.add_option('--k', help='specify k value for phasesym', dest='K', default=1, type="int")
+    parser.add_option('--blur', help='specify blur width value N for NxN blur operation', dest='BLUR', default=3, type="int")
+    parser.add_option('--srad', help='specify spatial radius for mean shift', dest='SRAD', default=5, type="int")
+    parser.add_option('--rrad', help='specify radiometric radius for mean shift', dest='RRAD', default=6, type="int")
+    parser.add_option('--den', help='specify pixel density value for mean shift', dest='DEN', default=10, type="int")
+    parser.add_option('--amin', help='specify blob minimum area for boxing', dest='AMIN', default=5, type="int")
+    parser.add_option('--amax', help='specify blob maximum area for boxing', dest='AMAX', default=400, type="int")
+    parser.add_option('--wmin', help='specify box minimum width acceptance', dest='WMIN', default=3, type="int")
+    parser.add_option('--wmax', help='specify box maximum width acceptance', dest='WMAX', default=35, type="int")
+    parser.add_option('--hmin', help='specify box minimum height acceptance', dest='HMIN', default=2, type="int")
+    parser.add_option('--hmax', help='specify box maximum height acceptance', dest='HMAX', default=55, type="int")
+    parser.add_option('--arat', help='specify minimum box aspect ratio for acceptance', dest='ARATIO', default=0.25, type="float")
 
     (opts, args) = parser.parse_args(argv)
     args = args[1:]
@@ -63,6 +80,26 @@ def main(argv=None):
         print "\n invalid argument(s) %s provided" % (str(args))
         parser.print_help()
         sys.exit(-1)
+
+
+    NSCALE =opts.NSCALE
+    NORIENT =opts.NORIENT
+    MULT =opts.MULT
+    SIGMAONF =opts.SIGMAONF
+    K =opts.K
+    BLUR =(opts.BLUR,opts.BLUR)
+    SRAD =opts.SRAD
+    RRAD =opts.RRAD
+    DEN =opts.DEN
+    AMIN =opts.AMIN
+    AMAX =opts.AMAX
+    WMAX =opts.WMAX
+    WMIN =opts.WMIN
+    HMAX =opts.HMAX
+    HMIN =opts.HMIN
+    ARATIO =opts.ARATIO 
+
+    THRESH=0
 
     #begin transform
     filename = args[0]
@@ -81,23 +118,23 @@ def main(argv=None):
     #blobDetect(pha)
 
 
-    NSCALE = 4
-    NORIENT = 6
-    MULT = 3
-    SIGMAONF = 0.55
-    K = 1
-    BLUR = (3,3)
-    SRAD = 5
-    RRAD = 6
-    DEN = 10
-    THRESH = 127
-    AMIN = 5
-    AMAX = 400
-    WMAX = 35
-    WMIN = 3
-    HMAX = 55
-    HMIN = 2
-    ARATIO = 0.25
+    #NSCALE = 4
+    #NORIENT = 6
+    #MULT = 3
+    #SIGMAONF = 0.55
+    #K = 1
+    #BLUR = (3,3)
+    #SRAD = 5
+    #RRAD = 6
+    #DEN = 10
+    #THRESH = 127
+    #AMIN = 5
+    #AMAX = 400
+    #WMAX = 35
+    #WMIN = 3
+    #HMAX = 55
+    #HMIN = 2
+    #ARATIO = 0.25
 
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2.imwrite(basename+"_gray.png", grayImg)
