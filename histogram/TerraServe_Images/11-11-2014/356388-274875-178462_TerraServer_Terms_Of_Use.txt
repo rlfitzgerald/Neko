@@ -1,0 +1,57 @@
+TerraServer Terms of Use 
+  
+The aerial, satellite imagery, real estate parcel attribute data, and other associated information and data provided by TerraServer through this web site are provided by and are the copyrighted property of TerraServer and/or its licensors, partners, associates. By accessing the information, you agree to these terms and conditions, and TerraServer grants you a non-exclusive, non-transferable limited license, without the right to sublicense, to use the information solely as further set forth below. 
+
+You agree to use the information solely for personal use, internal business use (normal scope of business), and not for resale commercial purposes nor for service bureau, time-sharing or other similar purposes unless explicitly permitted in writing by TerraServer to do so.  
+  
+DISTRIBUTION 
+This image data file has been prepared by TerraServer exclusively for distribution via our web site to the purchaser and/or recipient of this image data file. It is intended exclusively for their own use. 
+
+The original supplier of this image file and TerraServer retain the copyright to this image data file. The use of the this image data file is restricted to the representatives of the recipient and those other parties requested in writing by the purchaser and designated in writing be TerraServer or the original copyright owner or both. 
+
+Use of this image data file by any other party is not permitted and is considered a violation of the copyright. This image data file may not be reproduced in digital form, in whole or in part, without the express written permission of TerraServer. 
+
+This image data file is delivered to you as a copyrighted image with a non-transferable license that provides you restricted redistribution rights. You may not sell any images or allow others to redistribute any images in a commercial activity and you may not publish it without specific written permission of TerraServer. Publication licenses may be available on a limited basis for a fee from TerraServer. 
+
+When you do distribute or display the image in any commercial environment, in any form, you must credit the source of the image as TerraServer.  
+  
+RESTRICTIONS 
+Without limiting the foregoing, you may not (a) sublicense, transfer, assign, rent, lease, publish or otherwise convey the information, or any right with respect thereto, to any third party unless such party is conducting or performing work strictly on your behalf for a limited time; (b) disassemble, decompile or otherwise reverse engineer all or any portion of the information; (c) remove from the information, or alter, any of the trademarks, trade names, logos, patent or copyright notices or other proprietary notices or markings, or add any other notices or markings to the information. 
+  
+OWNERSHIP 
+The information is the copyrighted property of TerraServer and/or its licensors, partners, associates. The information is licensed, not sold, and you agree that the information, and all intellectual property and proprietary rights therein, are owned by TerraServer and/or its licensors, partners, associates. 
+
+TerraServer and/or its licensors, partners, associates reserves title and all rights and interests in and to the information, including without limitation all patent rights, copyrights, trademarks, trade names, trade secrets and other intellectual property and proprietary rights. There are no implied licenses, and all rights not expressly granted are reserved by TerraServer. 
+  
+LIABILITY 
+Under no circumstances is TerraServer or the original imagery data suppliers liable for any of the following: third-party claims against you for losses or damages; loss of, or damage to, your records or data; or economic consequential damages (including lost profits or savings) or incidental damages, even if we are informed of their possibility. 
+  
+DISCLAIMER 
+All information is provided to you "as is," and you agree to use it at your own risk. TerraServer and its licensors, suppliers, partners and employees make no guarantees, representations or warranties of any kind, express or implied, arising by law or otherwise, regarding the information, including but not limited to, warranties of title, content, quality, accuracy, completeness, effectiveness, reliability, merchantability, fitness for a particular purpose, non-infringement of third party rights, usefulness, use or results to be obtained from information, or that the information will be error-free. 
+  
+EXPORT CONTROL 
+You agree and acknowledge that the information is subject to U.S. export control law, and you will comply with all applicable laws and regulations in your use of the information under this Agreement, including without limitation all export laws and regulations of the U.S. government. Without limiting the foregoing, you expressly agree not to export or re-export the information in violation of such laws or regulations, or without all required licenses and authorizations. 
+  
+SUBSCRIPTIONS 
+Subscriptions will automatically renew at the end of its term until you have canceled. You can cancel at any time through the online subscriber options. You can also cancel by contacting us at contact@terraserver.com or toll free at 888-963-9553. 
+
+Recurring billing will be charged each week, month or year on the same calendar day as your subscription originally began. Once you have cancelled your subscription you will still have full access to your subscription until it expires at the end of your current subscription term when it is due to expire. After you have cancelled, you can reactivate recurring billing if your subscription has not yet expired. If your subscription expires, you will have to manually renew your subscription with a new purchase. 
+
+Image downloads and print orders are not included in the subscription price. They must still be purchased separately. A subscription is not required to order images or prints, but a subscription can be helpful in the selection process in many situations. You can purchase images and prints at resolutions both at any resolution and without watermarks without a subscription. 
+
+You must be logged in with your subscription information to take advantage of these benefits. We currently track that you are signed in using cookies, so cookies must be enabled in your web browser. There is no additional access to extra locations or imagery that is not available to non-subscribers. That means searches you perform before subscribing will yield the same results as those you receive after subscribing.  
+  
+AVAILABILITY 
+Imagery purchased from TerraServer will remain available for download for a minimum of ten (10) days. Due to licensing agreements, storage constraints, and support costs there is no guarantee that imagery will still be available more than ten (10) days after purchase. 
+
+Additionally, if your subscription expires and is inactive for over thirty (30) days, your saved information such as Order History and Imagery Favorites may be removed if your subscription continues to remain inactive.  
+  
+REFUND POLICY 
+All products are provided as is and no purchases will be refunded and once you have subscribed no refunds will be provided. If you do not cancel before the end of your current term and you subscription is automatically renewed there will be no refunds. 
+
+We do not guarantee coverage of any particular area, so please search the site before you purchase. Imagery quality, date, resolution and availability vary greatly depending on the location. 
+
+TerraServer will not refund the purchase price of any digital image data file that has been downloaded onto a customer's or any third party computer system once this purchase transaction has been completed and the initial digital image file transfer has occurred. 
+
+If a downloaded digital image file is corrupt, is the incorrect image type, resolution or does not cover the area specified during the image purchase transaction, TerraServer will provide a replacement image. If the purchaser intentionally or accidentally attempts to purchase an image for any area not actually available in the TerraServer database, no refunds will be provided. 
+
