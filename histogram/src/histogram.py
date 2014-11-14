@@ -1,5 +1,6 @@
 import sys, os
-from phasesym import *
+#from phasesym import *
+from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
@@ -36,6 +37,63 @@ def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, A
 
     cv2.imwrite("Boxes + centroids.jpg", original_img)
     return centroids
+
+
+def getImageWindow(img,x,y,w,h):
+    """
+    INPUTS:
+        img = input image
+        x,y = point in image to be the center of the returned window
+        w,h = height and width of the windo
+    OUTPUTS:
+        window = a wxh size window containing a slice of the image
+                 centered on x,y. The window will be padded with 
+                 zeros for border cases
+    """
+    imgY,imgX,imgZ = img.shape 
+    window = np.zeros((w,h,imgZ))
+
+    winCenterX = -1
+    winCenterY = -1
+
+    #account for even/odd window sizes
+    if w%2:
+        winCenterX = int(np.ceil(w/float(2)))
+    else:
+        winCenterX = w/2
+
+    if h%2:
+        winCenterY = int(np.ceil(h/float(2)))
+    else:
+        winCenterY = h/2
+
+    #get the upper and lower bounds of the image slice
+    lowX = max(x-winCenterX,0)
+    highX = min(imgX,x+winCenterX)
+    lowY = max(y-winCenterY,0)
+    highY = min(imgY,y+winCenterY)
+
+    #get the offset X and Y distances between the centroid (x,y) and the 
+    #edge of the image slice
+    offsetLowX = x - lowX
+    offsetLowY = y - lowY
+    offsetHighX = highX - x
+    offsetHighY = highY - y
+
+
+    #get the window upper and lower bounds where the image
+    #slice is to be placed
+    XwinLow = winCenterX - offsetLowX
+    YwinLow = winCenterY - offsetLowY
+    XwinHigh = winCenterX + offsetHighX
+    YwinHigh = winCenterY + offsetHighY
+
+    try:
+        window[YwinLow:YwinHigh-1,XwinLow:XwinHigh-1,:] = img[lowY:highY-1,lowX:highX-1,:]
+    except:
+        import pdb; pdb.set_trace()
+
+    return window
 
 
 def main(argv=None):
@@ -132,6 +190,14 @@ def main(argv=None):
     centroids = getCentroids(thresh_img, img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO)
     
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO), img)
+
+    for cen in centroids:
+        print cen
+        win = getImageWindow(img, cen[1],cen[0],50,50)
+        cv2.imwrite("windowTiles/win_%d_%d.jpg"%(cen[0],cen[1]),win)
+
+
+
 
 
 if __name__ == "__main__":
