@@ -1,6 +1,6 @@
 import sys, os
-#from phasesym import *
-from PhaseSymmetry.src.phasesym import *
+from phasesym import *
+#from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
