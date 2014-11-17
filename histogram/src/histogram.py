@@ -1,6 +1,6 @@
 import sys, os
-from phasesym import *
-#from PhaseSymmetry.src.phasesym import *
+#from phasesym import *
+from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
@@ -120,6 +120,8 @@ def main(argv=None):
     parser.add_option('--hmin', help='specify box minimum height acceptance', dest='HMIN', default=2, type="int")
     parser.add_option('--hmax', help='specify box maximum height acceptance', dest='HMAX', default=55, type="int")
     parser.add_option('--arat', help='specify minimum box aspect ratio for acceptance', dest='ARATIO', default=0.25, type="float")
+    parser.add_option('--edgeMin', help='specify minimum hysteresis value for edge detection', dest='EDGEMIN', default=100, type="int")
+    parser.add_option('--edgeMax', help='specify maximum hysteresis value for edge detection', dest='EDGEMAX', default=200, type="int")
 
     (opts, args) = parser.parse_args(argv)
     args = args[1:]
@@ -153,6 +155,8 @@ def main(argv=None):
     HMAX = opts.HMAX
     HMIN = opts.HMIN
     ARATIO = opts.ARATIO
+    EDGEMIN = opts.EDGEMIN
+    EDGEMAX = opts.EDGEMAX
 
 
     #begin transform
