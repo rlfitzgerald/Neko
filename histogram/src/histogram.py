@@ -1,9 +1,10 @@
 import sys, os
-#from phasesym import *
-from PhaseSymmetry.src.phasesym import *
+from phasesym import *
+#from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
+from Hist import RadAngleHist
 
 def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
 
@@ -26,14 +27,14 @@ def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, A
                     rect = cv2.minAreaRect(cnt)
                     box = cv2.cv.BoxPoints(rect)
                     box = np.int0(box)
-                    cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
+                    #cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
 
                     moments = cv2.moments(cnt)
                     centroid_x = int(moments['m10']/moments['m00'])
                     centroid_y = int(moments['m01']/moments['m00'])
                     centroid = (centroid_y, centroid_x)
                     centroids.append(centroid)
-                    original_img[centroid] = [0, 0, 255]
+                    #original_img[centroid] = [0, 0, 255]
 
     cv2.imwrite("Boxes + centroids.jpg", original_img)
     return centroids
@@ -93,7 +94,7 @@ def getImageWindow(img,x,y,w,h):
     except:
         import pdb; pdb.set_trace()
 
-    return window
+    return np.uint8(window)
 
 
 def main(argv=None):
@@ -195,10 +196,21 @@ def main(argv=None):
     
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO), img)
 
+    histograms = []
+
+    dirName = 'windowTiles'
+    if not (os.path.isdir(dirName)):
+        #create subdirectory if it does not already exist
+        os.mkdir(dirName)
+
     for cen in centroids:
         print cen
         win = getImageWindow(img, cen[1],cen[0],50,50)
-        cv2.imwrite("windowTiles/win_%d_%d.jpg"%(cen[0],cen[1]),win)
+        #cv2.imwrite("windowTiles/win_%d_%d.jpg"%(cen[1],cen[0]), win)
+        filename = "win_%d_%d.jpg" % (cen[1], cen[0])
+        cv2.imwrite(os.path.join(dirName, filename), win)
+        histogram = RadAngleHist(win, ori[cen[0], cen[1]])
+        histograms.append(histogram)
 
 
 
