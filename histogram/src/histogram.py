@@ -205,7 +205,7 @@ def main(argv=None):
 
     for cen in centroids:
         print cen
-        win = getImageWindow(img, cen[1],cen[0],50,50)
+        win = getImageWindow(img, cen[1],cen[0],51,51)
         #cv2.imwrite("windowTiles/win_%d_%d.jpg"%(cen[1],cen[0]), win)
         filename = "win_%d_%d.jpg" % (cen[1], cen[0])
         cv2.imwrite(os.path.join(dirName, filename), win)

@@ -28,6 +28,7 @@ class Hist(object):
 
 
 import numpy as np
+np.seterr(all='raise')
 class RadAngleHist(Hist):
 
 
@@ -71,13 +72,20 @@ class RadAngleHist(Hist):
         rVals = []
         thetaVals = []
 
+        xarr = np.arange(-self._centroid[0], self._centroid[0] + 1, 1)
+        yarr = np.arange(self._centroid[1], -self._centroid[1] + 1, -1)
+
+        xg, yg = np.meshgrid(xarr, yarr)
+
         for x in range(self._img.shape[0]):
             for y in range(self._img.shape[1]):
-                pixel = edge[x][y]
-                if y is not self._centroid[1] and x is not self._centroid[0] and pixel == self._MAX_VAL:
+                xCoordinate = xg[x][y]
+                yCoordinate = yg[x][y]
+                pixel = edge[xCoordinate][yCoordinate]
+                if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel == self._MAX_VAL:
                     # Calculate distance and angle from centroid
-                    logr = np.log(np.sqrt(np.square(x - self._centroid[0]) + np.square(y - self._centroid[1])))
-                    theta = np.arctan(np.floor((x - self._centroid[0])/(y - self._centroid[1])))
+                    logr = np.log(np.sqrt(np.square(xCoordinate) + np.square(yCoordinate)))
+                    theta = np.arctan2(xCoordinate, yCoordinate)
                     rVals.append(logr)
                     thetaVals.append(theta)
 
