@@ -55,17 +55,15 @@ class RadAngleHist(Hist):
     def _calculate(self):
         """X is rows, Y is columns here."""
 
+        # Canny edge detection
+        blurImg = cv2.blur(self._img, (3,3))
+        edge = cv2.Canny(blurImg, 90, 250)
+
         # Rotate image
         M = cv2.getRotationMatrix2D(self._centroid, 360 - self._orientation, 1)
-        img = cv2.warpAffine(self._img, M, self._img.shape)
+        img = cv2.warpAffine(edge, M, edge.shape)
         M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
         img = cv2.warpAffine(img, M, img.shape)
-
-
-        # Canny edge detection
-
-        blurImg = cv2.blur(img, (3,3))
-        edge = cv2.Canny(blurImg, 90, 250)
 
         # Radiometric histogram calculation begins
         # Measure from centroid outward to edge of blob
@@ -81,7 +79,7 @@ class RadAngleHist(Hist):
             for y in range(self._img.shape[1]):
                 xCoordinate = xg[x][y]
                 yCoordinate = yg[x][y]
-                pixel = edge[xCoordinate][yCoordinate]
+                pixel = img[xCoordinate][yCoordinate]
                 if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel == self._MAX_VAL:
                     # Calculate distance and angle from centroid
                     logr = np.log(np.sqrt(np.square(xCoordinate) + np.square(yCoordinate)))
