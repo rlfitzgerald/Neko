@@ -71,7 +71,7 @@ class RadAngleHist(Hist):
         thetaVals = []
 
         xarr = np.arange(-self._centroid[0], self._centroid[0] + 1, 1)
-        yarr = np.arange(self._centroid[1], -self._centroid[1] + 1, -1)
+        yarr = np.arange(self._centroid[1], -self._centroid[1] - 1, -1)
 
         xg, yg = np.meshgrid(xarr, yarr)
 
