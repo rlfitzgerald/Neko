@@ -1,10 +1,13 @@
 import sys, os
-from phasesym import *
-#from PhaseSymmetry.src.phasesym import *
+#from phasesym import *
+from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
 from Hist import RadAngleHist
+
+
+DEBUG = False
 
 def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
 
@@ -27,14 +30,17 @@ def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, A
                     rect = cv2.minAreaRect(cnt)
                     box = cv2.cv.BoxPoints(rect)
                     box = np.int0(box)
-                    cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
+
+                    if DEBUG:
+                        cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
 
                     moments = cv2.moments(cnt)
                     centroid_x = int(moments['m10']/moments['m00'])
                     centroid_y = int(moments['m01']/moments['m00'])
                     centroid = (centroid_y, centroid_x)
                     centroids.append(centroid)
-                    #original_img[centroid] = [0, 0, 255]
+                    if DEBUG:
+                        original_img[centroid] = [0, 0, 255]
 
     cv2.imwrite("Boxes + centroids.jpg", original_img)
     return centroids
@@ -209,7 +215,7 @@ def main(argv=None):
         #cv2.imwrite("windowTiles/win_%d_%d.jpg"%(cen[1],cen[0]), win)
         filename = "win_%d_%d.jpg" % (cen[1], cen[0])
         cv2.imwrite(os.path.join(dirName, filename), win)
-        histogram = RadAngleHist(win, ori[cen[0], cen[1]])
+        histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[1],cen[0])
         histograms.append(histogram)
 
 

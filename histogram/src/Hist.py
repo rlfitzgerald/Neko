@@ -1,4 +1,4 @@
-
+import os
 import cv2
 class Hist(object):
 
@@ -32,16 +32,20 @@ np.seterr(all='raise')
 class RadAngleHist(Hist):
 
 
-    def __init__(self, img, orientation):
+    def __init__(self, img, orientation,xCentroid,yCentroid):
         super(RadAngleHist, self).__init__(img)
         self._MAX_VAL = 255
 
         #Centroid calculation. Assumes passed image window is centered on centroid of blob.
         w, h = self._img.shape
+        self._rmin=2
+        self._rmax=0
         if w%2:
             x = int(np.ceil(w/float(2)))
+            self._rmax=int(np.ceil(w/float(2)))
         else:
             x = w/2
+            self._rmax = w/2
 
         if h%2:
             y = int(np.ceil(h/float(2)))
@@ -50,6 +54,8 @@ class RadAngleHist(Hist):
 
         self._centroid = (x, y)
         self._orientation = orientation
+        self._origCentroidX = xCentroid
+        self._origCentroidY = yCentroid
         self._calculate()
 
     def _calculate(self):
@@ -64,6 +70,10 @@ class RadAngleHist(Hist):
         img = cv2.warpAffine(edge, M, edge.shape)
         M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
         img = cv2.warpAffine(img, M, img.shape)
+
+        dirName = "windowTiles"
+        filename = "win_edge_%d_%d.jpg" % (self._origCentroidX, self._origCentroidY)
+        cv2.imwrite(os.path.join(dirName, filename), img)
 
         # Radiometric histogram calculation begins
         # Measure from centroid outward to edge of blob
@@ -82,14 +92,19 @@ class RadAngleHist(Hist):
                 pixel = img[xCoordinate][yCoordinate]
                 if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel == self._MAX_VAL:
                     # Calculate distance and angle from centroid
-                    logr = np.log(np.sqrt(np.square(xCoordinate) + np.square(yCoordinate)))
+                    rad = np.sqrt(np.square(xCoordinate) + np.square(yCoordinate))
                     theta = np.arctan2(xCoordinate, yCoordinate)
-                    rVals.append(logr)
+                    if theta < 0:
+                        theta = theta + 2*np.pi
+                    rVals.append(rad)
                     thetaVals.append(theta)
 
-        H, xe, ye = np.histogram2d(thetaVals, rVals, bins=[5, 12])
+        radiusBins = np.logspace(np.log10(self._rmin),np.log10(self._rmax),6)
+        thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
+        H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins])
         self._hist = H
-        print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " + str(self._centroid) + "\n\n"
+        print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
+        + str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
 
     def compare(self, otherHist, dist):
 
