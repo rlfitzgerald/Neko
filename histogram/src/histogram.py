@@ -27,7 +27,7 @@ def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, A
                     rect = cv2.minAreaRect(cnt)
                     box = cv2.cv.BoxPoints(rect)
                     box = np.int0(box)
-                    #cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
+                    cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
 
                     moments = cv2.moments(cnt)
                     centroid_x = int(moments['m10']/moments['m00'])
