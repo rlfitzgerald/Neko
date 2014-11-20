@@ -80,8 +80,8 @@ class RadAngleHist(Hist):
         rVals = []
         thetaVals = []
 
-        xarr = np.arange(-self._centroid[0], self._centroid[0] + 1, 1)
-        yarr = np.arange(self._centroid[1], -self._centroid[1] - 1, -1)
+        xarr = np.arange(-self._centroid[1], self._centroid[1] + 1, 1)
+        yarr = np.arange(self._centroid[0], -self._centroid[0] - 1, -1)
 
         xg, yg = np.meshgrid(xarr, yarr)
 
@@ -89,17 +89,19 @@ class RadAngleHist(Hist):
             for y in range(self._img.shape[1]):
                 xCoordinate = xg[x][y]
                 yCoordinate = yg[x][y]
-                pixel = img[xCoordinate][yCoordinate]
-                if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel == self._MAX_VAL:
+                pixel = img[x][y]
+                #if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel == self._MAX_VAL:
+                if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel > 10:
                     # Calculate distance and angle from centroid
                     rad = np.sqrt(np.square(xCoordinate) + np.square(yCoordinate))
                     theta = np.arctan2(xCoordinate, yCoordinate)
+                    print "(%d,%d)  px: %d  rad: %d  theta: %f" %(xCoordinate,yCoordinate,pixel,rad,theta)
                     if theta < 0:
                         theta = theta + 2*np.pi
                     rVals.append(rad)
                     thetaVals.append(theta)
 
-        radiusBins = np.logspace(np.log10(self._rmin),np.log10(self._rmax),6)
+        radiusBins = np.logspace(np.log10(self._rmin),np.log10(self._rmax * np.sqrt(2)),6)
         thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
         H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins])
         self._hist = H

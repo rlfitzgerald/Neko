@@ -7,7 +7,7 @@ import pymeanshift as pms
 from Hist import RadAngleHist
 
 
-DEBUG = False
+DEBUG = True
 
 def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
 
@@ -31,15 +31,15 @@ def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, A
                     box = cv2.cv.BoxPoints(rect)
                     box = np.int0(box)
 
-                    if DEBUG:
-                        cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
+                    #if DEBUG:
+                    #    cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
 
                     moments = cv2.moments(cnt)
                     centroid_x = int(moments['m10']/moments['m00'])
                     centroid_y = int(moments['m01']/moments['m00'])
                     centroid = (centroid_y, centroid_x)
                     centroids.append(centroid)
-                    if DEBUG:
+                    if DEBUG and centroid == (45,50):
                         original_img[centroid] = [0, 0, 255]
 
     cv2.imwrite("Boxes + centroids.jpg", original_img)
@@ -58,7 +58,8 @@ def getImageWindow(img,x,y,w,h):
                  zeros for border cases
     """
     imgY,imgX,imgZ = img.shape 
-    window = np.zeros((w,h,imgZ))
+    #window = np.zeros((w,h,imgZ))
+    window = np.zeros((h,w,imgZ))
 
     winCenterX = -1
     winCenterY = -1
@@ -211,11 +212,13 @@ def main(argv=None):
 
     for cen in centroids:
         print cen
-        win = getImageWindow(img, cen[1],cen[0],51,51)
+        #win = getImageWindow(img, cen[1],cen[0],51,51)
+        win = getImageWindow(img, cen[0],cen[1],51,51)
         #cv2.imwrite("windowTiles/win_%d_%d.jpg"%(cen[1],cen[0]), win)
-        filename = "win_%d_%d.jpg" % (cen[1], cen[0])
+        filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
-        histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[1],cen[0])
+        #histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[1],cen[0])
+        histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[0],cen[1])
         histograms.append(histogram)
 
 
