@@ -45,6 +45,19 @@ DEBUG = False
 #    cv2.imwrite("Boxes + centroids.jpg", original_img)
 #    return centroids
 
+def drawBox(img, contour):
+    """
+    INPUTS:
+        img      = image to be drawn on
+        contours = contour objects
+    OUTPUTS:
+        None 
+    """
+    rect = cv2.minAreaRect(contour)
+    box = cv2.cv.BoxPoints(rect)
+    box = np.int0(box)
+    cv2.drawContours(img, [box], 0, (255, 0, 0), 2)
+    
 
 def getCentroids(contours):
     """
@@ -110,7 +123,6 @@ def getImageWindow(img,x,y,w,h):
                  zeros for border cases
     """
     imgY,imgX,imgZ = img.shape 
-    #window = np.zeros((w,h,imgZ))
     window = np.zeros((h,w,imgZ))
 
     winCenterX = -1
@@ -252,7 +264,6 @@ def main(argv=None):
 
     #get centroids
     contours = getContours(thresh_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO)
-    #centroids = getCentroids(thresh_img, img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO)
     centroids = getCentroids(contours)
     
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO), img)
@@ -266,7 +277,7 @@ def main(argv=None):
 
     for cen in centroids:
         print cen
-        win = getImageWindow(img, cen[0],cen[1],51,51)
+        win = getImageWindow(img, cen[0],cen[1],45,45)
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
         histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[0],cen[1])
