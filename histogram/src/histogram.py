@@ -7,13 +7,79 @@ import pymeanshift as pms
 from Hist import RadAngleHist
 
 
-DEBUG = True
+DEBUG = False
 
-def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
+#def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
+#
+#    contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+#
+#    centroids = []
+#    for cnt in contours:
+#        area = cv2.contourArea(cnt)
+#        if area >= AMIN and area <= AMAX:
+#            x,y,w,h = cv2.boundingRect(cnt)
+#            if w < WMAX and h < HMAX and w > WMIN and h > HMIN:
+#                aspectRatio = 0
+#                if w == min(w, h):
+#                    aspectRatio = float(w)/h
+#                else:
+#                    aspectRatio = float(h)/w
+#
+#                if aspectRatio > ARATIO:
+#                    print "x=%d y=%d w=%d h=%d" % (x, y, w, h)
+#                    rect = cv2.minAreaRect(cnt)
+#                    box = cv2.cv.BoxPoints(rect)
+#                    box = np.int0(box)
+#
+#                    #if DEBUG:
+#                    #    cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
+#
+#                    moments = cv2.moments(cnt)
+#                    centroid_x = int(moments['m10']/moments['m00'])
+#                    centroid_y = int(moments['m01']/moments['m00'])
+#                    centroid = (centroid_y, centroid_x)
+#                    centroids.append(centroid)
+#                    if DEBUG:
+#                        original_img[centroid] = [0, 0, 255]
+#
+#    cv2.imwrite("Boxes + centroids.jpg", original_img)
+#    return centroids
 
+
+def getCentroids(contours):
+    """
+    INPUTS:
+        contours = list of contour objects
+    OUTPUTS:
+        centroids = list of centroids corresponding to the input contours
+    """
+    centroids = []
+    for cnt in contours:
+        moments = cv2.moments(cnt)
+        centroid_x = int(moments['m10']/moments['m00'])
+        centroid_y = int(moments['m01']/moments['m00'])
+        centroid = (centroid_y, centroid_x)
+        centroids.append(centroid)
+
+    return centroids
+
+def getContours(thresh_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
+    """
+    INPUTS:
+        thresh_img = thresholded image (black and white)
+        AMIN       = blob minimum area
+        AMAX       = blob maximum area
+        WMIN       = minimum contour bounding rectangle width
+        WMAX       = maximum contour bounding rectangle width
+        HMIN       = minimum contour bounding rectangle height
+        HMAX       = maximum contour bounding rectangle height
+        ARATIO     = minimum contour bounding rectangle aspect ratio
+    OUTPUTS:
+        filteredContours = list of contours filtered according to input params
+    """
     contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-    centroids = []
+    filteredContours = []
     for cnt in contours:
         area = cv2.contourArea(cnt)
         if area >= AMIN and area <= AMAX:
@@ -27,23 +93,9 @@ def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, A
 
                 if aspectRatio > ARATIO:
                     print "x=%d y=%d w=%d h=%d" % (x, y, w, h)
-                    rect = cv2.minAreaRect(cnt)
-                    box = cv2.cv.BoxPoints(rect)
-                    box = np.int0(box)
+                    filteredContours.append(cnt)
 
-                    #if DEBUG:
-                    #    cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
-
-                    moments = cv2.moments(cnt)
-                    centroid_x = int(moments['m10']/moments['m00'])
-                    centroid_y = int(moments['m01']/moments['m00'])
-                    centroid = (centroid_y, centroid_x)
-                    centroids.append(centroid)
-                    if DEBUG and centroid == (45,50):
-                        original_img[centroid] = [0, 0, 255]
-
-    cv2.imwrite("Boxes + centroids.jpg", original_img)
-    return centroids
+    return filteredContours
 
 
 def getImageWindow(img,x,y,w,h):
@@ -199,7 +251,9 @@ def main(argv=None):
 
 
     #get centroids
-    centroids = getCentroids(thresh_img, img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO)
+    contours = getContours(thresh_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO)
+    #centroids = getCentroids(thresh_img, img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO)
+    centroids = getCentroids(contours)
     
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO), img)
 
@@ -212,12 +266,9 @@ def main(argv=None):
 
     for cen in centroids:
         print cen
-        #win = getImageWindow(img, cen[1],cen[0],51,51)
         win = getImageWindow(img, cen[0],cen[1],51,51)
-        #cv2.imwrite("windowTiles/win_%d_%d.jpg"%(cen[1],cen[0]), win)
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
-        #histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[1],cen[0])
         histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[0],cen[1])
         histograms.append(histogram)
 
