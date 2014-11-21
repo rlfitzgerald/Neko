@@ -32,12 +32,13 @@ np.seterr(all='raise')
 class RadAngleHist(Hist):
 
 
-    def __init__(self, img, orientation,xCentroid,yCentroid):
+    def __init__(self, img, orientation,yCentroid,xCentroid):
         super(RadAngleHist, self).__init__(img)
         self._MAX_VAL = 255
 
         #Centroid calculation. Assumes passed image window is centered on centroid of blob.
-        w, h = self._img.shape
+        #w, h = self._img.shape
+        h, w = self._img.shape
         self._rmin=2
         self._rmax=0
         if w%2:
@@ -52,7 +53,8 @@ class RadAngleHist(Hist):
         else:
             y = h/2
 
-        self._centroid = (x, y)
+        #self._centroid = (x, y)
+        self._centroid = (y, x)
         self._orientation = orientation
         self._origCentroidX = xCentroid
         self._origCentroidY = yCentroid
@@ -85,16 +87,21 @@ class RadAngleHist(Hist):
 
         xg, yg = np.meshgrid(xarr, yarr)
 
-        for x in range(self._img.shape[0]):
-            for y in range(self._img.shape[1]):
-                xCoordinate = xg[x][y]
-                yCoordinate = yg[x][y]
-                pixel = img[x][y]
+        for x in range(img.shape[1]):
+            for y in range(img.shape[0]):
+                #import pdb; pdb.set_trace()
+                #xCoordinate = xg[x][y]
+                #yCoordinate = yg[x][y]
+                xCoordinate = xg[y][x]
+                yCoordinate = yg[y][x]
+                #pixel = img[x][y]
+                pixel = img[y][x]
                 #if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel == self._MAX_VAL:
                 if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel > 10:
                     # Calculate distance and angle from centroid
                     rad = np.sqrt(np.square(xCoordinate) + np.square(yCoordinate))
-                    theta = np.arctan2(xCoordinate, yCoordinate)
+                    #theta = np.arctan2(xCoordinate, yCoordinate)
+                    theta = np.arctan2(yCoordinate, xCoordinate)
                     print "(%d,%d)  px: %d  rad: %d  theta: %f" %(xCoordinate,yCoordinate,pixel,rad,theta)
                     if theta < 0:
                         theta = theta + 2*np.pi

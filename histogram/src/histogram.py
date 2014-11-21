@@ -111,7 +111,8 @@ def getContours(thresh_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
     return filteredContours
 
 
-def getImageWindow(img,x,y,w,h):
+#def getImageWindow(img,x,y,w,h):
+def getImageWindow(img,y,x,h,w):
     """
     INPUTS:
         img = input image
@@ -275,13 +276,24 @@ def main(argv=None):
         #create subdirectory if it does not already exist
         os.mkdir(dirName)
 
-    for cen in centroids:
+    for cen,cnt in zip(centroids,contours):
         print cen
-        win = getImageWindow(img, cen[0],cen[1],45,45)
+        #win = getImageWindow(img, cen[0],cen[1],26,52)
+
+        #import pdb; pdb.set_trace()
+        win = getImageWindow(img, cen[0],cen[1],52,26)   #correct
+
+
+        #win = getImageWindow(img, cen[0],cen[1],51,51)
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
         histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[0],cen[1])
         histograms.append(histogram)
+        boxedImg = img.copy()
+        drawBox(boxedImg,cnt)
+        filename = "win_box_%d_%d.jpg" % (cen[0], cen[1])
+        cv2.imwrite(os.path.join(dirName, filename), boxedImg)
+
 
 
 
