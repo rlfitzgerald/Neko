@@ -1,6 +1,6 @@
 import sys, os
-from phasesym import *
-#from PhaseSymmetry.src.phasesym import *
+#from phasesym import *
+from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
@@ -243,7 +243,8 @@ def main(argv=None):
     pha = cv2.normalize(pha, pha, 0, 255, cv2.NORM_MINMAX, cv2.CV_8UC1)
     pha = np.uint8(pha)
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K), pha)
-
+    cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_ori.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K), ori)
+    np.savetxt('python_ori.txt',ori)
 
     pha = cv2.blur(pha, BLUR)
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1]), pha)
@@ -259,15 +260,22 @@ def main(argv=None):
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN), segmented_image)
 
 
+    #ori = np.uint8(ori)
+    #(ori, labels_image, number_regions) = pms.segment(ori, spatial_radius=SRAD, range_radius=RRAD, min_density=DEN)
+    #ori=cv2.normalize(ori, ori, 0, 255, cv2.NORM_MINMAX, cv2.CV_8UC1)
+    #ori = np.uint8(ori)
+    #cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_ori.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN), ori)
+
+
     thresh_img = cv2.adaptiveThreshold(segmented_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 7, 0)
-    cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN), thresh_img)
+    cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_T.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN), thresh_img)
 
 
     #get centroids
     contours = getContours(thresh_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO)
     centroids = getCentroids(contours)
     
-    cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO), img)
+    #cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO), img)
 
     histograms = []
 
@@ -282,6 +290,7 @@ def main(argv=None):
         os.mkdir(dirName)
 
     outputImg = img.copy()
+    #ori = np.loadtxt('matlab_ori.txt',delimiter=',')
 
     for cen,cnt in zip(centroids,contours):
         #print cen
@@ -295,16 +304,18 @@ def main(argv=None):
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
         histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[0],cen[1])
+        #print ori[cen[0], cen[1]]
         print masterHist.compare(histogram)
-        if masterHist.compare(histogram, dist=60) == 0:
-            histograms.append(histogram)
+#        if masterHist.compare(histogram, dist=60) == 0:
+#            histograms.append(histogram)
+        if masterHist.compare(histogram) < 0.07:
             drawBox(outputImg, cnt)
             # boxedImg = img.copy()
             # drawBox(boxedImg,cnt)
             # filename = "win_box_%d_%d.jpg" % (cen[0], cen[1])
             # cv2.imwrite(os.path.join(dirName, filename), boxedImg)
     dirName = ""
-    filename = "Boxes + Centroids.jpg"
+    filename = "Boxes_+_Centroids.jpg"
     cv2.imwrite(os.path.join(dirName, filename), outputImg)
 
 

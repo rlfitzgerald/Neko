@@ -76,7 +76,7 @@ class RadAngleHist(Hist):
         img[:,img.shape[1] - 10:img.shape[1]] = 0
         
         dirName = "windowTiles"
-        filename = "win_edge_%d_%d.jpg" % (self._origCentroidX, self._origCentroidY)
+        filename = "win_edge_%d_%d_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
         cv2.imwrite(os.path.join(dirName, filename), img)
 
         # Radiometric histogram calculation begins
@@ -112,10 +112,59 @@ class RadAngleHist(Hist):
 
         radiusBins = np.logspace(np.log10(self._rmin),np.log10(self._rmax * np.sqrt(2)),6)
         thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
-        H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins])
+        H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins],normed=True)
         self._hist = H
         #print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
         #+ str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
+
+
+#    def compare(self, otherHist, dist=0):
+#        """
+#        Compares this histogram to the passed histogram using a Euclidian distance metric.
+#        Euclidian distance is also known as 'ordinary ' distance. In general, n-dimensional
+#        Euclidian distance is defined as follows:
+#
+#                    d(p, q) = sqrt((p1 - q1)^2 + (p2 - q2)^2 + (p3 - q3)^2 + ... + (pn - qn)^2)
+#
+#        Each point in this histogram is defined as a bin value. In this case, our histogram is 5 by 12
+#        bins in size
+#        :param:
+#            otherHist:  the other histogram to compare 'this' histogram against.
+#            dist:       the distance tolerance to allow. Default is no tolerance. If a tolerance is provided,
+#                        the return value will be 0 if the distance lies within the tolerance. Any value outside
+#                        the tolerance will return dist - <calcuated distance>.
+#
+#        :return: Returns the 'distance' the histograms are from each other. Positive value if valid, negative value
+#                 if the histograms do not match in size, and 'None' if the provided argument is not a histogram.
+#        """
+#        thisList = []
+#        otherList = []
+#        try:
+#            thisList = self._hist.tolist()
+#            otherList = otherHist.tolist()
+#
+#        except Exception as e:
+#            #Something is wrong with the provided histogram. Stop.
+#            print e
+#            return None
+#
+#        if len(thisList) != len(otherList) or len(thisList) == 0 or len(otherList) == 0:
+#            #Histogram size mismatch or empty lists. Stop.
+#            return -1
+#
+#        #Calculate histogram distance.
+#
+#        currentSquareDiff = 0
+#        for thisRow, otherRow in zip(thisList, otherList):
+#            for thisElement, otherElement in zip(thisRow, otherRow):
+#                currentSquareDiff = currentSquareDiff + np.square(thisElement - otherElement)
+#
+#        totalDistance = np.sqrt(currentSquareDiff)
+#        
+#        if (totalDistance - dist) <= 0:
+#            return 0
+#        else:
+#            return totalDistance - dist
 
 
     def compare(self, otherHist, dist=0):
@@ -137,35 +186,9 @@ class RadAngleHist(Hist):
         :return: Returns the 'distance' the histograms are from each other. Positive value if valid, negative value
                  if the histograms do not match in size, and 'None' if the provided argument is not a histogram.
         """
-        thisList = []
-        otherList = []
-        try:
-            thisList = self._hist.tolist()
-            otherList = otherHist.tolist()
 
-        except Exception as e:
-            #Something is wrong with the provided histogram. Stop.
-            print e
-            return None
-
-        if len(thisList) != len(otherList) or len(thisList) == 0 or len(otherList) == 0:
-            #Histogram size mismatch or empty lists. Stop.
-            return -1
-
-        #Calculate histogram distance.
-
-        currentSquareDiff = 0
-        for thisRow, otherRow in zip(thisList, otherList):
-            for thisElement, otherElement in zip(thisRow, otherRow):
-                currentSquareDiff = currentSquareDiff + np.square(thisElement - otherElement)
-
-        totalDistance = np.sqrt(currentSquareDiff)
-        
-        if (totalDistance - dist) <= 0:
-            return 0
-        else:
-            return totalDistance - dist
-
+        dist = np.linalg.norm(self._hist-otherHist._hist)
+        return dist
 
     def getHist(self):
         """
