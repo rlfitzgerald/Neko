@@ -28,7 +28,6 @@ class Hist(object):
 
 
 import numpy as np
-np.seterr(all='raise')
 class RadAngleHist(Hist):
 
 
@@ -72,7 +71,10 @@ class RadAngleHist(Hist):
         img = cv2.warpAffine(edge, M, edge.shape)
         M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
         img = cv2.warpAffine(img, M, img.shape)
-
+        
+        img[:,0:10] = 0
+        img[:,img.shape[1] - 10:img.shape[1]] = 0
+        
         dirName = "windowTiles"
         filename = "win_edge_%d_%d.jpg" % (self._origCentroidX, self._origCentroidY)
         cv2.imwrite(os.path.join(dirName, filename), img)
@@ -102,7 +104,7 @@ class RadAngleHist(Hist):
                     rad = np.sqrt(np.square(xCoordinate) + np.square(yCoordinate))
                     #theta = np.arctan2(xCoordinate, yCoordinate)
                     theta = np.arctan2(yCoordinate, xCoordinate)
-                    print "(%d,%d)  px: %d  rad: %d  theta: %f" %(xCoordinate,yCoordinate,pixel,rad,theta)
+                   # print "(%d,%d)  px: %d  rad: %d  theta: %f" %(xCoordinate,yCoordinate,pixel,rad,theta)
                     if theta < 0:
                         theta = theta + 2*np.pi
                     rVals.append(rad)
@@ -112,8 +114,8 @@ class RadAngleHist(Hist):
         thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
         H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins])
         self._hist = H
-        print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
-        + str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
+        #print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
+        #+ str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
 
 
     def compare(self, otherHist, dist=0):
@@ -158,8 +160,11 @@ class RadAngleHist(Hist):
                 currentSquareDiff = currentSquareDiff + np.square(thisElement - otherElement)
 
         totalDistance = np.sqrt(currentSquareDiff)
-        totalDistance = np.abs(totalDistance - dist)
-        return totalDistance
+        
+        if (totalDistance - dist) <= 0:
+            return 0
+        else:
+            return totalDistance - dist
 
 
     def getHist(self):

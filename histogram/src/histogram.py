@@ -1,6 +1,6 @@
 import sys, os
-#from phasesym import *
-from PhaseSymmetry.src.phasesym import *
+from phasesym import *
+#from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
@@ -105,7 +105,7 @@ def getContours(thresh_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
                     aspectRatio = float(h)/w
 
                 if aspectRatio > ARATIO:
-                    print "x=%d y=%d w=%d h=%d" % (x, y, w, h)
+                    #print "x=%d y=%d w=%d h=%d" % (x, y, w, h)
                     filteredContours.append(cnt)
 
     return filteredContours
@@ -271,32 +271,41 @@ def main(argv=None):
 
     histograms = []
 
+    f = open('masterHist.txt')
+    h = np.loadtxt(f)
+    masterImg = cv2.imread('singleCar.png')
+    masterHist = RadAngleHist(masterImg, 180, 27, 29)
+
     dirName = 'windowTiles'
     if not (os.path.isdir(dirName)):
         #create subdirectory if it does not already exist
         os.mkdir(dirName)
 
+    outputImg = img.copy()
+
     for cen,cnt in zip(centroids,contours):
-        print cen
+        #print cen
         #win = getImageWindow(img, cen[0],cen[1],26,52)
 
         #import pdb; pdb.set_trace()
-        win = getImageWindow(img, cen[0],cen[1],52,26)   #correct
+        win = getImageWindow(img, cen[0],cen[1],55,55)   #correct
 
 
         #win = getImageWindow(img, cen[0],cen[1],51,51)
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
         histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[0],cen[1])
-        histograms.append(histogram)
-        boxedImg = img.copy()
-        drawBox(boxedImg,cnt)
-        filename = "win_box_%d_%d.jpg" % (cen[0], cen[1])
-        cv2.imwrite(os.path.join(dirName, filename), boxedImg)
-
-
-
-
+        print masterHist.compare(histogram)
+        if masterHist.compare(histogram, dist=60) == 0:
+            histograms.append(histogram)
+            drawBox(outputImg, cnt)
+            # boxedImg = img.copy()
+            # drawBox(boxedImg,cnt)
+            # filename = "win_box_%d_%d.jpg" % (cen[0], cen[1])
+            # cv2.imwrite(os.path.join(dirName, filename), boxedImg)
+    dirName = ""
+    filename = "Boxes + Centroids.jpg"
+    cv2.imwrite(os.path.join(dirName, filename), outputImg)
 
 
 if __name__ == "__main__":
