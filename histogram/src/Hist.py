@@ -71,9 +71,12 @@ class RadAngleHist(Hist):
         img = cv2.warpAffine(edge, M, edge.shape)
         M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
         img = cv2.warpAffine(img, M, img.shape)
+        margin = int(img.shape[1]*0.2)
         
-        img[:,0:10] = 0
-        img[:,img.shape[1] - 10:img.shape[1]] = 0
+        #img[:,0:10] = 0
+        #img[:,img.shape[1] - 10:img.shape[1]] = 0
+        img[:,0:margin] = 0
+        img[:,img.shape[1] - margin:img.shape[1]] = 0
         
         dirName = "windowTiles"
         filename = "win_edge_%d_%d_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)

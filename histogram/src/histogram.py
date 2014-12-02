@@ -195,6 +195,10 @@ def main(argv=None):
     parser.add_option('--arat', help='specify minimum box aspect ratio for acceptance', dest='ARATIO', default=0.25, type="float")
     parser.add_option('--edgeMin', help='specify minimum hysteresis value for edge detection', dest='EDGEMIN', default=100, type="int")
     parser.add_option('--edgeMax', help='specify maximum hysteresis value for edge detection', dest='EDGEMAX', default=200, type="int")
+    parser.add_option('--ref', help='specify reference car image', dest='MASTERIMG', default="")
+    parser.add_option('--win', help='specify search window size', dest='WINSZ', default=55, type="int")
+    parser.add_option('--tol', help='specify shape description tolerance', dest='TOL', default=0.07, type="float")
+    
 
     (opts, args) = parser.parse_args(argv)
     args = args[1:]
@@ -230,7 +234,27 @@ def main(argv=None):
     ARATIO = opts.ARATIO
     EDGEMIN = opts.EDGEMIN
     EDGEMAX = opts.EDGEMAX
+    WINSZ = opts.WINSZ 
+    TOL = opts.TOL
+    masterImg = ""
+    masterHist = None
 
+    if len(opts.MASTERIMG) > 0:
+        masterImg = cv2.imread(opts.MASTERIMG)
+
+        h, w, z = masterImg.shape
+        if w%2:
+            x = int(np.ceil(w/float(2)))
+        else:
+            x = w/2
+        if h%2:
+            y = int(np.ceil(h/float(2)))
+        else:
+            y = h/2
+        masterHist = RadAngleHist(masterImg, 180, y, x)
+    else:
+        masterImg = cv2.imread('singleCar.png')
+        masterHist = RadAngleHist(masterImg, 180, 27, 29)
 
     #begin transform
     filename = args[0]
@@ -279,10 +303,6 @@ def main(argv=None):
 
     histograms = []
 
-    f = open('masterHist.txt')
-    h = np.loadtxt(f)
-    masterImg = cv2.imread('singleCar.png')
-    masterHist = RadAngleHist(masterImg, 180, 27, 29)
 
     dirName = 'windowTiles'
     if not (os.path.isdir(dirName)):
@@ -297,18 +317,20 @@ def main(argv=None):
         #win = getImageWindow(img, cen[0],cen[1],26,52)
 
         #import pdb; pdb.set_trace()
-        win = getImageWindow(img, cen[0],cen[1],55,55)   #correct
+        #win = getImageWindow(img, cen[0],cen[1],55,55)   #correct
+        win = getImageWindow(img, cen[0],cen[1],WINSZ,WINSZ)   #correct
 
 
         #win = getImageWindow(img, cen[0],cen[1],51,51)
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
-        histogram = RadAngleHist(win, ori[cen[0], cen[1]],cen[0],cen[1])
+        histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1])
         #print ori[cen[0], cen[1]]
         print masterHist.compare(histogram)
 #        if masterHist.compare(histogram, dist=60) == 0:
 #            histograms.append(histogram)
-        if masterHist.compare(histogram) < 0.07:
+        #if masterHist.compare(histogram) < 0.07:
+        if masterHist.compare(histogram) < TOL:
             drawBox(outputImg, cnt)
             # boxedImg = img.copy()
             # drawBox(boxedImg,cnt)
