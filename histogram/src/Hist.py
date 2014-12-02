@@ -66,17 +66,19 @@ class RadAngleHist(Hist):
         blurImg = cv2.blur(self._img, (3,3))
         edge = cv2.Canny(blurImg, 90, 250)
 
-        # Rotate image
-        M = cv2.getRotationMatrix2D(self._centroid, 360 - self._orientation, 1)
-        img = cv2.warpAffine(edge, M, edge.shape)
-        M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
-        img = cv2.warpAffine(img, M, img.shape)
-        margin = int(img.shape[1]*0.2)
-        
-        #img[:,0:10] = 0
-        #img[:,img.shape[1] - 10:img.shape[1]] = 0
-        img[:,0:margin] = 0
-        img[:,img.shape[1] - margin:img.shape[1]] = 0
+#        # Rotate image
+#        M = cv2.getRotationMatrix2D(self._centroid, 360 - self._orientation, 1)
+#        img = cv2.warpAffine(edge, M, edge.shape)
+#        M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
+#        img = cv2.warpAffine(img, M, img.shape)
+#        margin = int(img.shape[1]*0.2)
+#        
+#        #img[:,0:10] = 0
+#        #img[:,img.shape[1] - 10:img.shape[1]] = 0
+#        img[:,0:margin] = 0
+#        img[:,img.shape[1] - margin:img.shape[1]] = 0
+
+        img = edge
         
         dirName = "windowTiles"
         filename = "win_edge_%d_%d_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
@@ -117,6 +119,10 @@ class RadAngleHist(Hist):
         thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
         H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins],normed=True)
         self._hist = H
+
+        rot = int(self._orientation/30)
+        self._hist = np.roll(self._hist,-rot)
+
         #print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
         #+ str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
 

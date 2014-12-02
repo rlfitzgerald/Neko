@@ -254,7 +254,7 @@ def main(argv=None):
         masterHist = RadAngleHist(masterImg, 180, y, x)
     else:
         masterImg = cv2.imread('singleCar.png')
-        masterHist = RadAngleHist(masterImg, 180, 27, 29)
+        masterHist = RadAngleHist(masterImg, 0, 27, 29)
 
     #begin transform
     filename = args[0]
