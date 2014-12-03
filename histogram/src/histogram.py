@@ -111,6 +111,12 @@ def getContours(thresh_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
     return filteredContours
 
 
+def drawCentroids(img, centroids):
+    for cen in centroids:
+        cv2.circle(img,(cen[1],cen[0]),1,(0,0,255),-1)
+
+
+
 #def getImageWindow(img,x,y,w,h):
 def getImageWindow(img,y,x,h,w):
     """
@@ -251,7 +257,7 @@ def main(argv=None):
             y = int(np.ceil(h/float(2)))
         else:
             y = h/2
-        masterHist = RadAngleHist(masterImg, 180, y, x)
+        masterHist = RadAngleHist(masterImg, 0, y, x)
     else:
         masterImg = cv2.imread('singleCar.png')
         masterHist = RadAngleHist(masterImg, 0, 27, 29)
@@ -310,36 +316,29 @@ def main(argv=None):
         os.mkdir(dirName)
 
     outputImg = img.copy()
-    #ori = np.loadtxt('matlab_ori.txt',delimiter=',')
+    centroidsImg = img.copy()
+    drawCentroids(centroidsImg,centroids)
 
     for cen,cnt in zip(centroids,contours):
         #print cen
         #win = getImageWindow(img, cen[0],cen[1],26,52)
 
-        #import pdb; pdb.set_trace()
-        #win = getImageWindow(img, cen[0],cen[1],55,55)   #correct
+        #if cen[0]==100 and cen[1] == 310:
+        #    import pdb; pdb.set_trace()
         win = getImageWindow(img, cen[0],cen[1],WINSZ,WINSZ)   #correct
-
-
-        #win = getImageWindow(img, cen[0],cen[1],51,51)
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
         histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1])
+
         #print ori[cen[0], cen[1]]
         print masterHist.compare(histogram)
-#        if masterHist.compare(histogram, dist=60) == 0:
-#            histograms.append(histogram)
-        #if masterHist.compare(histogram) < 0.07:
         if masterHist.compare(histogram) < TOL:
             drawBox(outputImg, cnt)
-            # boxedImg = img.copy()
-            # drawBox(boxedImg,cnt)
-            # filename = "win_box_%d_%d.jpg" % (cen[0], cen[1])
-            # cv2.imwrite(os.path.join(dirName, filename), boxedImg)
-    dirName = ""
-    filename = "Boxes_+_Centroids.jpg"
-    cv2.imwrite(os.path.join(dirName, filename), outputImg)
 
+    dirName = ""
+    cv2.imwrite(os.path.join(dirName, "Boxes_Centroids.jpg"), outputImg)
+    cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f_E_%d_%d_W_%d_T_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO,EDGEMIN,EDGEMAX,WINSZ,TOL), outputImg) 
+    cv2.imwrite(os.path.join(dirName, "Centroids.jpg"), centroidsImg) 
 
 if __name__ == "__main__":
     sys.exit(main())
