@@ -9,41 +9,6 @@ from Hist import RadAngleHist
 
 DEBUG = False
 
-#def getCentroids(thresh_img, original_img, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO):
-#
-#    contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-#
-#    centroids = []
-#    for cnt in contours:
-#        area = cv2.contourArea(cnt)
-#        if area >= AMIN and area <= AMAX:
-#            x,y,w,h = cv2.boundingRect(cnt)
-#            if w < WMAX and h < HMAX and w > WMIN and h > HMIN:
-#                aspectRatio = 0
-#                if w == min(w, h):
-#                    aspectRatio = float(w)/h
-#                else:
-#                    aspectRatio = float(h)/w
-#
-#                if aspectRatio > ARATIO:
-#                    print "x=%d y=%d w=%d h=%d" % (x, y, w, h)
-#                    rect = cv2.minAreaRect(cnt)
-#                    box = cv2.cv.BoxPoints(rect)
-#                    box = np.int0(box)
-#
-#                    #if DEBUG:
-#                    #    cv2.drawContours(original_img, [box], 0, (255, 0, 0), 2)
-#
-#                    moments = cv2.moments(cnt)
-#                    centroid_x = int(moments['m10']/moments['m00'])
-#                    centroid_y = int(moments['m01']/moments['m00'])
-#                    centroid = (centroid_y, centroid_x)
-#                    centroids.append(centroid)
-#                    if DEBUG:
-#                        original_img[centroid] = [0, 0, 255]
-#
-#    cv2.imwrite("Boxes + centroids.jpg", original_img)
-#    return centroids
 
 def drawBox(img, contour):
     """
@@ -175,6 +140,56 @@ def getImageWindow(img,y,x,h,w):
     return np.uint8(window)
 
 
+def genReferenceCar(sz,aspectRatio=0.5):
+    """
+    INPUTS:
+        sz          = size of the image patch to be generated
+        aspectRatio = ratio of the width to height of the rectangle
+    OUTPUTS:
+        ref         =  a sz by sz image patch containing a centered rectangle
+                       of the given aspect ratio whose height is 2
+                       pixels shorter than the image size (to leave
+                       a 1 pixel boarder around the longest rectangle
+                       dimension aka height)
+        winCenterRow = centroid of image patch
+        winCenterCol
+    """
+    winCenterRow = -1
+    winCenterCol = -1
+
+    ref = np.zeros((sz,sz))
+
+    #account for even/odd window sizes
+    if sz%2:
+        winCenterRow = int(np.ceil(sz/float(2)))
+    else:
+        winCenterRow = sz/2
+
+    winCenterCol = winCenterRow
+
+    rectHeight = sz-2
+    rectWidth = int(np.ceil(rectHeight*aspectRatio))
+
+    rectRowStart = winCenterRow - int(np.ceil(rectWidth/2))-1
+    rectColStart = 1 
+
+
+    rectRowEnd = winCenterRow + int(np.ceil(rectWidth/2))-1
+    rectColEnd = sz-2   #account for zero indexing and 1 px border
+
+    cv2.rectangle(ref,(rectRowStart, rectColStart), (rectRowEnd,rectColEnd),255)
+    ref = np.uint8(ref)
+    return ref, (winCenterRow,winCenterCol)
+
+
+
+
+
+
+
+
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -257,10 +272,16 @@ def main(argv=None):
             y = int(np.ceil(h/float(2)))
         else:
             y = h/2
-        masterHist = RadAngleHist(masterImg, 0, y, x)
+        print y, x
+        masterHist = RadAngleHist(masterImg, 0, y, x,BLUR)
     else:
-        masterImg = cv2.imread('singleCar.png')
-        masterHist = RadAngleHist(masterImg, 0, 27, 29)
+        #masterImg = cv2.imread('singleCar.png')
+        #masterHist = RadAngleHist(masterImg, 0, 27, 29)
+        masterImg, cen = genReferenceCar(WINSZ)
+        print cen
+        print masterImg
+        masterHist = RadAngleHist(masterImg, 0, cen[0], cen[1],BLUR)
+        print str(masterHist)
 
     #begin transform
     filename = args[0]
@@ -318,9 +339,12 @@ def main(argv=None):
     outputImg = img.copy()
     centroidsImg = img.copy()
     drawCentroids(centroidsImg,centroids)
+    #drawCentroids(img,centroids)
 
+    np.set_printoptions(formatter={'float': '{: 0.2f}'.format})
+    print str(masterHist) + "\n"
     for cen,cnt in zip(centroids,contours):
-        #print cen
+        print cen
         #win = getImageWindow(img, cen[0],cen[1],26,52)
 
         #if cen[0]==100 and cen[1] == 310:
@@ -328,9 +352,11 @@ def main(argv=None):
         win = getImageWindow(img, cen[0],cen[1],WINSZ,WINSZ)   #correct
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
-        histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1])
+        #histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1])
+        histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1],BLUR)
 
         #print ori[cen[0], cen[1]]
+        print str(histogram) + "\n"
         print masterHist.compare(histogram)
         if masterHist.compare(histogram) < TOL:
             drawBox(outputImg, cnt)

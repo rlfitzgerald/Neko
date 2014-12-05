@@ -6,7 +6,10 @@ class Hist(object):
         """Default constructor. Must be overloaded in order to properly handle the histogramming methodology used.
         The size and dimensionality of the class member 'hist' will vary based on the histogram method employed in your
         implementation of this class."""
-        self._img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        if len(img.shape) > 2:
+            self._img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        else:
+            self._img = img
         self._hist = None
 
     def _calculate(self):
@@ -31,7 +34,7 @@ import numpy as np
 class RadAngleHist(Hist):
 
 
-    def __init__(self, img, orientation,yCentroid,xCentroid):
+    def __init__(self, img, orientation,yCentroid,xCentroid,blurVal):
         super(RadAngleHist, self).__init__(img)
         self._MAX_VAL = 255
 
@@ -57,13 +60,14 @@ class RadAngleHist(Hist):
         self._orientation = orientation
         self._origCentroidX = xCentroid
         self._origCentroidY = yCentroid
+        self._blurVal = blurVal
         self._calculate()
 
     def _calculate(self):
         """X is rows, Y is columns here."""
-
         # Canny edge detection
-        blurImg = cv2.blur(self._img, (3,3))
+        #blurImg = cv2.blur(self._img, (3,3))
+        blurImg = cv2.blur(self._img, self._blurVal)
         edge = cv2.Canny(blurImg, 90, 250)
 
 #        # Rotate image
@@ -81,7 +85,7 @@ class RadAngleHist(Hist):
         img = edge
         
         dirName = "windowTiles"
-        filename = "win_edge_%d_%d_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
+        filename = "win_%d_%d_edge_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
         cv2.imwrite(os.path.join(dirName, filename), img)
 
         # Radiometric histogram calculation begins
@@ -119,6 +123,8 @@ class RadAngleHist(Hist):
         thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
         H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins],normed=True)
         self._hist = H
+        self._xe = xe
+        self._ye = ye
 
         rot = int(self._orientation/30)
         self._hist = np.roll(self._hist,-rot)
@@ -212,6 +218,7 @@ class RadAngleHist(Hist):
 
     def __str__(self):
 
-        return str(self._hist)
+        histStr = str(self._hist) + "\n" + str(self._xe) + "\n" + str(self._ye)
+        return str(histStr)
 
 
