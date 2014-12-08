@@ -129,6 +129,11 @@ class RadAngleHist(Hist):
         rot = int(self._orientation/30)
         self._hist = np.roll(self._hist,-rot)
 
+        eigVals, eigVec = np.linalg.eig(self._img)
+        self._eigVals = eigVals
+        self._eigVec = eigVec
+        self._idx = eigVals.argsort()[::-1]
+
         #print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
         #+ str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
 
@@ -202,7 +207,18 @@ class RadAngleHist(Hist):
                  if the histograms do not match in size, and 'None' if the provided argument is not a histogram.
         """
 
-        dist = np.linalg.norm(self._hist-otherHist._hist)
+        dist = 0
+        histDist = np.linalg.norm(self._hist-otherHist._hist)
+        
+        eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
+        #eigDotProd = self._eigVec[:,0].dot(self._eigVec[:,1])
+        eigDotProdOtherHist = np.abs(otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1]))
+        #eigDotProdOtherHist = otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1])
+        eigDist = np.sqrt(np.square(eigDotProd - eigDotProdOtherHist))
+         
+        #dist = histDist + eigDist
+        #dist = 0.75*histDist + 0.25*eigDist
+        dist = histDist
         return dist
 
     def getHist(self):
@@ -210,6 +226,10 @@ class RadAngleHist(Hist):
         :return: Returns a copy of this histogram
         """
         return self._hist.copy()
+
+    def getHistSum(self):
+        histSum = self._hist.sum()
+        return histSum
 
     def tolist(self):
 

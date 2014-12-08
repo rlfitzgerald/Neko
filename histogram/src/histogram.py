@@ -357,6 +357,13 @@ def main(argv=None):
 
         #print ori[cen[0], cen[1]]
         print str(histogram) + "\n"
+
+        if histogram.getHistSum() < 0.1:
+            continue
+
+        #if cen == (11,144):
+        #    import pdb;pdb.set_trace()
+
         print masterHist.compare(histogram)
         if masterHist.compare(histogram) < TOL:
             drawBox(outputImg, cnt)
