@@ -138,7 +138,7 @@ def getImageWindow(img,y,x,h,w):
     return np.uint8(window)
 
 
-def scanBlobs(centroids, inputImage):
+def scanBlobs(centroids, inputImage, eps, min_samples):
     """
     INPUT:
         centroids:      A list of centroids obtained from the image being processed
@@ -169,7 +169,9 @@ def scanBlobs(centroids, inputImage):
     #dbResult = DBSCAN(eps=25, min_samples=1, metric='precomputed').fit(sum_distances)
     #dbResult = DBSCAN(eps=25, min_samples=1, metric='precomputed').fit(physical_distances)
 
-    dbResult = DBSCAN(eps=15, min_samples=1, metric='precomputed').fit(physical_distances)
+    #dbResult = DBSCAN(eps=15, min_samples=1, metric='precomputed').fit(physical_distances)
+    dbResult = DBSCAN(eps=eps, min_samples=min_samples, metric='precomputed').fit(physical_distances)
+
     #plotClusters(dbResult, physical_distances)
     return dbResult
 
@@ -281,6 +283,9 @@ def main(argv=None):
     parser.add_option('--arat', help='specify minimum box aspect ratio for acceptance', dest='ARATIO', default=0.25, type="float")
     parser.add_option('--edgeMin', help='specify minimum hysteresis value for edge detection', dest='EDGEMIN', default=100, type="int")
     parser.add_option('--edgeMax', help='specify maximum hysteresis value for edge detection', dest='EDGEMAX', default=200, type="int")
+    parser.add_option('--eps', help='specify maximum epsilon value for DBSCAN clustering algorithm', dest='EPS', default=15, type="int")
+    parser.add_option('--min_samples', help='specify the numer fo minimum samples that constitute a cluster during DBSCAN',
+                      dest='MINSAMPLES', default=1, type="int")
 
     (opts, args) = parser.parse_args(argv)
     args = args[1:]
@@ -316,6 +321,8 @@ def main(argv=None):
     ARATIO = opts.ARATIO
     EDGEMIN = opts.EDGEMIN
     EDGEMAX = opts.EDGEMAX
+    EPS = opts.EPS
+    MINSAMPLES = opts.MINSAMPLES
 
 
     #begin transform
@@ -406,7 +413,7 @@ def main(argv=None):
     filename = "Boxes_+_Centroids.jpg"
     cv2.imwrite(os.path.join(dirName, filename), outputImg)
 
-    dbResult = scanBlobs(shapedCentroids, img.copy())
+    dbResult = scanBlobs(shapedCentroids, img.copy(), EPS, MINSAMPLES)
     drawClusterColors(dbResult, img.copy(), shapedCentroids)
 
 
