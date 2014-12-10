@@ -364,7 +364,7 @@ def main(argv=None):
         #if cen == (11,144):
         #    import pdb;pdb.set_trace()
 
-        print masterHist.compare(histogram)
+        #print masterHist.compare(histogram)
         if masterHist.compare(histogram) < TOL:
             drawBox(outputImg, cnt)
 

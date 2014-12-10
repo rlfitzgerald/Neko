@@ -210,14 +210,23 @@ class RadAngleHist(Hist):
         dist = 0
         histDist = np.linalg.norm(self._hist-otherHist._hist)
         
-        eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
+        #eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
         #eigDotProd = self._eigVec[:,0].dot(self._eigVec[:,1])
-        eigDotProdOtherHist = np.abs(otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1]))
+        #angle = np.arccos(np.clip(np.dot(self._eigVec[:,0], self._eigVec[:,1]),-1,1))
+        angle = np.angle(np.arccos(np.clip(np.vdot(self._eigVec[:,0], self._eigVec[:,1]),-1,1)))
+
+
+        #eigDotProdOtherHist = np.abs(otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1]))
         #eigDotProdOtherHist = otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1])
-        eigDist = np.sqrt(np.square(eigDotProd - eigDotProdOtherHist))
+        #angleOtherHist = np.arccos(np.clip(np.dot(otherHist._eigVec[:,0], otherHist._eigVec[:,1]),-1,1))
+        angleOtherHist = np.angle(np.arccos(np.clip(np.vdot(otherHist._eigVec[:,0], otherHist._eigVec[:,1]),-1,1)))
+
+        #eigDist = np.sqrt(np.square(eigDotProd - eigDotProdOtherHist))
+        #eigDist = np.sqrt(np.square(angle-angleOtherHist))
+        eigDist = np.linalg.norm(angle-angleOtherHist)
+        print angle, angleOtherHist
          
         #dist = histDist + eigDist
-        #dist = 0.75*histDist + 0.25*eigDist
         dist = histDist
         return dist
 
