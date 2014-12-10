@@ -6,7 +6,10 @@ class Hist(object):
         """Default constructor. Must be overloaded in order to properly handle the histogramming methodology used.
         The size and dimensionality of the class member 'hist' will vary based on the histogram method employed in your
         implementation of this class."""
-        self._img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        if len(img.shape) > 2:
+            self._img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+        else:
+            self._img = img
         self._hist = None
 
     def _calculate(self):
@@ -31,7 +34,7 @@ import numpy as np
 class RadAngleHist(Hist):
 
 
-    def __init__(self, img, orientation,yCentroid,xCentroid):
+    def __init__(self, img, orientation,yCentroid,xCentroid,blurVal):
         super(RadAngleHist, self).__init__(img)
         self._MAX_VAL = 255
 
@@ -57,26 +60,32 @@ class RadAngleHist(Hist):
         self._orientation = orientation
         self._origCentroidX = xCentroid
         self._origCentroidY = yCentroid
+        self._blurVal = blurVal
         self._calculate()
 
     def _calculate(self):
         """X is rows, Y is columns here."""
-
         # Canny edge detection
-        blurImg = cv2.blur(self._img, (3,3))
+        #blurImg = cv2.blur(self._img, (3,3))
+        blurImg = cv2.blur(self._img, self._blurVal)
         edge = cv2.Canny(blurImg, 90, 250)
 
-        # Rotate image
-        M = cv2.getRotationMatrix2D(self._centroid, 360 - self._orientation, 1)
-        img = cv2.warpAffine(edge, M, edge.shape)
-        M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
-        img = cv2.warpAffine(img, M, img.shape)
-        
-        img[:,0:10] = 0
-        img[:,img.shape[1] - 10:img.shape[1]] = 0
+#        # Rotate image
+#        M = cv2.getRotationMatrix2D(self._centroid, 360 - self._orientation, 1)
+#        img = cv2.warpAffine(edge, M, edge.shape)
+#        M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
+#        img = cv2.warpAffine(img, M, img.shape)
+#        margin = int(img.shape[1]*0.2)
+#        
+#        #img[:,0:10] = 0
+#        #img[:,img.shape[1] - 10:img.shape[1]] = 0
+#        img[:,0:margin] = 0
+#        img[:,img.shape[1] - margin:img.shape[1]] = 0
+
+        img = edge
         
         dirName = "windowTiles"
-        filename = "win_edge_%d_%d_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
+        filename = "win_%d_%d_edge_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
         cv2.imwrite(os.path.join(dirName, filename), img)
 
         # Radiometric histogram calculation begins
@@ -114,6 +123,17 @@ class RadAngleHist(Hist):
         thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
         H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins],normed=True)
         self._hist = H
+        self._xe = xe
+        self._ye = ye
+
+        rot = int(self._orientation/30)
+        self._hist = np.roll(self._hist,-rot)
+
+        eigVals, eigVec = np.linalg.eig(self._img)
+        self._eigVals = eigVals
+        self._eigVec = eigVec
+        self._idx = eigVals.argsort()[::-1]
+
         #print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
         #+ str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
 
@@ -187,7 +207,27 @@ class RadAngleHist(Hist):
                  if the histograms do not match in size, and 'None' if the provided argument is not a histogram.
         """
 
-        dist = np.linalg.norm(self._hist-otherHist._hist)
+        dist = 0
+        histDist = np.linalg.norm(self._hist-otherHist._hist)
+        
+        #eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
+        #eigDotProd = self._eigVec[:,0].dot(self._eigVec[:,1])
+        #angle = np.arccos(np.clip(np.dot(self._eigVec[:,0], self._eigVec[:,1]),-1,1))
+        angle = np.angle(np.arccos(np.clip(np.vdot(self._eigVec[:,0], self._eigVec[:,1]),-1,1)))
+
+
+        #eigDotProdOtherHist = np.abs(otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1]))
+        #eigDotProdOtherHist = otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1])
+        #angleOtherHist = np.arccos(np.clip(np.dot(otherHist._eigVec[:,0], otherHist._eigVec[:,1]),-1,1))
+        angleOtherHist = np.angle(np.arccos(np.clip(np.vdot(otherHist._eigVec[:,0], otherHist._eigVec[:,1]),-1,1)))
+
+        #eigDist = np.sqrt(np.square(eigDotProd - eigDotProdOtherHist))
+        #eigDist = np.sqrt(np.square(angle-angleOtherHist))
+        eigDist = np.linalg.norm(angle-angleOtherHist)
+        print angle, angleOtherHist
+         
+        #dist = histDist + eigDist
+        dist = histDist
         return dist
 
     def getHist(self):
@@ -196,6 +236,10 @@ class RadAngleHist(Hist):
         """
         return self._hist.copy()
 
+    def getHistSum(self):
+        histSum = self._hist.sum()
+        return histSum
+
     def tolist(self):
 
         return self._hist.tolist()
@@ -203,6 +247,7 @@ class RadAngleHist(Hist):
 
     def __str__(self):
 
-        return str(self._hist)
+        histStr = str(self._hist) + "\n" + str(self._xe) + "\n" + str(self._ye)
+        return str(histStr)
 
 
