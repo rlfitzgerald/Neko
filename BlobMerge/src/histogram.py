@@ -1,10 +1,15 @@
 import sys, os
-#from phasesym import *
-from PhaseSymmetry.src.phasesym import *
+from phasesym import *
+#from PhaseSymmetry.src.phasesym import *
 import cv2, optparse
 import numpy as np
 import pymeanshift as pms
 from Hist import RadAngleHist
+from scipy import spatial
+from sklearn.cluster import DBSCAN
+from matplotlib import pyplot as plt
+from collections import defaultdict
+import colorsys
 
 
 DEBUG = False
@@ -139,6 +144,122 @@ def getImageWindow(img,y,x,h,w):
 
     return np.uint8(window)
 
+def scanBlobs(centroids, inputImage, eps, min_samples):
+    """
+    INPUT:
+        centroids:      A list of centroids obtained from the image being processed
+        inputImage:     A copy of the original input image
+    OUTPUT:
+        clusters:       The clusters found in the centroids dataset using DBSCAN.
+                        Ideally, this is representative of each car in the image.
+    """
+
+    #Get physical spatial differences
+    physical_distances = spatial.distance.pdist(centroids, 'euclidean')
+    physical_distances = spatial.distance.squareform(physical_distances)
+
+    #Get pixel intensities at centroids
+    grayImg = cv2.cvtColor(inputImage, cv2.COLOR_RGB2GRAY)
+    colorPoints = []
+    for curcen in centroids:
+        colorPoints.append((grayImg[curcen], 0))
+
+    #Get color space distances
+    #color_distances = spatial.distance.pdist(colorPoints, 'euclidean')
+    #color_distances = spatial.distance.squareform(color_distances)
+
+    #Create summed distance metric
+    #sum_distances = np.add(physical_distances, color_distances)
+
+    #use DBSCAN
+    #dbResult = DBSCAN(eps=25, min_samples=1, metric='precomputed').fit(sum_distances)
+    #dbResult = DBSCAN(eps=25, min_samples=1, metric='precomputed').fit(physical_distances)
+
+    #dbResult = DBSCAN(eps=15, min_samples=1, metric='precomputed').fit(physical_distances)
+    dbResult = DBSCAN(eps=eps, min_samples=min_samples, metric='precomputed').fit(physical_distances)
+
+    #plotClusters(dbResult, physical_distances)
+    return dbResult
+
+def plotClusters(dbResult, data):
+    # Plot result
+    # Black removed and is used for noise instead.
+
+    labels = dbResult.labels_
+    core_samples_mask = np.zeros_like(dbResult.labels_, dtype=bool)
+    core_samples_mask[dbResult.core_sample_indices_] = True
+    n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+    unique_labels = set(labels)
+    colors = getClusterColors(len(unique_labels))
+    for k, col in zip(unique_labels, colors):
+        if k == -1:
+            # Black used for noise.
+            col = 'k'
+
+        class_member_mask = (labels == k)
+
+        #xy = sum_distances[class_member_mask & core_samples_mask]
+        xy = data[class_member_mask & core_samples_mask]
+        plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=col, markeredgecolor='k', markersize=14)
+
+        #xy = sum_distances[class_member_mask & ~core_samples_mask]
+        xy = data[class_member_mask & ~core_samples_mask]
+        plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=col, markeredgecolor='k', markersize=6)
+
+    plt.title('Estimated number of clusters: %d' % n_clusters_)
+    plt.show()
+
+
+def getClusterColors(numClusters):
+    """
+    INPUT:
+        numClusters     The number of clusters to define unique colors for
+    OUTPUT:
+        RGB_tuples      A list of distinct colors for each cluster in RGB color space
+    """
+    HSV_tuples = [(x * 1.0/numClusters, 0.5, 0.5) for x in range(numClusters)]
+    RGB_tuples = map(lambda x: colorsys.hsv_to_rgb(*x), HSV_tuples)
+    RGB_tuples = [(e[0] * 256, e[1] * 256, e[2] * 256) for e in RGB_tuples]
+    RGB_tuples = [(np.floor(e[0]), np.floor(e[1]), np.floor(e[2])) for e in RGB_tuples]
+
+    return RGB_tuples
+
+def drawClusterColors(dbResult, inputImg, data):
+    """
+    INPUT:
+        dbResult        Resulting clusters from DBSCAN
+        inputImg        A copy of the original input image
+    OUTPUT:
+        <Image Name>_BoxedClusters      A mutated version of the input image with a bounding box around each cluster
+    """
+    outputImg = inputImg.copy()
+
+    #set up a dictionary for cluster member collection
+    dict = defaultdict(list)
+
+    labels = dbResult.labels_
+    core_samples_mask = np.zeros_like(dbResult.labels_, dtype=bool)
+    core_samples_mask[dbResult.core_sample_indices_] = True
+    unique_labels = set(labels)
+    colors = getClusterColors(len(unique_labels))
+
+    for k in unique_labels:
+        class_member_mask = (labels == k)
+        for i in range(len(class_member_mask)):
+            member = class_member_mask[i]
+            if member:
+                dict[k].append(data[i])
+    print "Num Clusters: " + str(len(labels))
+    print dict
+
+    for i, color in zip(dict, colors):
+        entry = dict[i]
+        for j in entry:
+            tempCentroid = (j[1], j[0])
+            cv2.circle(outputImg, tempCentroid, 4, color, thickness=2)
+
+    cv2.imwrite("clusterColors.jpg", outputImg)
+    print "Number of unique clusters: " + str(len(unique_labels))
 
 def genReferenceCar(sz,aspectRatio=0.5):
     """
@@ -219,7 +340,10 @@ def main(argv=None):
     parser.add_option('--ref', help='specify reference car image', dest='MASTERIMG', default="")
     parser.add_option('--win', help='specify search window size', dest='WINSZ', default=55, type="int")
     parser.add_option('--tol', help='specify shape description tolerance', dest='TOL', default=0.07, type="float")
-    
+    parser.add_option('--eps', help='specify maximum epsilon value for DBSCAN clustering algorithm', dest='EPS', default=15, type="int")
+    parser.add_option('--min_samples', help='specify the numer fo minimum samples that constitute a cluster during DBSCAN',
+                      dest='MINSAMPLES', default=1, type="int")
+
 
     (opts, args) = parser.parse_args(argv)
     args = args[1:]
@@ -257,8 +381,11 @@ def main(argv=None):
     EDGEMAX = opts.EDGEMAX
     WINSZ = opts.WINSZ 
     TOL = opts.TOL
+    EPS = opts.EPS
+    MINSAMPLES = opts.MINSAMPLES
     masterImg = ""
     masterHist = None
+
 
     if len(opts.MASTERIMG) > 0:
         masterImg = cv2.imread(opts.MASTERIMG)
@@ -343,6 +470,7 @@ def main(argv=None):
 
     np.set_printoptions(formatter={'float': '{: 0.2f}'.format})
     print str(masterHist) + "\n"
+    shapedCentroids = []
     for cen,cnt in zip(centroids,contours):
         print cen
         #win = getImageWindow(img, cen[0],cen[1],26,52)
@@ -367,11 +495,16 @@ def main(argv=None):
         #print masterHist.compare(histogram)
         if masterHist.compare(histogram) < TOL:
             drawBox(outputImg, cnt)
+            shapedCentroids.append(cen)
 
     dirName = ""
     cv2.imwrite(os.path.join(dirName, "Boxes_Centroids.jpg"), outputImg)
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f_E_%d_%d_W_%d_T_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO,EDGEMIN,EDGEMAX,WINSZ,TOL), outputImg) 
     cv2.imwrite(os.path.join(dirName, "Centroids.jpg"), centroidsImg) 
+    
+    dbResult = scanBlobs(shapedCentroids, img.copy(), EPS, MINSAMPLES)
+    drawClusterColors(dbResult, img.copy(), shapedCentroids)
+
 
 if __name__ == "__main__":
     sys.exit(main())
