@@ -1,0 +1,9 @@
+# To downsample the reference car image, use the following command
+convert input.jpg -colorspace RGB -filter Lanczos -define filter:blur=.9891028367558475 -distort Resize 20% -colorspace sRGB output.jpg
+
+
+# To extend the canvas of an image use the following command. This is useful for when you cropped an image patch
+# to the exact shape of a car but now need to make the image patch square. The following command extends the 
+# image patch canvas to be 41 by 41 and sets the added pixels to black
+convert input.jpg -gravity center -background black -extent 41x41 output_41x41.png
+
