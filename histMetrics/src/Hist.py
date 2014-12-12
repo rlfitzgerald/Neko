@@ -166,7 +166,6 @@ class RadAngleHist(Hist):
 
         if dist < tol:
             return True 
-        
         return False
 
     def _test_eigenVector(self, otherHist):

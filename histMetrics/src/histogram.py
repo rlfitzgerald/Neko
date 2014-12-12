@@ -341,8 +341,8 @@ def main(argv=None):
     parser.add_option('--win', help='specify search window size, default matches reference image size', dest='WINSZ', default=-1, type="int")
     parser.add_option('--tol', help='specify shape description tolerance', dest='TOL', default=0.07, type="float")
     parser.add_option('--eps', help='specify maximum epsilon value for DBSCAN clustering algorithm', dest='EPS', default=15, type="int")
-    parser.add_option('--min_samples', help='specify the numer fo minimum samples that constitute a cluster during DBSCAN',
-                      dest='MINSAMPLES', default=1, type="int")
+    parser.add_option('--min_samples', help='specify the numer fo minimum samples that constitute a cluster during DBSCAN', dest='MINSAMPLES', default=1, type="int")
+    parser.add_option('--bestFit', help='specify best fit Euclidian distance for shape description', action='store_true' ,dest='BESTFIT', default=False)
 
 
     (opts, args) = parser.parse_args(argv)
@@ -383,6 +383,10 @@ def main(argv=None):
     TOL = opts.TOL
     EPS = opts.EPS
     MINSAMPLES = opts.MINSAMPLES
+    BESTFIT = opts.BESTFIT
+
+
+
     masterImg = ""
     masterHist = None
 
@@ -502,13 +506,8 @@ def main(argv=None):
         #if cen == (11,144):
         #    import pdb;pdb.set_trace()
 
-#        dist = masterHist.compare(histogram)
-#        print "%.4f\n"%(dist)
-#        if dist < TOL:
-#            drawBox(outputImg, cnt)
-#            shapedCentroids.append(cen)
 
-        if masterHist.compare(histogram, tol=TOL, bestFit=True):
+        if masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT):
             drawBox(outputImg, cnt)
             shapedCentroids.append(cen)
 
