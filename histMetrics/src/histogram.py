@@ -500,7 +500,7 @@ def main(argv=None):
         #print ori[cen[0], cen[1]]
         print str(histogram)
 
-        if histogram.getHistSum() < 0.1:
+        if histogram.getShapeHistSum() < 0.1:
             continue
 
         #if cen == (11,144):

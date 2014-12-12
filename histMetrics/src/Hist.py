@@ -10,7 +10,7 @@ class Hist(object):
             self._img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         else:
             self._img = img
-        self._hist = None
+        self._shapeHist = None
 
     def _calculate(self):
         """Calculates the histogram value on the given input image. This value is stored in the class member 'hist'"""
@@ -103,19 +103,19 @@ class RadAngleHist(Hist):
         radiusBins = np.logspace(np.log10(self._rmin),np.log10(self._rmax * np.sqrt(2)),6)
         thetaBins = np.arange(0,2*np.pi+0.001, np.pi/6)
         H, xe, ye = np.histogram2d(rVals, thetaVals, bins=[radiusBins, thetaBins],normed=True)
-        self._hist = H
+        self._shapeHist = H
         self._xe = xe
         self._ye = ye
 
         rot = int(self._orientation/30)
-        self._hist = np.roll(self._hist,-rot)
+        self._shapeHist = np.roll(self._shapeHist,-rot)
 
         eigVals, eigVec = np.linalg.eig(self._img)
         self._eigVals = eigVals
         self._eigVec = eigVec
         self._idx = eigVals.argsort()[::-1]
 
-        #print "Histogram:\n" + str(self._hist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
+        #print "Histogram:\n" + str(self._shapeHist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
         #+ str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
 
     
@@ -151,13 +151,13 @@ class RadAngleHist(Hist):
             bestFit = kwargs['bestFit']
 
         if not bestFit:
-            dist = np.linalg.norm(self._hist-otherHist.getHist())
+            dist = np.linalg.norm(self._shapeHist-otherHist.getShapeHist())
         else:
             minDist = 9999999
-            h = otherHist.getHist()
+            h = otherHist.getShapeHist()
             for i in range(h.shape[1]):
                 rotHist = np.roll(h,i)
-                dist = np.linalg.norm(self._hist-rotHist)
+                dist = np.linalg.norm(self._shapeHist-rotHist)
                 if dist < minDist:
                     minDist = dist
             dist = minDist
@@ -215,7 +215,7 @@ class RadAngleHist(Hist):
 #        """
 #
 #        dist = 0
-#        histDist = np.linalg.norm(self._hist-otherHist._hist)
+#        histDist = np.linalg.norm(self._shapeHist-otherHist._hist)
 #        
 #        #eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
 #        #eigDotProd = self._eigVec[:,0].dot(self._eigVec[:,1])
@@ -239,24 +239,22 @@ class RadAngleHist(Hist):
 
 
 
-    def getHist(self):
+    def getShapeHist(self):
         """
         :return: Returns a copy of this histogram
         """
-        return self._hist
+        return self._shapeHist
 
-    def getHistSum(self):
-        histSum = self._hist.sum()
+    def getShapeHistSum(self):
+        histSum = self._shapeHist.sum()
         return histSum
 
     def tolist(self):
-
-        return self._hist.tolist()
+        return self._shapeHist.tolist()
 
 
     def __str__(self):
-
-        histStr = str(self._hist) + "\n" + str(self._xe) + "\n" + str(self._ye)
+        histStr = str(self._shapeHist) + "\n" + str(self._xe) + "\n" + str(self._ye)
         return str(histStr)
 
 
