@@ -508,7 +508,7 @@ def main(argv=None):
 #            drawBox(outputImg, cnt)
 #            shapedCentroids.append(cen)
 
-        if masterHist.compare(histogram, tol=TOL):
+        if masterHist.compare(histogram, tol=TOL, bestFit=True):
             drawBox(outputImg, cnt)
             shapedCentroids.append(cen)
 

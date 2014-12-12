@@ -55,7 +55,6 @@ class RadAngleHist(Hist):
         else:
             y = h/2
 
-        #self._centroid = (x, y)
         self._centroid = (y, x)
         self._orientation = orientation
         self._origCentroidX = xCentroid
@@ -66,21 +65,8 @@ class RadAngleHist(Hist):
     def _calculate(self):
         """X is rows, Y is columns here."""
         # Canny edge detection
-        #blurImg = cv2.blur(self._img, (3,3))
         blurImg = cv2.blur(self._img, self._blurVal)
         edge = cv2.Canny(blurImg, 90, 250)
-
-#        # Rotate image
-#        M = cv2.getRotationMatrix2D(self._centroid, 360 - self._orientation, 1)
-#        img = cv2.warpAffine(edge, M, edge.shape)
-#        M = cv2.getRotationMatrix2D(self._centroid, 90, 1)
-#        img = cv2.warpAffine(img, M, img.shape)
-#        margin = int(img.shape[1]*0.2)
-#        
-#        #img[:,0:10] = 0
-#        #img[:,img.shape[1] - 10:img.shape[1]] = 0
-#        img[:,0:margin] = 0
-#        img[:,img.shape[1] - margin:img.shape[1]] = 0
 
         img = edge
         
@@ -101,17 +87,12 @@ class RadAngleHist(Hist):
         for x in range(img.shape[1]):
             for y in range(img.shape[0]):
                 #import pdb; pdb.set_trace()
-                #xCoordinate = xg[x][y]
-                #yCoordinate = yg[x][y]
                 xCoordinate = xg[y][x]
                 yCoordinate = yg[y][x]
-                #pixel = img[x][y]
                 pixel = img[y][x]
-                #if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel == self._MAX_VAL:
                 if not((xCoordinate == 0) and (yCoordinate == 0)) and pixel > 10:
                     # Calculate distance and angle from centroid
                     rad = np.sqrt(np.square(xCoordinate) + np.square(yCoordinate))
-                    #theta = np.arctan2(xCoordinate, yCoordinate)
                     theta = np.arctan2(yCoordinate, xCoordinate)
                    # print "(%d,%d)  px: %d  rad: %d  theta: %f" %(xCoordinate,yCoordinate,pixel,rad,theta)
                     if theta < 0:
@@ -139,8 +120,29 @@ class RadAngleHist(Hist):
 
     
     def _test_histogramDistance(self, otherHist, **kwargs):
+        """
+        Compares this histogram to the passed histogram using a Euclidian distance metric.
+        Euclidian distance is also known as 'ordinary ' distance. In general, n-dimensional
+        Euclidian distance is defined as follows:
+
+                    d(p, q) = sqrt((p1 - q1)^2 + (p2 - q2)^2 + (p3 - q3)^2 + ... + (pn - qn)^2)
+
+        Each point in this histogram is defined as a bin value. In this case, our histogram is 5 by 12
+        bins in size
+        :param:
+            otherHist:  the other histogram to compare 'this' histogram against.
+            tol:        the distance tolerance to allow. Default is no tolerance. If a tolerance is provided,
+                        the return value will be 0 if the distance lies within the tolerance. Any value outside
+                        the tolerance will return dist - <calcuated distance>.
+            bestFit:    if True, the otherHist histogram will be shifted over all ranges of theta in order to 
+                        come up with the orientation with the smallest euclidian distance
+
+        :return: Returns the 'distance' the histograms are from each other. Positive value if valid, negative value
+                 if the histograms do not match in size, and 'None' if the provided argument is not a histogram.
+        """
         tol=0
         bestFit=False
+        dist = 9999999
 
         if 'tol' in kwargs:
             tol = kwargs['tol']
@@ -148,7 +150,18 @@ class RadAngleHist(Hist):
         if 'bestFit' in kwargs:
             bestFit = kwargs['bestFit']
 
-        dist = np.linalg.norm(self._hist-otherHist._hist)
+        if not bestFit:
+            dist = np.linalg.norm(self._hist-otherHist.getHist())
+        else:
+            minDist = 9999999
+            h = otherHist.getHist()
+            for i in range(h.shape[1]):
+                rotHist = np.roll(h,i)
+                dist = np.linalg.norm(self._hist-rotHist)
+                if dist < minDist:
+                    minDist = dist
+            dist = minDist
+
         print "%.4f\n"%(dist)
 
         if dist < tol:
@@ -231,7 +244,7 @@ class RadAngleHist(Hist):
         """
         :return: Returns a copy of this histogram
         """
-        return self._hist.copy()
+        return self._hist
 
     def getHistSum(self):
         histSum = self._hist.sum()
