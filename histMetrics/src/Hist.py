@@ -62,13 +62,20 @@ class RadAngleHist(Hist):
         self._blurVal = blurVal
         self._calculate()
 
+
     def _calculate(self):
         """X is rows, Y is columns here."""
-        # Canny edge detection
-        blurImg = cv2.blur(self._img, self._blurVal)
-        edge = cv2.Canny(blurImg, 90, 250)
+        # apply adaptive histogram equalization to image patch 
 
-        img = edge
+        #clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        #img = clahe.apply(self._img)
+
+        img = self._img.copy()
+
+        img = cv2.blur(img, self._blurVal)
+        #img = cv2.equalizeHist(img)
+        img = cv2.Canny(img,90,250)
+
         
         dirName = "windowTiles"
         filename = "win_%d_%d_edge_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)

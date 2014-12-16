@@ -10,6 +10,8 @@ from sklearn.cluster import DBSCAN
 from matplotlib import pyplot as plt
 from collections import defaultdict
 import colorsys
+import logging
+import phasesymLogger
 
 
 DEBUG = False
@@ -298,7 +300,7 @@ def genReferenceCar(sz,aspectRatio=0.5):
     rectRowEnd = winCenterRow + int(np.ceil(rectWidth/2))-1
     rectColEnd = sz-2   #account for zero indexing and 1 px border
 
-    cv2.rectangle(ref,(rectRowStart, rectColStart), (rectRowEnd,rectColEnd),255)
+    cv2.rectangle(ref,(rectRowStart, rectColStart), (rectRowEnd,rectColEnd),255, thickness=-1)
     ref = np.uint8(ref)
     return ref, (winCenterRow,winCenterCol)
 
@@ -429,8 +431,14 @@ def main(argv=None):
     basename = os.path.splitext(filename)[0]
     img = cv2.imread(filename)
 
+    logger = phasesymLogger.setupLogger(__name__,"%s.log"%(basename))
+
+
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2.imwrite(basename+"_gray.png", grayImg)
+
+    
+
     pha, ori, tot, T = phasesym(grayImg, nscale=NSCALE, norient=NORIENT, minWaveLength=3, mult=MULT, sigmaOnf=SIGMAONF, k=K, polarity=0)
     pha = cv2.normalize(pha, pha, 0, 255, cv2.NORM_MINMAX, cv2.CV_8UC1)
     pha = np.uint8(pha)
@@ -517,13 +525,17 @@ def main(argv=None):
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_A_%d_%d_W_%d_%d_H_%d_%d_R_%.2f_E_%d_%d_W_%d_T_%.2f.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN, AMIN, AMAX, WMIN, WMAX, HMIN, HMAX, ARATIO,EDGEMIN,EDGEMAX,WINSZ,TOL), outputImg) 
     cv2.imwrite(os.path.join(dirName, "Centroids.jpg"), centroidsImg) 
     
-    dbResult = scanBlobs(shapedCentroids, img.copy(), EPS, MINSAMPLES)
-    drawClusterColors(dbResult, img.copy(), shapedCentroids)
+    if len(shapedCentroids) > 0:
+        dbResult = scanBlobs(shapedCentroids, img.copy(), EPS, MINSAMPLES)
+        drawClusterColors(dbResult, img.copy(), shapedCentroids)
+    else:
+        print "No clusters found"
 
     f = open("centroids.txt","w")
     for cen in shapedCentroids:
         f.write("%d, %d\n"%(cen[0],cen[1]))
     f.close()
+    logging.shutdown()
 
 
 if __name__ == "__main__":
