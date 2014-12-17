@@ -352,13 +352,13 @@ def main(argv=None):
 
     #check to see if the user provided an output directory
     if len(args) == 0:
-        print "\nNo input file provided"
+        parser.error("No input file provided")
         parser.print_help()
         sys.exit(-1)
 
     #check to see if the file system image is provided
     if len(args) > 1:
-        print "\n invalid argument(s) %s provided" % (str(args))
+        parser.error("More than one image input argument provided")
         parser.print_help()
         sys.exit(-1)
 
