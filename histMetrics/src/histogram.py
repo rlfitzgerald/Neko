@@ -510,7 +510,7 @@ def main(argv=None):
 
 
     #create subdirectory if it does not already exist
-    dirName = 'windowTiles'
+    dirName = basename + '_windowTiles'
     if not (os.path.isdir(dirName)):
         os.mkdir(dirName)
 
