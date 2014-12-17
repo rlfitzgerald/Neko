@@ -1,5 +1,11 @@
 import os
 import cv2
+import numpy as np
+import logging
+import phasesymLogger
+
+
+
 class Hist(object):
 
     def __init__(self, img):
@@ -30,7 +36,6 @@ class Hist(object):
         return " Overload me. "
 
 
-import numpy as np
 class RadAngleHist(Hist):
 
 
@@ -59,8 +64,10 @@ class RadAngleHist(Hist):
         self._orientation = orientation
         self._origCentroidX = xCentroid
         self._origCentroidY = yCentroid
+        self._origCentroid = (yCentroid,xCentroid)
         self._blurVal = blurVal
         self._calculate()
+        self.logger = logging.getLogger("LOCAL_PHASE_SYM")
 
 
     def _calculate(self):
@@ -169,7 +176,8 @@ class RadAngleHist(Hist):
                     minDist = dist
             dist = minDist
 
-        print "%.4f\n"%(dist)
+        #print "shapeDist=%.4f\n"%(dist)
+        self.logger.debug("shapeDist=%.4f\n"%(dist))
 
         if dist < tol:
             return True 
@@ -261,7 +269,17 @@ class RadAngleHist(Hist):
 
 
     def __str__(self):
-        histStr = str(self._shapeHist) + "\n" + str(self._xe) + "\n" + str(self._ye)
+        histStr = str(self._origCentroid) + "\n"+ str(self._shapeHist) + "\n" + str(self._xe) + "\n" + str(self._ye)
         return str(histStr)
+
+        
+
+
+
+
+
+
+
+
 
 
