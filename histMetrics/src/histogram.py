@@ -305,7 +305,31 @@ def genReferenceCar(sz,aspectRatio=0.5):
     return ref, (winCenterRow,winCenterCol)
 
 
-
+def checkopts(opts):
+    if opts.BLUR == -1:
+        if opts.WINSZ >= 35:
+            opts.BLUR = 3
+        else:
+            opts.BLUR = 1
+    if opts.SRAD == -1:
+        opts.SRAD = int(np.maximum(3,np.floor(np.sqrt(opts.WINSZ))))
+    if opts.DEN == -1:
+        opts.DEN = int(np.maximum(2,np.floor(np.sqrt(opts.WINSZ))))
+    if opts.WMIN == -1:
+        opts.WMIN = int(np.maximum(1,np.floor((opts.WINSZ*0.65*0.06))))
+    if opts.HMIN == -1:
+        opts.HMIN = int(np.maximum(1,np.floor(opts.WINSZ *0.06)))
+    if opts.WMAX == -1:
+        opts.WMAX = int(np.maximum(opts.WMIN,np.floor(opts.WINSZ*0.65)))
+    if opts.HMAX == -1:
+        opts.HMAX = opts.WINSZ
+    if opts.AMIN == -1:
+        opts.AMIN = opts.WMIN*opts.HMIN
+    if opts.AMAX == -1:
+        opts.AMAX = opts.WMAX*opts.HMAX
+    if opts.EPS == -1:
+        opts.EPS = int(np.maximum(3,np.floor(opts.WINSZ*0.3)))
+    return    
 
 
 
@@ -326,23 +350,23 @@ def main(argv=None):
     parser.add_option('--mult', help='specify multiplier for phasesym', dest='MULT', default=3.0, type="float")
     parser.add_option('--sig', help='specify sigma on frequncy for phasesym', dest='SIGMAONF', default=0.55, type="float")
     parser.add_option('--k', help='specify k value for phasesym', dest='K', default=1, type="int")
-    parser.add_option('--blur', help='specify blur width value N for NxN blur operation', dest='BLUR', default=3, type="int")
-    parser.add_option('--srad', help='specify spatial radius for mean shift', dest='SRAD', default=5, type="int")
+    parser.add_option('--blur', help='specify blur width value N for NxN blur operation', dest='BLUR', default=-1, type="int")          # default=3
+    parser.add_option('--srad', help='specify spatial radius for mean shift', dest='SRAD', default=-1, type="int")                      # default=5
     parser.add_option('--rrad', help='specify radiometric radius for mean shift', dest='RRAD', default=6, type="int")
-    parser.add_option('--den', help='specify pixel density value for mean shift', dest='DEN', default=10, type="int")
-    parser.add_option('--amin', help='specify blob minimum area for boxing', dest='AMIN', default=5, type="int")
-    parser.add_option('--amax', help='specify blob maximum area for boxing', dest='AMAX', default=400, type="int")
-    parser.add_option('--wmin', help='specify box minimum width acceptance', dest='WMIN', default=3, type="int")
-    parser.add_option('--wmax', help='specify box maximum width acceptance', dest='WMAX', default=35, type="int")
-    parser.add_option('--hmin', help='specify box minimum height acceptance', dest='HMIN', default=2, type="int")
-    parser.add_option('--hmax', help='specify box maximum height acceptance', dest='HMAX', default=55, type="int")
+    parser.add_option('--den', help='specify pixel density value for mean shift', dest='DEN', default=-1, type="int")                   # default=10  
+    parser.add_option('--amin', help='specify blob minimum area for boxing', dest='AMIN', default=-1, type="int")                       # default=5
+    parser.add_option('--amax', help='specify blob maximum area for boxing', dest='AMAX', default=-1, type="int")                       # default=400
+    parser.add_option('--wmin', help='specify box minimum width acceptance', dest='WMIN', default=-1, type="int")                       # default=3
+    parser.add_option('--wmax', help='specify box maximum width acceptance', dest='WMAX', default=-1, type="int")                       # default=35
+    parser.add_option('--hmin', help='specify box minimum height acceptance', dest='HMIN', default=-1, type="int")                      # default=2
+    parser.add_option('--hmax', help='specify box maximum height acceptance', dest='HMAX', default=-1, type="int")                      # default=55
     parser.add_option('--arat', help='specify minimum box aspect ratio for acceptance', dest='ARATIO', default=0.25, type="float")
     parser.add_option('--edgeMin', help='specify minimum hysteresis value for edge detection', dest='EDGEMIN', default=100, type="int")
     parser.add_option('--edgeMax', help='specify maximum hysteresis value for edge detection', dest='EDGEMAX', default=200, type="int")
     parser.add_option('--ref', help='specify reference car image', dest='MASTERIMG', default="")
     parser.add_option('--win', help='specify search window size, default matches reference image size', dest='WINSZ', default=-1, type="int")
     parser.add_option('--tol', help='specify shape description tolerance', dest='TOL', default=0.07, type="float")
-    parser.add_option('--eps', help='specify maximum epsilon value for DBSCAN clustering algorithm', dest='EPS', default=15, type="int")
+    parser.add_option('--eps', help='specify maximum epsilon value for DBSCAN clustering algorithm', dest='EPS', default=-1, type="int")    #default=15
     parser.add_option('--min_samples', help='specify the numer fo minimum samples that constitute a cluster during DBSCAN', dest='MINSAMPLES', default=1, type="int")
     parser.add_option('--bestFit', help='specify best fit Euclidian distance for shape description', action='store_true' ,dest='BESTFIT', default=False)
 
@@ -363,6 +387,58 @@ def main(argv=None):
         sys.exit(-1)
 
 
+    masterImg = ""
+    masterHist = None
+    masterCentroid = None
+
+
+
+    #begin transform
+    filename = args[0]
+    basename = os.path.splitext(filename)[0]
+    img = cv2.imread(filename)
+
+    logger = phasesymLogger.setupLogger("LOCAL_PHASE_SYM","%s.log"%(basename))
+
+
+
+    if len(opts.MASTERIMG) > 0:
+        masterImg = cv2.imread(opts.MASTERIMG)
+
+        if len(masterImg.shape) == 2:
+            h, w = masterImg.shape
+        else:
+            h, w, z = masterImg.shape
+
+        if w%2:
+            x = int(np.ceil(w/float(2)))
+        else:
+            x = w/2
+        if h%2:
+            y = int(np.ceil(h/float(2)))
+        else:
+            y = h/2
+
+        masterCentroid = (y,x)
+
+        #masterHist = RadAngleHist(masterImg, 0, y, x,BLUR)
+        logger.debug("User provided reference image")
+    else:
+        #masterImg = cv2.imread('singleCar.png')
+        #masterHist = RadAngleHist(masterImg, 0, 27, 29)
+        masterImg, masterCentroid = genReferenceCar(WINSZ)
+        print cen
+        print masterImg
+        #masterHist = RadAngleHist(masterImg, 0, cen[0], cen[1],BLUR)
+        print str(masterHist)
+        logger.debug("Autogenerated reference image")
+
+    if opts.WINSZ == -1:
+        opts.WINSZ = masterImg.shape[0]
+
+    checkopts(opts)
+
+    
     NSCALE = opts.NSCALE
     NORIENT = opts.NORIENT
     MULT = opts.MULT
@@ -387,19 +463,6 @@ def main(argv=None):
     MINSAMPLES = opts.MINSAMPLES
     BESTFIT = opts.BESTFIT
 
-
-
-    masterImg = ""
-    masterHist = None
-
-
-
-    #begin transform
-    filename = args[0]
-    basename = os.path.splitext(filename)[0]
-    img = cv2.imread(filename)
-
-    logger = phasesymLogger.setupLogger("LOCAL_PHASE_SYM","%s.log"%(basename))
     logger.debug("NSCALE=%d"%(NSCALE))
     logger.debug("NORIENT=%d"%(NORIENT))
     logger.debug("MULT=%.2f"%(MULT))
@@ -424,45 +487,11 @@ def main(argv=None):
     logger.debug("MINSAMPLES=%d"%(MINSAMPLES))
     logger.debug("BESTFIT=%d"%(BESTFIT))
 
-
-    if len(opts.MASTERIMG) > 0:
-        masterImg = cv2.imread(opts.MASTERIMG)
-
-        if len(masterImg.shape) == 2:
-            h, w = masterImg.shape
-        else:
-            h, w, z = masterImg.shape
-
-        if w%2:
-            x = int(np.ceil(w/float(2)))
-        else:
-            x = w/2
-        if h%2:
-            y = int(np.ceil(h/float(2)))
-        else:
-            y = h/2
-
-        masterHist = RadAngleHist(masterImg, 0, y, x,BLUR)
-        logger.debug("User provided reference image")
-    else:
-        #masterImg = cv2.imread('singleCar.png')
-        #masterHist = RadAngleHist(masterImg, 0, 27, 29)
-        masterImg, cen = genReferenceCar(WINSZ)
-        print cen
-        print masterImg
-        masterHist = RadAngleHist(masterImg, 0, cen[0], cen[1],BLUR)
-        print str(masterHist)
-        logger.debug("Autogenerated reference image")
-
-
-    if WINSZ == -1:
-        WINSZ = masterImg.shape[0]
-
     
+    #logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(y,x))
+    logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(masterCentroid))
 
-
-
-    logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(y,x))
+    masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],BLUR)
     logger.debug(str(masterHist)+"\n")
 
 

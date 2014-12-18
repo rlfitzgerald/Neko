@@ -84,7 +84,7 @@ class RadAngleHist(Hist):
         img = cv2.Canny(img,90,250)
 
         
-        dirName = "windowTiles"
+        dirName = "structure_windowTiles"
         filename = "win_%d_%d_edge_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
         cv2.imwrite(os.path.join(dirName, filename), img)
 
