@@ -279,7 +279,7 @@ def genReferenceCar(sz,aspectRatio=0.5):
     """
     winCenterRow = -1
     winCenterCol = -1
-    border = 1
+    border = 2
 
     ref = np.zeros((sz,sz))
 
@@ -291,18 +291,20 @@ def genReferenceCar(sz,aspectRatio=0.5):
 
     winCenterCol = winCenterRow
 
-    rectHeight = sz-2
+    rectHeight = sz-border
     rectWidth = int(np.ceil(rectHeight*aspectRatio))
 
+
     rectRowStart = winCenterRow - int(np.ceil(rectWidth/2))-1
-    rectColStart = 1 
+    rectColStart = border
 
 
     rectRowEnd = winCenterRow + int(np.ceil(rectWidth/2))-1
-    rectColEnd = sz-2   #account for zero indexing and 1 px border
+    rectColEnd = rectHeight-1   #account for zero indexing
 
     cv2.rectangle(ref,(rectRowStart, rectColStart), (rectRowEnd,rectColEnd),255, thickness=-1)
     ref = np.uint8(ref)
+    print rectWidth, rectHeight
     return ref, (winCenterRow,winCenterCol)
 
 
@@ -503,6 +505,7 @@ def main(argv=None):
     logger.debug(str(masterHist)+"\n")
 
     return
+
 
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2.imwrite(basename+"_gray.png", grayImg)
