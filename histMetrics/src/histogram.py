@@ -580,6 +580,7 @@ def main(argv=None):
         drawClusterColors(dbResult, img.copy(), shapedCentroids)
     else:
         logger.info("No clusters found")
+        logger.info("Try adjusting the matching tolerance (ex. python histogram.py --tol=0.65 input.jpg)")
 
     logger.info("Stage 4: Blob Merge -- Complete")
 

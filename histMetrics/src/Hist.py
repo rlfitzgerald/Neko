@@ -100,7 +100,6 @@ class RadAngleHist(Hist):
 
         for x in range(img.shape[1]):
             for y in range(img.shape[0]):
-                #import pdb; pdb.set_trace()
                 xCoordinate = xg[y][x]
                 yCoordinate = yg[y][x]
                 pixel = img[y][x]
@@ -108,7 +107,6 @@ class RadAngleHist(Hist):
                     # Calculate distance and angle from centroid
                     rad = np.sqrt(np.square(xCoordinate) + np.square(yCoordinate))
                     theta = np.arctan2(yCoordinate, xCoordinate)
-                   # print "(%d,%d)  px: %d  rad: %d  theta: %f" %(xCoordinate,yCoordinate,pixel,rad,theta)
                     if theta < 0:
                         theta = theta + 2*np.pi
                     rVals.append(rad)
@@ -129,8 +127,6 @@ class RadAngleHist(Hist):
         self._eigVec = eigVec
         self._idx = eigVals.argsort()[::-1]
 
-        #print "Histogram:\n" + str(self._shapeHist) + "\nxEdges: " + str(xe) + "\nyEdges: " + str(ye) + "\nCentroid: " \
-        #+ str(self._centroid) + "\nrVals: " + str(rVals) + "\nthetaVals:" + str(thetaVals)+ "\nori: " + str(self._orientation)+"\n\n"
 
     
     def _test_histogramDistance(self, otherHist, **kwargs):
