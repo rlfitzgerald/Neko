@@ -504,7 +504,6 @@ def main(argv=None):
     masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],BLUR,outDir=dirName)
     logger.debug(str(masterHist)+"\n")
 
-    return
 
 
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
