@@ -491,7 +491,12 @@ def main(argv=None):
     #logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(y,x))
     logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(masterCentroid))
 
-    masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],BLUR)
+    #create subdirectory if it does not already exist
+    dirName = basename + '_windowTiles'
+    if not (os.path.isdir(dirName)):
+        os.mkdir(dirName)
+
+    masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],BLUR,outDir=dirName)
     logger.debug(str(masterHist)+"\n")
 
 
@@ -538,10 +543,6 @@ def main(argv=None):
     histograms = []
 
 
-    #create subdirectory if it does not already exist
-    dirName = basename + '_windowTiles'
-    if not (os.path.isdir(dirName)):
-        os.mkdir(dirName)
 
     outputImg = img.copy()
     centroidsImg = img.copy()
@@ -553,7 +554,7 @@ def main(argv=None):
         win = getImageWindow(img, cen[0],cen[1],WINSZ,WINSZ)   #correct
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
         cv2.imwrite(os.path.join(dirName, filename), win)
-        histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1],BLUR)
+        histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1],BLUR,outDir=dirName)
 
         logger.debug(str(histogram)+"\n")
 

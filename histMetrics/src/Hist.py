@@ -39,7 +39,7 @@ class Hist(object):
 class RadAngleHist(Hist):
 
 
-    def __init__(self, img, orientation,yCentroid,xCentroid,blurVal):
+    def __init__(self, img, orientation,yCentroid,xCentroid,blurVal,outDir=""):
         super(RadAngleHist, self).__init__(img)
         self._MAX_VAL = 255
 
@@ -66,8 +66,9 @@ class RadAngleHist(Hist):
         self._origCentroidY = yCentroid
         self._origCentroid = (yCentroid,xCentroid)
         self._blurVal = blurVal
-        self._calculate()
         self.logger = logging.getLogger("LOCAL_PHASE_SYM")
+        self._outDir=outDir
+        self._calculate()
 
 
     def _calculate(self):
@@ -84,9 +85,8 @@ class RadAngleHist(Hist):
         img = cv2.Canny(img,90,250)
 
         
-        dirName = "structure_windowTiles"
         filename = "win_%d_%d_edge_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
-        cv2.imwrite(os.path.join(dirName, filename), img)
+        cv2.imwrite(os.path.join(self._outDir, filename), img)
 
         # Radiometric histogram calculation begins
         # Measure from centroid outward to edge of blob
