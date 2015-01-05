@@ -68,6 +68,7 @@ class RadAngleHist(Hist):
         self._blurVal = blurVal
         self.logger = logging.getLogger("LOCAL_PHASE_SYM")
         self._outDir=outDir
+        self._edgeImg=None
         self._calculate()
 
 
@@ -83,6 +84,7 @@ class RadAngleHist(Hist):
         img = cv2.blur(img, self._blurVal)
         #img = cv2.equalizeHist(img)
         img = cv2.Canny(img,90,250)
+        self._edgeImg = img.copy()
 
         
         filename = "win_%d_%d_edge_o_%d.jpg" % (self._origCentroidY, self._origCentroidX,self._orientation)
@@ -179,6 +181,9 @@ class RadAngleHist(Hist):
             return True 
         return False
 
+    def _test_edgeHist(self, otherHist):
+        return False
+
     def _test_eigenVector(self, otherHist):
         #eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
         #eigDotProd = self._eigVec[:,0].dot(self._eigVec[:,1])
@@ -259,6 +264,9 @@ class RadAngleHist(Hist):
     def getShapeHistSum(self):
         histSum = self._shapeHist.sum()
         return histSum
+
+    def getEdgeImage(self):
+        return self._edgeImg
 
     def tolist(self):
         return self._shapeHist.tolist()
