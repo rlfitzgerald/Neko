@@ -317,6 +317,14 @@ def checkopts(opts):
         opts.SRAD = int(np.maximum(3,np.floor(np.sqrt(opts.WINSZ))))
     if opts.DEN == -1:
         opts.DEN = int(np.maximum(2,np.floor(np.sqrt(opts.WINSZ))))
+
+    if opts.TRAD == -1:
+        opts.TRAD = int(np.maximum(3,opts.WINSZ/2))
+
+        # must be odd
+        if opts.TRAD % 2 == 0:
+            opts.TRAD = opts.TRAD+1
+
     if opts.WMIN == -1:
         opts.WMIN = int(np.maximum(1,np.floor((opts.WINSZ*0.65*0.06))))
     if opts.HMIN == -1:
@@ -356,6 +364,7 @@ def main(argv=None):
     parser.add_option('--srad', help='specify spatial radius for mean shift', dest='SRAD', default=-1, type="int")                      # default=5
     parser.add_option('--rrad', help='specify radiometric radius for mean shift', dest='RRAD', default=6, type="int")
     parser.add_option('--den', help='specify pixel density value for mean shift', dest='DEN', default=-1, type="int")                   # default=10  
+    parser.add_option('--trad', help='specify the pixel neighborhood for thresholding', dest='TRAD', default=-1, type="int")            # default=7
     parser.add_option('--amin', help='specify blob minimum area for boxing', dest='AMIN', default=-1, type="int")                       # default=5
     parser.add_option('--amax', help='specify blob maximum area for boxing', dest='AMAX', default=-1, type="int")                       # default=400
     parser.add_option('--wmin', help='specify box minimum width acceptance', dest='WMIN', default=-1, type="int")                       # default=3
@@ -420,6 +429,7 @@ def main(argv=None):
     SRAD = opts.SRAD
     RRAD = opts.RRAD
     DEN = opts.DEN
+    TRAD = opts.TRAD
     AMIN = opts.AMIN
     AMAX = opts.AMAX
     WMAX = opts.WMAX
@@ -444,6 +454,7 @@ def main(argv=None):
     logger.debug("SRAD=%d"%(SRAD))
     logger.debug("RRAD=%d"%(RRAD))
     logger.debug("DEN=%d"%(DEN))
+    logger.debug("TRAD=%d"%(TRAD))
     logger.debug("AMIN=%d"%(AMIN))
     logger.debug("AMAX=%d"%(AMAX))
     logger.debug("WMAX=%d"%(WMAX))
@@ -549,7 +560,9 @@ def main(argv=None):
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN), segmented_image)
 
     # threshold to obtain symmetry blobs
-    thresh_img = cv2.adaptiveThreshold(segmented_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 7, 0)
+    #thresh_img = cv2.adaptiveThreshold(segmented_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 7, 0)
+    #thresh_img = cv2.adaptiveThreshold(segmented_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, TRAD, 1)
+    thresh_img = cv2.adaptiveThreshold(segmented_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, WINSZ, 4)
     cv2.imwrite(basename + "_PS" + "_%d_%d_%.2f_%.2f_%d_B_%d_%d_MS_%d_%d_%d_T.png" % (NSCALE, NORIENT, MULT, SIGMAONF, K, BLUR[0], BLUR[1], SRAD, RRAD, DEN), thresh_img)
     logger.info("Stage 2: Mean-Shift -- Complete")
 
