@@ -130,7 +130,14 @@ class RadAngleHist(Hist):
         self._idx = eigVals.argsort()[::-1]
 
 
-    
+    def _calcHistDist(self, otherHist, rowIdx=[]):
+        if len(rowIdx) == 0:
+            return np.linalg.norm(self._shapeHist-otherHist.getShapeHist())
+        else:
+            return np.linalg.norm(self._shapeHist[rowIdx]-otherHist.getShapeHist()[rowIdx])
+            
+
+
     def _test_histogramDistance(self, otherHist, **kwargs):
         """
         Compares this histogram to the passed histogram using a Euclidian distance metric.
@@ -155,6 +162,8 @@ class RadAngleHist(Hist):
         tol=0
         bestFit=False
         dist = 9999999
+        rowIdx = self.getMostImpShapeHistRows()[:3]
+
 
         if 'tol' in kwargs:
             tol = kwargs['tol']
@@ -163,13 +172,15 @@ class RadAngleHist(Hist):
             bestFit = kwargs['bestFit']
 
         if not bestFit:
-            dist = np.linalg.norm(self._shapeHist-otherHist.getShapeHist())
+            #dist = np.linalg.norm(self._shapeHist-otherHist.getShapeHist())
+            dist = self._calcHistDist(otherHist,rowIdx=rowIdx)
         else:
             minDist = 9999999
             h = otherHist.getShapeHist()
             for i in range(h.shape[1]):
                 rotHist = np.roll(h,i)
-                dist = np.linalg.norm(self._shapeHist-rotHist)
+                #dist = np.linalg.norm(self._shapeHist-rotHist)
+                dist = self._calcHistDist(otherHist,rowIdx=rowIdx)
                 if dist < minDist:
                     minDist = dist
             dist = minDist
@@ -267,6 +278,9 @@ class RadAngleHist(Hist):
 
     def getEdgeImage(self):
         return self._edgeImg
+
+    def getMostImpShapeHistRows(self):
+        return  np.argsort(self._shapeHist.sum(axis=1))[::-1]
 
     def tolist(self):
         return self._shapeHist.tolist()
