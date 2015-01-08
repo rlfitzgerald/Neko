@@ -252,8 +252,8 @@ def drawClusterColors(dbResult, inputImg, data):
             member = class_member_mask[i]
             if member:
                 dict[k].append(data[i])
-    print "Num Clusters: " + str(len(labels))
-    print dict
+    logger.info("Num Clusters: " + str(len(labels)))
+    logger.info(dict)
 
     for i, color in zip(dict, colors):
         entry = dict[i]
@@ -262,7 +262,7 @@ def drawClusterColors(dbResult, inputImg, data):
             cv2.circle(outputImg, tempCentroid, 4, color, thickness=2)
 
     cv2.imwrite("clusterColors.jpg", outputImg)
-    print "Number of unique clusters: " + str(len(unique_labels))
+    logger.info( "Number of unique clusters: " + str(len(unique_labels)))
 
 def genReferenceCar(sz,aspectRatio=0.5):
     """
