@@ -17,6 +17,7 @@ np.set_printoptions(linewidth=200)
 
 
 DEBUG = False
+logger = None
 
 
 def drawBox(img, contour):
@@ -307,12 +308,21 @@ def genReferenceCar(sz,aspectRatio=0.5):
     return ref, (winCenterRow,winCenterCol)
 
 
-def checkopts(opts):
+def checkopts(parser, opts):
+    if not opts.WINSZ%2 and opts.WINSZ >= 3:
+        logger.debug("Invalid user specified window size. --win=%d"%(opts.WINSZ))
+        parser.error("option --win must be an odd integer greater than or equal to 3")
+
     if opts.BLUR == -1:
         if opts.WINSZ >= 35:
             opts.BLUR = 3
         else:
             opts.BLUR = 1
+    else:
+        if not opts.BLUR%2 and opts.BLUR >= 1:
+            logger.debug("Invalid user specified blur size. --blur=%d"%(opts.BLUR))
+            parser.error("option --blur must be an odd integer greater than or equal to 1")
+
     if opts.SRAD == -1:
         opts.SRAD = int(np.maximum(3,np.floor(np.sqrt(opts.WINSZ))))
     if opts.DEN == -1:
@@ -376,7 +386,7 @@ def main(argv=None):
     parser.add_option('--edgeMax', help='specify maximum hysteresis value for edge detection', dest='EDGEMAX', default=200, type="int")
     parser.add_option('--ref', help='specify reference car image', dest='MASTERIMG', default="")
     parser.add_option('--win', help='specify search window size, default matches reference image size', dest='WINSZ', default=-1, type="int")
-    parser.add_option('--tol', help='specify shape description tolerance', dest='TOL', default=0.07, type="float")
+    parser.add_option('--tol', help='specify shape description tolerance ex) --tol=0.07', dest='TOL', default=0.07, type="float")
     parser.add_option('--eps', help='specify maximum epsilon value for DBSCAN clustering algorithm', dest='EPS', default=-1, type="int")    #default=15
     parser.add_option('--min_samples', help='specify the numer fo minimum samples that constitute a cluster during DBSCAN', dest='MINSAMPLES', default=1, type="int")
     parser.add_option('--bestFit', help='specify best fit Euclidian distance for shape description', action='store_true' ,dest='BESTFIT', default=False)
@@ -385,39 +395,61 @@ def main(argv=None):
     (opts, args) = parser.parse_args(argv)
     args = args[1:]
 
-    #check to see if the user provided an output directory
+    # Check to see if the user provided an input image
     if len(args) == 0:
+        parser.print_help()
         parser.error("No input file provided")
-        parser.print_help()
-        sys.exit(-1)
 
-    #check to see if the file system image is provided
+    # Check to see if the file system image is provided
     if len(args) > 1:
-        parser.error("More than one image input argument provided")
         parser.print_help()
-        sys.exit(-1)
+        parser.error("More than one image input argument provided")
+
+    # At the moment you can't have both
+    # TODO: perhaps auto-downsampling feature?
+    if len(opts.MASTERIMG) != 0 and opts.WINSZ != -1:
+        parser.error("options --ref and --win are mutually exclusive")
 
 
-    masterImg = ""
+    masterImg = None
     masterHist = None
     masterCentroid = None
 
 
-
-    #begin transform
     filename = args[0]
     basename = os.path.splitext(filename)[0]
-    img = cv2.imread(filename)
 
+    global logger
     logger = phasesymLogger.setupLogger("LOCAL_PHASE_SYM","%s.log"%(basename))
+    logger.debug(" ".join(sys.argv))
 
 
+    # Auto-setting the other parameters hinges on getting the window size
+    # Must handle this first
+    if len(opts.MASTERIMG) > 0:
+        masterImg = cv2.imread(opts.MASTERIMG)
 
+        if len(masterImg.shape) == 2:
+            h, w = masterImg.shape
+        else:
+            h, w, z = masterImg.shape
+
+        if w%2:
+            x = int(np.ceil(w/float(2)))
+        else:
+            x = w/2
+        if h%2:
+            y = int(np.ceil(h/float(2)))
+        else:
+            y = h/2
+
+        masterCentroid = (y,x)
+        logger.debug("User provided reference image")
 
     if opts.WINSZ == -1:
         opts.WINSZ = masterImg.shape[0]
 
-    checkopts(opts)
+    checkopts(parser,opts)
 
     
     NSCALE = opts.NSCALE
@@ -470,37 +502,6 @@ def main(argv=None):
     logger.debug("MINSAMPLES=%d"%(MINSAMPLES))
     logger.debug("BESTFIT=%d"%(BESTFIT))
 
-    if len(opts.MASTERIMG) > 0:
-        masterImg = cv2.imread(opts.MASTERIMG)
-
-        if len(masterImg.shape) == 2:
-            h, w = masterImg.shape
-        else:
-            h, w, z = masterImg.shape
-
-        if w%2:
-            x = int(np.ceil(w/float(2)))
-        else:
-            x = w/2
-        if h%2:
-            y = int(np.ceil(h/float(2)))
-        else:
-            y = h/2
-
-        masterCentroid = (y,x)
-
-        #masterHist = RadAngleHist(masterImg, 0, y, x,BLUR)
-        logger.debug("User provided reference image")
-    else:
-        #masterImg = cv2.imread('singleCar.png')
-        #masterHist = RadAngleHist(masterImg, 0, 27, 29)
-        masterImg, masterCentroid = genReferenceCar(WINSZ)
-        #masterHist = RadAngleHist(masterImg, 0, cen[0], cen[1],BLUR)
-        logger.debug("Autogenerated reference image")
-
-    
-    #logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(y,x))
-    logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(masterCentroid))
 
 
 
@@ -523,12 +524,21 @@ def main(argv=None):
 
 
 
+    # If the user did not provide a reference image
+    if masterImg is None:
+        masterImg, masterCentroid = genReferenceCar(WINSZ)
+        logger.debug("Autogenerated reference image")
+
+
     cv2.imwrite(os.path.join(dirName, "genCar.png"), masterImg)
+
+    logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(masterCentroid))
     masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],BLUR,outDir=dirName)
     logger.debug(str(masterHist)+"\n")
 
 
 
+    img = cv2.imread(filename)
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2.imwrite(basename+"_gray.png", grayImg)
 
