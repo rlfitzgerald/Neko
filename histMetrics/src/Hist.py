@@ -1,5 +1,6 @@
 import os
 import cv2
+import cv2.cv as cv
 import numpy as np
 import logging
 import phasesymLogger
@@ -199,8 +200,8 @@ class RadAngleHist(Hist):
         """
         tol=0
         bestFit=False
-        emd=False
         dist = 9999999
+        distMetric = ""
         rowIdx = self.getMostImpShapeHistRows()[:3]
 
         if 'distMetric' in kwargs:
@@ -212,16 +213,16 @@ class RadAngleHist(Hist):
         if 'bestFit' in kwargs:
             bestFit = kwargs['bestFit']
 
-        if 'emd' in kwargs:
-            emd = kwargs['emd']
 
+        if distMetric == "DIST_EUCLIDIAN":
+            if not bestFit:
+                dist = self._calcHistDist(otherHist,rowIdx=rowIdx)
+            else:
+                dist = self._calcMinHistDist(otherHist,rowIdx=rowIdx)
 
-        if not bestFit:
-            dist = self._calcHistDist(otherHist,rowIdx=rowIdx)
-        else:
-            dist = self._calcMinHistDist(otherHist,rowIdx=rowIdx)
+        if distMetric == "DIST_EMD":
+            dist = self._calcHistEMD(otherHist,rowIdx=rowIdx)
 
-        #print "shapeDist=%.4f\n"%(dist)
         self.logger.debug("shapeDist=%.4f\n"%(dist))
 
         if dist < tol:

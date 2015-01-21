@@ -601,7 +601,7 @@ def main(argv=None):
         if histogram.getShapeHistSum() < 0.1:
             continue
 
-        if masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT):
+        if masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT, distMetric="DIST_EMD"):
             cv2.imwrite(os.path.join(carDir, filename), win)
             drawBox(outputImg, cnt)
             shapedCentroids.append(cen)
