@@ -135,6 +135,44 @@ class RadAngleHist(Hist):
             return np.linalg.norm(self._shapeHist-otherHist.getShapeHist())
         else:
             return np.linalg.norm(self._shapeHist[rowIdx]-otherHist.getShapeHist()[rowIdx])
+
+    def _calcMinHistDist(self, otherHist, rowIdx=[]):
+        minDist = 9999999
+        h = otherHist.getShapeHist()
+        for i in range(h.shape[1]):
+            rotHist = np.roll(h,i)
+            dist = self._calcHistDist(otherHist,rowIdx=rowIdx)
+            if dist < minDist:
+                minDist = dist
+        dist = minDist
+        return dist
+
+    def _calcHistEMD(self, otherHist, hist1weights = [], hist2weights = [], rowIdx=[]):
+        hist1 = None
+        hist2 = None
+
+        if len(rowIdx) == 0:
+            hist1 = self.getShapeHist()
+            hist2 = otherHist.getShapeHist()
+        else:
+            hist1 = self.getShapeHist()[rowIdx]
+            hist2 = otherHist.getShapeHist()[rowIdx]
+            
+
+        if not len(hist1weights):
+            hist1weights = np.ones(hist1.shape)
+
+        if not len(hist2weights):
+            hist2weights = np.ones(hist1.shape)
+
+        a64 = cv.fromarray(np.dstack((hist1weights, hist1))[0].copy())
+        a32 = cv.CreateMat(a64.rows, a64.cols, cv.CV_32FC1)
+        cv.Convert(a64, a32)
+         
+        b64 = cv.fromarray(np.dstack((hist2weights, hist2))[0].copy())
+        b32 = cv.CreateMat(b64.rows, b64.cols, cv.CV_32FC1)
+        cv.Convert(b64, b32)
+        return cv.CalcEMD2(a32,b32,cv.CV_DIST_L2) 
             
 
 
@@ -161,9 +199,12 @@ class RadAngleHist(Hist):
         """
         tol=0
         bestFit=False
+        emd=False
         dist = 9999999
         rowIdx = self.getMostImpShapeHistRows()[:3]
 
+        if 'distMetric' in kwargs:
+            distMetric = kwargs['distMetric']
 
         if 'tol' in kwargs:
             tol = kwargs['tol']
@@ -171,19 +212,14 @@ class RadAngleHist(Hist):
         if 'bestFit' in kwargs:
             bestFit = kwargs['bestFit']
 
+        if 'emd' in kwargs:
+            emd = kwargs['emd']
+
+
         if not bestFit:
-            #dist = np.linalg.norm(self._shapeHist-otherHist.getShapeHist())
             dist = self._calcHistDist(otherHist,rowIdx=rowIdx)
         else:
-            minDist = 9999999
-            h = otherHist.getShapeHist()
-            for i in range(h.shape[1]):
-                rotHist = np.roll(h,i)
-                #dist = np.linalg.norm(self._shapeHist-rotHist)
-                dist = self._calcHistDist(otherHist,rowIdx=rowIdx)
-                if dist < minDist:
-                    minDist = dist
-            dist = minDist
+            dist = self._calcMinHistDist(otherHist,rowIdx=rowIdx)
 
         #print "shapeDist=%.4f\n"%(dist)
         self.logger.debug("shapeDist=%.4f\n"%(dist))
@@ -194,6 +230,19 @@ class RadAngleHist(Hist):
 
     def _test_edgeHist(self, otherHist):
         return False
+
+    def _test_variance(self, otherHist):
+        # Do zero mean and unit variance normalization
+        rawImg_norm = self.calcZeroMeanUnitVarImg()
+        rawImgOther_norm = otherHist.calcZeroMeanUnitVarImg()
+        self.logger.debug("var=%.4f  refVar=%.4f\n"%(rawImgOther_norm.var(),rawImg_norm.var()))
+
+        # This number 0.0005 was chosen empirically from a sample of 10 noise images
+        #if rawImgOther_norm.var()/rawImg_norm.var() > 2.5:
+        if rawImgOther_norm.var() > 0.0005:
+            return False
+        else:
+            return True
 
     def _test_eigenVector(self, otherHist):
         #eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
@@ -217,53 +266,9 @@ class RadAngleHist(Hist):
 
     def compare(self, otherHist, **kwargs):
         if self._test_histogramDistance(otherHist, **kwargs):
+        #if self._test_histogramDistance(otherHist, **kwargs) and self._test_variance(otherHist):
             return True
         return False
-
-
-#    def compare(self, otherHist, tol=0, bestFit=False):
-#        """
-#        Compares this histogram to the passed histogram using a Euclidian distance metric.
-#        Euclidian distance is also known as 'ordinary ' distance. In general, n-dimensional
-#        Euclidian distance is defined as follows:
-#
-#                    d(p, q) = sqrt((p1 - q1)^2 + (p2 - q2)^2 + (p3 - q3)^2 + ... + (pn - qn)^2)
-#
-#        Each point in this histogram is defined as a bin value. In this case, our histogram is 5 by 12
-#        bins in size
-#        :param:
-#            otherHist:  the other histogram to compare 'this' histogram against.
-#            dist:       the distance tolerance to allow. Default is no tolerance. If a tolerance is provided,
-#                        the return value will be 0 if the distance lies within the tolerance. Any value outside
-#                        the tolerance will return dist - <calcuated distance>.
-#
-#        :return: Returns the 'distance' the histograms are from each other. Positive value if valid, negative value
-#                 if the histograms do not match in size, and 'None' if the provided argument is not a histogram.
-#        """
-#
-#        dist = 0
-#        histDist = np.linalg.norm(self._shapeHist-otherHist._hist)
-#        
-#        #eigDotProd = np.abs(self._eigVec[:,0].dot(self._eigVec[:,1]))
-#        #eigDotProd = self._eigVec[:,0].dot(self._eigVec[:,1])
-#        #angle = np.arccos(np.clip(np.dot(self._eigVec[:,0], self._eigVec[:,1]),-1,1))
-#        angle = np.angle(np.arccos(np.clip(np.vdot(self._eigVec[:,0], self._eigVec[:,1]),-1,1)))
-#
-#
-#        #eigDotProdOtherHist = np.abs(otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1]))
-#        #eigDotProdOtherHist = otherHist._eigVec[:,0].dot(otherHist._eigVec[:,1])
-#        #angleOtherHist = np.arccos(np.clip(np.dot(otherHist._eigVec[:,0], otherHist._eigVec[:,1]),-1,1))
-#        angleOtherHist = np.angle(np.arccos(np.clip(np.vdot(otherHist._eigVec[:,0], otherHist._eigVec[:,1]),-1,1)))
-#
-#        #eigDist = np.sqrt(np.square(eigDotProd - eigDotProdOtherHist))
-#        #eigDist = np.sqrt(np.square(angle-angleOtherHist))
-#        eigDist = np.linalg.norm(angle-angleOtherHist)
-#        print angle, angleOtherHist
-#         
-#        #dist = histDist + eigDist
-#        dist = histDist
-#        return dist
-
 
 
     def getShapeHist(self):
@@ -275,12 +280,19 @@ class RadAngleHist(Hist):
     def getShapeHistSum(self):
         histSum = self._shapeHist.sum()
         return histSum
+    
+    def getRawImage(self):
+        return self._img
 
     def getEdgeImage(self):
         return self._edgeImg
 
     def getMostImpShapeHistRows(self):
         return  np.argsort(self._shapeHist.sum(axis=1))[::-1]
+
+    def calcZeroMeanUnitVarImg(self):
+        img_norm = (self._img - self._img.mean())/self._img.var()
+        return img_norm
 
     def tolist(self):
         return self._shapeHist.tolist()
