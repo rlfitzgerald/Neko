@@ -533,7 +533,8 @@ def main(argv=None):
     cv2.imwrite(os.path.join(dirName, "genCar.png"), masterImg)
 
     logger.debug("\nReference Hist Centroid (Y,X): %d, %d" %(masterCentroid))
-    masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],BLUR,outDir=dirName)
+    #masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],BLUR,outDir=dirName)
+    masterHist = RadAngleHist(masterImg, 0, masterCentroid[0], masterCentroid[1],(1,1),55,200,outDir=dirName)
     logger.debug(str(masterHist)+"\n")
 
 
@@ -591,17 +592,30 @@ def main(argv=None):
 
     logger.info("Stage 3: Histogram Comparison")
     shapedCentroids = []
+    shapeDistances = [] 
     for cen,cnt in zip(centroids,contours):
         win = getImageWindow(img, cen[0],cen[1],WINSZ,WINSZ)   #correct
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
+
+        #win = cv2.cvtColor(win, cv2.COLOR_BGR2GRAY)
+        #ret, win = cv2.threshold(win,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+        #kernel = np.ones((3,3),np.uint8)
+        #win = cv2.morphologyEx(win,cv2.MORPH_CLOSE,kernel, iterations = 2)
+
         histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1],BLUR,outDir=edgeDir)
 
         logger.debug(str(histogram)+"\n")
 
-        if histogram.getShapeHistSum() < 0.1:
+        #if histogram.getShapeHistSum() < 0.1:
+        #    continue
+        if histogram.getShapeHistSum() < masterHist.getShapeHistSum():
             continue
 
-        if masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT, distMetric="DIST_EMD"):
+        #if masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT, distMetric="DIST_EMD"):
+        compare =  masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT, distMetric="DIST_EMD")
+        #compare =  masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT, distMetric="DIST_EUCLIDIAN")
+        shapeDistances.append(compare.shapeDist)
+        if compare.result:
             cv2.imwrite(os.path.join(carDir, filename), win)
             drawBox(outputImg, cnt)
             shapedCentroids.append(cen)
@@ -632,6 +646,16 @@ def main(argv=None):
     for cen in shapedCentroids:
         f.write("%d, %d\n"%(cen[0],cen[1]))
     f.close()
+
+    shapeDistances = np.array(shapeDistances)
+    logger.debug("\nHistogram Shape Distance Stats")
+    logger.debug("Mean = %f"%(shapeDistances.mean()))
+    logger.debug("Var  = %f"%(shapeDistances.var()))
+    logger.debug("Std  = %f"%(shapeDistances.std()))
+    logger.debug("Min  = %f"%(shapeDistances.min()))
+    logger.debug("Max  = %f"%(shapeDistances.max()))
+    
+
     logging.shutdown()
 
 

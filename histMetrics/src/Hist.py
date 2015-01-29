@@ -4,6 +4,7 @@ import cv2.cv as cv
 import numpy as np
 import logging
 import phasesymLogger
+import collections
 
 
 
@@ -40,7 +41,7 @@ class Hist(object):
 class RadAngleHist(Hist):
 
 
-    def __init__(self, img, orientation,yCentroid,xCentroid,blurVal,outDir=""):
+    def __init__(self, img, orientation,yCentroid,xCentroid,blurVal,canny_low=90,canny_high=200,outDir=""):
         super(RadAngleHist, self).__init__(img)
         self._MAX_VAL = 255
 
@@ -70,6 +71,9 @@ class RadAngleHist(Hist):
         self.logger = logging.getLogger("LOCAL_PHASE_SYM")
         self._outDir=outDir
         self._edgeImg=None
+        self._canny_low=canny_low
+        self._canny_high=canny_high
+
         self._calculate()
 
 
@@ -82,9 +86,11 @@ class RadAngleHist(Hist):
 
         img = self._img.copy()
 
-        img = cv2.blur(img, self._blurVal)
+        #img = cv2.blur(img, self._blurVal)
+        img = cv2.bilateralFilter(img, 6,50,50)
         #img = cv2.equalizeHist(img)
-        img = cv2.Canny(img,90,250)
+        #img = cv2.Canny(img,90,250)
+        img = cv2.Canny(img,self._canny_low,self._canny_high)
         self._edgeImg = img.copy()
 
         
@@ -221,13 +227,13 @@ class RadAngleHist(Hist):
                 dist = self._calcMinHistDist(otherHist,rowIdx=rowIdx)
 
         if distMetric == "DIST_EMD":
-            dist = self._calcHistEMD(otherHist,rowIdx=rowIdx)
+            dist = self._calcHistEMD(otherHist,rowIdx=[1,2,3,4])
 
         self.logger.debug("shapeDist=%.4f\n"%(dist))
 
         if dist < tol:
-            return True 
-        return False
+            return (True, dist)
+        return (False, dist)
 
     def _test_edgeHist(self, otherHist):
         return False
@@ -265,11 +271,25 @@ class RadAngleHist(Hist):
 
 
 
+    #def compare(self, otherHist, **kwargs):
+    #    if self._test_histogramDistance(otherHist, **kwargs):
+    #    #if self._test_histogramDistance(otherHist, **kwargs) and self._test_variance(otherHist):
+    #        return True
+    #    return False
+
+
     def compare(self, otherHist, **kwargs):
-        if self._test_histogramDistance(otherHist, **kwargs):
-        #if self._test_histogramDistance(otherHist, **kwargs) and self._test_variance(otherHist):
-            return True
-        return False
+
+        # Using namedtuple for future expansion of return values that we might want
+        compareResult = collections.namedtuple('histResult',['result','shapeDist'])
+
+        shapeRes,shapeDist = self._test_histogramDistance(otherHist, **kwargs)
+
+         # TODO: if have multiple tests, have a mechanism to get majority vote
+        result = shapeRes
+
+        r = compareResult(result,shapeDist)
+        return r
 
 
     def getShapeHist(self):
@@ -280,6 +300,7 @@ class RadAngleHist(Hist):
 
     def getShapeHistSum(self):
         histSum = self._shapeHist.sum()
+        histSum=self._edgeImg.sum()/255
         return histSum
     
     def getRawImage(self):
