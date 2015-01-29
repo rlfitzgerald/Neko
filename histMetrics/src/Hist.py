@@ -5,6 +5,8 @@ import numpy as np
 import logging
 import phasesymLogger
 import collections
+import mahotas
+from scipy.spatial import distance 
 
 
 
@@ -269,6 +271,18 @@ class RadAngleHist(Hist):
         print angle, angleOtherHist
         return None
 
+    def _test_zernike(self, otherHist, **kwargs):
+        tol=0
+        if 'tol' in kwargs:
+            tol = kwargs['tol']
+        obj1 = self.getImageOutline()
+        obj2 = otherHist.getImageOutline()
+        obj1_moments = mahotas.features.zernike_moments(obj1,21)
+        obj2_moments = mahotas.features.zernike_moments(obj2,21)
+        dist = distance.euclidean(obj1_moments, obj2_moments)
+        if dist < tol:
+            return (True, dist)
+        return (False, dist)
 
 
     #def compare(self, otherHist, **kwargs):
@@ -283,13 +297,26 @@ class RadAngleHist(Hist):
         # Using namedtuple for future expansion of return values that we might want
         compareResult = collections.namedtuple('histResult',['result','shapeDist'])
 
-        shapeRes,shapeDist = self._test_histogramDistance(otherHist, **kwargs)
+        #shapeRes,shapeDist = self._test_histogramDistance(otherHist, **kwargs)
+        shapeRes,shapeDist = self._test_zernike(otherHist, **kwargs)
 
          # TODO: if have multiple tests, have a mechanism to get majority vote
         result = shapeRes
 
         r = compareResult(result,shapeDist)
         return r
+
+    def getImageOutline(self):
+        #gray = cv2.cvtColor(self._img, cv2.COLOR_BGR2GRAY)
+        gray = self._img.copy()
+        thresh_mean = cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 11, 7)
+        outline = np.zeros(gray.shape,dtype="uint8")
+        (cnts,_) = cv2.findContours(thresh_mean.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        cnts = sorted(cnts,key=cv2.contourArea,reverse=True)[0]
+        cv2.drawContours(outline, [cnts], -1, 255, -1)
+        kernel = np.ones((3,3),np.uint8)
+        closing = cv2.morphologyEx(outline,cv2.MORPH_CLOSE,kernel, iterations = 2)
+        return closing
 
 
     def getShapeHist(self):

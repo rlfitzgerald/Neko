@@ -307,6 +307,36 @@ def genReferenceCar(sz,aspectRatio=0.5):
     ref = np.uint8(ref)
     return ref, (winCenterRow,winCenterCol)
 
+def segment_image(img):
+    gray = img.copy()
+    if len(gray.shape) == 3:
+        gray = cv2.cvtColor(gray, cv2.COLOR_BGR2GRAY)
+
+
+    ret, thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+
+    #cv2.imwrite("thresh.jpg",thresh)
+    kernel = np.ones((3,3),np.uint8)
+    thresh = cv2.morphologyEx(thresh,cv2.MORPH_CLOSE,kernel, iterations = 10)
+
+    #cv2.imwrite("close.jpg",thresh)
+    fg = cv2.erode(thresh,None,iterations = 7)
+    bgt = cv2.dilate(thresh,None,iterations = 8)
+    ret,bg = cv2.threshold(bgt,1,128,1)
+    #cv2.imwrite("fg.jpg", fg)
+    #cv2.imwrite("bg.jpg", bg)
+    marker = cv2.add(fg,bg)
+    #cv2.imwrite("marker.jpg", marker)
+    marker32 = np.int32(marker)
+    cv2.watershed(img,marker32)
+    m = cv2.convertScaleAbs(marker32)
+    #cv2.imwrite("after_watershed.jpg", m)
+    ret,thresh = cv2.threshold(m,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    res = cv2.bitwise_and(img,img,mask = thresh)
+    #cv2.imwrite("segment_2.jpg", res)
+    return res, thresh
+
+
 
 def checkopts(parser, opts):
     if not opts.WINSZ%2 and opts.WINSZ >= 3:
@@ -336,9 +366,9 @@ def checkopts(parser, opts):
             opts.TRAD = opts.TRAD+1
 
     if opts.WMIN == -1:
-        opts.WMIN = int(np.maximum(1,np.floor((opts.WINSZ*0.65*0.06))))
+        opts.WMIN = int(np.maximum(3,np.floor((opts.WINSZ*0.65*0.06))))
     if opts.HMIN == -1:
-        opts.HMIN = int(np.maximum(1,np.floor(opts.WINSZ *0.06)))
+        opts.HMIN = int(np.maximum(3,np.floor(opts.WINSZ *0.06)))
     if opts.WMAX == -1:
         opts.WMAX = int(np.maximum(opts.WMIN,np.floor(opts.WINSZ*0.65)))
     if opts.HMAX == -1:
@@ -539,7 +569,10 @@ def main(argv=None):
 
 
 
-    img = cv2.imread(filename)
+    #img = cv2.imread(filename)
+    img_orig = cv2.imread(filename)
+    img = img_orig.copy()
+    img, threshMask = segment_image(img)
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2.imwrite(basename+"_gray.png", grayImg)
 
@@ -586,7 +619,8 @@ def main(argv=None):
 
 
 
-    outputImg = img.copy()
+    #outputImg = img.copy()
+    outputImg = img_orig
     centroidsImg = img.copy()
     drawCentroids(centroidsImg,centroids)
 
@@ -597,18 +631,15 @@ def main(argv=None):
         win = getImageWindow(img, cen[0],cen[1],WINSZ,WINSZ)   #correct
         filename = "win_%d_%d.jpg" % (cen[0], cen[1])
 
-        #win = cv2.cvtColor(win, cv2.COLOR_BGR2GRAY)
-        #ret, win = cv2.threshold(win,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-        #kernel = np.ones((3,3),np.uint8)
-        #win = cv2.morphologyEx(win,cv2.MORPH_CLOSE,kernel, iterations = 2)
-
         histogram = RadAngleHist(win, 90+ori[cen[0], cen[1]],cen[0],cen[1],BLUR,outDir=edgeDir)
 
         logger.debug(str(histogram)+"\n")
 
         #if histogram.getShapeHistSum() < 0.1:
         #    continue
-        if histogram.getShapeHistSum() < masterHist.getShapeHistSum():
+        #if histogram.getShapeHistSum() < masterHist.getShapeHistSum():
+        #    continue
+        if histogram.getShapeHistSum() < masterHist.getShapeHistSum() or histogram.getShapeHistSum() > masterHist.getShapeHistSum()*2.5:
             continue
 
         #if masterHist.compare(histogram, tol=TOL, bestFit=BESTFIT, distMetric="DIST_EMD"):
