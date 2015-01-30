@@ -572,7 +572,7 @@ def main(argv=None):
     #img = cv2.imread(filename)
     img_orig = cv2.imread(filename)
     img = img_orig.copy()
-    img, threshMask = segment_image(img)
+    #img, threshMask = segment_image(img)
     grayImg = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     cv2.imwrite(basename+"_gray.png", grayImg)
 

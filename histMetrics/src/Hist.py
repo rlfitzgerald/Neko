@@ -275,11 +275,18 @@ class RadAngleHist(Hist):
         tol=0
         if 'tol' in kwargs:
             tol = kwargs['tol']
-        obj1 = self.getImageOutline()
+        #obj1 = self.getImageOutline()
+        obj1 = self._img
         obj2 = otherHist.getImageOutline()
-        obj1_moments = mahotas.features.zernike_moments(obj1,21)
-        obj2_moments = mahotas.features.zernike_moments(obj2,21)
+        rad = np.max(self._img.shape)*0.65
+        #obj1_moments = mahotas.features.zernike_moments(obj1,21)
+        #obj2_moments = mahotas.features.zernike_moments(obj2,21)
+        obj1_moments = mahotas.features.zernike_moments(obj1,rad,cm=self._centroid)
+        obj2_moments = mahotas.features.zernike_moments(obj2,rad,cm=otherHist._centroid)
+        #obj1_moments = mahotas.features.zernike_moments(obj1,rad)
+        #obj2_moments = mahotas.features.zernike_moments(obj2,rad)
         dist = distance.euclidean(obj1_moments, obj2_moments)
+        self.logger.debug("zernikeDist=%.4f\n"%(dist))
         if dist < tol:
             return (True, dist)
         return (False, dist)
@@ -316,6 +323,8 @@ class RadAngleHist(Hist):
         cv2.drawContours(outline, [cnts], -1, 255, -1)
         kernel = np.ones((3,3),np.uint8)
         closing = cv2.morphologyEx(outline,cv2.MORPH_CLOSE,kernel, iterations = 2)
+        filename = "win_%d_%d_outline.jpg" % (self._origCentroidY, self._origCentroidX)
+        cv2.imwrite(os.path.join(self._outDir, filename), closing)
         return closing
 
 
