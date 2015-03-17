@@ -1,0 +1,8 @@
+Loading image dataset from metadata file data/cropped_images_64x64/training_images_partitioned_0_30_60_90_120_150_random_negs_64x64/car_orientation_30/training_orientation_30.xml
+
+exception thrown!
+Unable to load image in file car_neg_3031_flip.jpg.
+You must #define DLIB_JPEG_SUPPORT and link to libjpeg to read JPEG files.
+Do this by following the instructions at http://dlib.net/compile.html.
+
+Try the -h option for more information.

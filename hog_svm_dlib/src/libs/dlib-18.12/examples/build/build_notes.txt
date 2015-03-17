@@ -1,0 +1,2 @@
+cd examples/build
+cmake --build . --config Release

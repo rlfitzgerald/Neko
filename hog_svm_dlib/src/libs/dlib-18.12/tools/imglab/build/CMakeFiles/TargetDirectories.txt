@@ -1,0 +1,2 @@
+/home/azbret/Projects/hog_svm/dlib-18.12/tools/imglab/build/dlib_build/CMakeFiles/dlib.dir
+/home/azbret/Projects/hog_svm/dlib-18.12/tools/imglab/build/CMakeFiles/imglab.dir

@@ -1,0 +1,421 @@
+The system is: Linux - 2.6.32-431.20.3.el6.x86_64 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/2.8.12.2/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/c++ 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/2.8.12.2/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2793362916/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2793362916.dir/build.make CMakeFiles/cmTryCompileExec2793362916.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2793362916.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2793362916.dir/testCCompiler.c.o   -c /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec2793362916
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2793362916.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2793362916.dir/testCCompiler.c.o  -o cmTryCompileExec2793362916 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2406497205/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2406497205.dir/build.make CMakeFiles/cmTryCompileExec2406497205.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec2406497205
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2406497205.dir/link.txt --verbose=1
+/usr/bin/cc     -v CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2406497205 -rdynamic  
+Using built-in specs.
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) 
+COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2406497205' '-rdynamic' '-mtune=generic'
+ /usr/libexec/gcc/x86_64-redhat-linux/4.4.7/collect2 --eh-frame-hdr --build-id -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTryCompileExec2406497205 /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../.. CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crtn.o
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:/usr/bin/gmake "cmTryCompileExec2406497205/fast"]
+  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2406497205.dir/build.make CMakeFiles/cmTryCompileExec2406497205.dir/build]
+  ignore line: [gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec2406497205]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2406497205.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2406497205 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [Target: x86_64-redhat-linux]
+  ignore line: [Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2406497205' '-rdynamic' '-mtune=generic']
+  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/4.4.7/collect2 --eh-frame-hdr --build-id -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTryCompileExec2406497205 /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../.. CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crtn.o]
+    arg [/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/collect2] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec2406497205] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../..]
+    arg [CMakeFiles/cmTryCompileExec2406497205.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64] ==> [/usr/lib64]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../..] ==> [/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/usr/lib/gcc/x86_64-redhat-linux/4.4.7;/usr/lib64;/lib64;/usr/lib]
+  implicit fwks: []
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1372323861/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1372323861.dir/build.make CMakeFiles/cmTryCompileExec1372323861.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1372323861.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec1372323861.dir/testCXXCompiler.cxx.o -c /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec1372323861
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1372323861.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec1372323861.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec1372323861 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec212819891/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec212819891.dir/build.make CMakeFiles/cmTryCompileExec212819891.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec212819891
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec212819891.dir/link.txt --verbose=1
+/usr/bin/c++      -v CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec212819891 -rdynamic  
+Using built-in specs.
+Target: x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Thread model: posix
+gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) 
+COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec212819891' '-rdynamic' '-shared-libgcc' '-mtune=generic'
+ /usr/libexec/gcc/x86_64-redhat-linux/4.4.7/collect2 --eh-frame-hdr --build-id -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTryCompileExec212819891 /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../.. CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crtn.o
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:/usr/bin/gmake "cmTryCompileExec212819891/fast"]
+  ignore line: [/usr/bin/gmake -f CMakeFiles/cmTryCompileExec212819891.dir/build.make CMakeFiles/cmTryCompileExec212819891.dir/build]
+  ignore line: [gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTryCompileExec212819891]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec212819891.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec212819891 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [Target: x86_64-redhat-linux]
+  ignore line: [Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-1.5.0.0/jre --enable-libgcj-multifile --enable-java-maintainer-mode --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --disable-libjava-multilib --with-ppl --with-cloog --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/:/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec212819891' '-rdynamic' '-shared-libgcc' '-mtune=generic']
+  link line: [ /usr/libexec/gcc/x86_64-redhat-linux/4.4.7/collect2 --eh-frame-hdr --build-id -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTryCompileExec212819891 /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../.. CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crtn.o]
+    arg [/usr/libexec/gcc/x86_64-redhat-linux/4.4.7/collect2] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec212819891] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64]
+    arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+    arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+    arg [-L/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../..]
+    arg [CMakeFiles/cmTryCompileExec212819891.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64/crtn.o] ==> ignore
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7] ==> [/usr/lib/gcc/x86_64-redhat-linux/4.4.7]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../lib64] ==> [/usr/lib64]
+  collapse library dir [/lib/../lib64] ==> [/lib64]
+  collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+  collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../..] ==> [/usr/lib]
+  implicit libs: [stdc++;m;c]
+  implicit dirs: [/usr/lib/gcc/x86_64-redhat-linux/4.4.7;/usr/lib64;/lib64;/usr/lib]
+  implicit fwks: []
+
+
+Determining if the function XOpenDisplay exists in the /usr/lib64/libX11.so;/usr/lib64/libXext.so passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4190653496/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4190653496.dir/build.make CMakeFiles/cmTryCompileExec4190653496.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4190653496.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay   -o CMakeFiles/cmTryCompileExec4190653496.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec4190653496
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4190653496.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay    CMakeFiles/cmTryCompileExec4190653496.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4190653496 -rdynamic -lX11 -lXext 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function gethostbyname exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3879646619/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3879646619.dir/build.make CMakeFiles/cmTryCompileExec3879646619.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3879646619.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname   -o CMakeFiles/cmTryCompileExec3879646619.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3879646619
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3879646619.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname    CMakeFiles/cmTryCompileExec3879646619.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3879646619 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function connect exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1911488883/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1911488883.dir/build.make CMakeFiles/cmTryCompileExec1911488883.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1911488883.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=connect   -o CMakeFiles/cmTryCompileExec1911488883.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1911488883
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1911488883.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=connect    CMakeFiles/cmTryCompileExec1911488883.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1911488883 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function remove exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec524857456/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec524857456.dir/build.make CMakeFiles/cmTryCompileExec524857456.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec524857456.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=remove   -o CMakeFiles/cmTryCompileExec524857456.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec524857456
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec524857456.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=remove    CMakeFiles/cmTryCompileExec524857456.dir/CheckFunctionExists.c.o  -o cmTryCompileExec524857456 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function shmat exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec774092783/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec774092783.dir/build.make CMakeFiles/cmTryCompileExec774092783.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec774092783.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=shmat   -o CMakeFiles/cmTryCompileExec774092783.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec774092783
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec774092783.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=shmat    CMakeFiles/cmTryCompileExec774092783.dir/CheckFunctionExists.c.o  -o cmTryCompileExec774092783 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function IceConnectionNumber exists in the ICE passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2488938637/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2488938637.dir/build.make CMakeFiles/cmTryCompileExec2488938637.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2488938637.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber   -o CMakeFiles/cmTryCompileExec2488938637.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2488938637
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2488938637.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber    CMakeFiles/cmTryCompileExec2488938637.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2488938637 -rdynamic -lICE 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1244670191/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1244670191.dir/build.make CMakeFiles/cmTryCompileExec1244670191.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1244670191.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1244670191.dir/CheckIncludeFile.c.o   -c /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec1244670191
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1244670191.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1244670191.dir/CheckIncludeFile.c.o  -o cmTryCompileExec1244670191 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3989554079/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3989554079.dir/build.make CMakeFiles/cmTryCompileExec3989554079.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3989554079.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3989554079.dir/CheckIncludeFile.c.o   -c /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec3989554079
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3989554079.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3989554079.dir/CheckIncludeFile.c.o  -o cmTryCompileExec3989554079 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec219141855/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec219141855.dir/build.make CMakeFiles/cmTryCompileExec219141855.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec219141855.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec219141855.dir/CheckIncludeFile.c.o   -c /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTryCompileExec219141855
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec219141855.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec219141855.dir/CheckIncludeFile.c.o  -o cmTryCompileExec219141855 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining size of void* passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3716936172/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3716936172.dir/build.make CMakeFiles/cmTryCompileExec3716936172.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3716936172.dir/SIZE_OF_VOID_PTR.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3716936172.dir/SIZE_OF_VOID_PTR.c.o   -c /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CheckTypeSize/SIZE_OF_VOID_PTR.c
+Linking C executable cmTryCompileExec3716936172
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3716936172.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3716936172.dir/SIZE_OF_VOID_PTR.c.o  -o cmTryCompileExec3716936172 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the CXX compiler has std namespace passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2367730656/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2367730656.dir/build.make CMakeFiles/cmTryCompileExec2367730656.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2367730656.dir/TestForSTDNamespace.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec2367730656.dir/TestForSTDNamespace.cxx.o -c /usr/share/cmake/Modules/TestForSTDNamespace.cxx
+Linking CXX executable cmTryCompileExec2367730656
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2367730656.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec2367730656.dir/TestForSTDNamespace.cxx.o  -o cmTryCompileExec2367730656 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the include file iostream exists passed with the following output:
+Change Dir: /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec943835403/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec943835403.dir/build.make CMakeFiles/cmTryCompileExec943835403.dir/build
+gmake[1]: Entering directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec943835403.dir/CheckIncludeFile.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec943835403.dir/CheckIncludeFile.cxx.o -c /home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx
+Linking CXX executable cmTryCompileExec943835403
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec943835403.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec943835403.dir/CheckIncludeFile.cxx.o  -o cmTryCompileExec943835403 -rdynamic 
+gmake[1]: Leaving directory `/home/azbret/Projects/hog_svm/dlib-18.12/examples/build/CMakeFiles/CMakeTmp'
+
+
