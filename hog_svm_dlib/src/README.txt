@@ -50,6 +50,8 @@
 *---------------------------*
 |    RUN (LONG VERSION)     |
 *---------------------------*
+	Much of this section has been copied from the comments of
+	libs/dlib-18.12/examples/train_object_detector.cpp
 
 	The programs car_detector_single and car_detector_multiple are a command line
   tools for learning to detect objects (in this case cars) in images.  
