@@ -1,0 +1,11 @@
+# The polar grid is useful for overlaying onto images in order to assess an objects orientation. 
+
+# To change the color of the grid (may need to increase fuzz percentage)
+convert polar_grid_center_512x512.jpg -fuzz 0% -fill blue -opaque black polar_grid_center_512x512_blue.jpg 
+
+# To make transparent
+convert polar_grid_center_512x512_blue.jpg -fuzz 40% -transparent white polar_grid_center_512x512_trans.png 
+
+# To overlay transparent grid on top of image
+composite -gravity center polar_grid_center_512x512_trans.png target_image.jpg out.jpg
+
