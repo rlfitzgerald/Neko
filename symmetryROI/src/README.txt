@@ -4,7 +4,7 @@ TL;DR VERSION
 Specify a window size equal to the largest dimension of the car
 (i.e. length) in pixels via the --win option.
 
-   Ex) python symmetryROI.py --win=45 input_image.jpg
+   Ex) python symmetryROI.py --win=45 --resize=64x64 input_image.jpg
 
 Suggested workflow for this option:
  * open input image in image viewer
@@ -60,6 +60,7 @@ affect the accuracy of the program. What follows is a description of those optio
     --hmax            specify box maximum height acceptance. Defaults to 55
     --arat            specify minimum box aspect ratio for acceptance. Defaults to 0.25.
     --win             specify search window size, default matches reference image size, EITHER THIS FLAG OR --ref UST BE THROWN, NOT BOTH.
+    --resize          specify the dimensions to resize image Ex) 64x64
 
 
 Running this software on an image that requires non-deault flags will resemble the following:
