@@ -352,9 +352,11 @@ int main(int argc, char** argv)
 
         // ANDREW
         std::vector<object_detector<image_scanner_type> > my_detectors;
-        string svmArr[] = {"car_detector_orientation_0.svm","car_detector_orientation_30.svm","car_detector_orientation_60.svm","car_detector_orientation_90.svm","car_detector_orientation_120.svm","car_detector_orientation_150.svm"};
+        //string svmArr[] = {"car_detector_orientation_0.svm","car_detector_orientation_30.svm","car_detector_orientation_60.svm","car_detector_orientation_90.svm","car_detector_orientation_120.svm","car_detector_orientation_150.svm"};
+        string svmArr[] = {"car_detector_orientation_0.svm","car_detector_orientation_15.svm","car_detector_orientation_30.svm","car_detector_orientation_45.svm","car_detector_orientation_60.svm","car_detector_orientation_90.svm","car_detector_orientation_120.svm","car_detector_orientation_135.svm","car_detector_orientation_150.svm","car_detector_orientation_165.svm"};
 
-        int NUM_DETECTORS = 6;
+        //int NUM_DETECTORS = 6;
+        int NUM_DETECTORS = 10;
         for(int i=0; i<NUM_DETECTORS;i++)
         {  
             ifstream fin(svmArr[i].c_str(), ios::binary);
