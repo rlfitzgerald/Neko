@@ -11,9 +11,12 @@ import sys
 import pdb
 
 
+WINDOW_DIM = 64
+IMAGE_DIMS = (WINDOW_DIM,WINDOW_DIM)
+
 start_time = time.time()
-mean = np.load('/home/amt29588/vision/mean_test.npy')
-net = caffe.Classifier('/home/amt29588/vision/cifar10_quick.prototxt','/home/amt29588/vision/cifar10_quick_iter_10000.caffemodel',mean=mean, image_dims=(64,64), raw_scale=255)
+mean = np.load('./mean_test.npy')
+net = caffe.Classifier('./cifar10_quick.prototxt','./cifar10_quick_iter_10000.caffemodel',mean=mean, image_dims=IMAGE_DIMS, raw_scale=255)
 caffe.set_mode_gpu()
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True, help="Path to the image")
