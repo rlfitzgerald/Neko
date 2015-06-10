@@ -9,6 +9,7 @@ import caffe.io
 import time
 import sys
 import pdb
+from nms import non_max_suppression_fast
 
 
 WINDOW_DIM = 64
@@ -60,11 +61,25 @@ image = cv2.cvtColor(image,cv2.COLOR_RGB2GRAY)
 clone = image.copy()
 xcoords = (image.shape[1]/8) - (8 - 1) #width of picture/stepSize - (stepSize - 1) 
 ycoords = (image.shape[0]/8) - (8 - 1) #height of picture/stepSize - (stepSize - 1) 
+boxes = []
 for i in range(0, predictions.shape[0]):
-        if predictions[i][1] > .4:
-		
-		circX = ((i % xcoords)*8)+32
-		circY = ((i / xcoords)*8)+32 #caution! This may be a hacky fix!!!!
-                cv2.circle(clone, (circX, circY), 4, 255, -1)
-		
+    if predictions[i][1] > .4:
+        x1 = ((i % xcoords)*8)
+        y1 = ((i / xcoords)*8)
+        x2 = x1 + WINDOW_DIM 
+        y2 = y1 + WINDOW_DIM 
+        boxes.append([x1,y1,x2,y2])
+        circX = ((i % xcoords)*8)+32
+        circY = ((i / xcoords)*8)+32 #caution! This may be a hacky fix!!!!
+        cv2.circle(clone, (circX, circY), 4, 255, -1)
+
+boxes = np.array(boxes)
+boxes_nonmax = non_max_suppression_fast(boxes, 0.5)
+for i in range(len(boxes_nonmax)):
+    x1 = boxes_nonmax[i][0]
+    y1 = boxes_nonmax[i][1]
+    x2 = boxes_nonmax[i][2]
+    y2 = boxes_nonmax[i][3]
+    cv2.rectangle(clone, (x1,y1),(x2,y2), 255)
+
 cv2.imwrite("output.jpg", clone)
